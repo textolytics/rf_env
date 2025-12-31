@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation     Regression test suite for FreeDOM Exchange Market Summary API
+Documentation     Regression test suite for FreeDX Exchange Market Summary API
 ...               Endpoint: https://api.exchange.freedx.com/spot/api/v3.2/market_summary
 ...               Validates all public trading pairs have non-empty price and volume data
 
