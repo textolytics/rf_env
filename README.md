@@ -1,8 +1,8 @@
-# FreeDOM Exchange Market Summary API - Test Suite
+# FreeDX Exchange Market Summary API - Test Suite
 
 ## Overview
 
-This repository contains a comprehensive regression test suite for the **FreeDOM Exchange Market Summary API**. The test suite is built using [Robot Framework](https://robotframework.org/) and validates all public trading pairs to ensure non-empty price and volume data, data consistency, and API reliability.
+This repository contains a comprehensive regression test suite for the **FreeDX Exchange Market Summary API**. The test suite is built using [Robot Framework](https://robotframework.org/) and validates all public trading pairs to ensure non-empty price and volume data, data consistency, and API reliability.
 
 **API Endpoint:** `https://api.exchange.freedx.com/spot/api/v3.2/market_summary`
 
@@ -469,7 +469,7 @@ Public Pairs - All Have Minimum 6 Decimal Places
 - [Robot Framework Documentation](https://robotframework.org/)
 - [RequestsLibrary](https://github.com/MarketSquare/robotframework-requests)
 - [Robot Framework JSON Library](https://github.com/robotframework-thailand/robotframework-jsonlibrary)
-- [FreeDOM Exchange API Docs](https://api.exchange.freedx.com)
+- [FreeDX Exchange API Docs](https://api.exchange.freedx.com)
 
 ---
 
