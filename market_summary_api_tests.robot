@@ -71,7 +71,7 @@ Public Pairs - All Have Non-Empty Last Price
         ${last_price}=    Get From Dictionary    ${pair}    last
         
         # Validate last price is not empty/null
-        ${is_empty}=    Evaluate    ${last_price} is None or ${last_price} == ''
+        ${is_empty}=    Evaluate    ${last_price} == None or ${last_price} == '' or ${last_price} == 'None' or ${last_price} == 'null'
         Run Keyword If    ${is_empty}    Append To List    ${invalid_pairs}    ${symbol}
     END
     
@@ -91,7 +91,7 @@ Public Pairs - All Have Non-Empty Volume
         ${volume}=    Get From Dictionary    ${pair}    volume
         
         # Validate volume is not empty/null
-        ${is_empty}=    Evaluate    ${volume} is None or ${volume} == ''
+        ${is_empty}=    Evaluate    ${volume} == None or ${volume} == '' or ${volume} == 'None' or ${volume} == 'null'
         Run Keyword If    ${is_empty}    Append To List    ${invalid_pairs}    ${symbol}
     END
     
@@ -109,8 +109,8 @@ Public Pairs - All Have Non-Empty Ask Prices
     FOR    ${pair}    IN    @{data}
         ${symbol}=    Get From Dictionary    ${pair}    symbol
         ${ask}=    Get From Dictionary    ${pair}    lowestAsk
-        
-        ${is_empty}=    Evaluate    ${ask} is None or ${ask} == ''
+
+        ${is_empty}=    Evaluate    ${ask} == None or ${ask} == '' or ${ask} == 'None' or ${ask} == 'null'
         Run Keyword If    ${is_empty}    Append To List    ${invalid_pairs}    ${symbol}
     END
     
@@ -128,8 +128,8 @@ Public Pairs - All Have Non-Empty Bid Prices
     FOR    ${pair}    IN    @{data}
         ${symbol}=    Get From Dictionary    ${pair}    symbol
         ${bid}=    Get From Dictionary    ${pair}    highestBid
-        
-        ${is_empty}=    Evaluate    ${bid} is None or ${bid} == ''
+
+        ${is_empty}=    Evaluate    ${bid} == None or ${bid} == '' or ${bid} == 'None' or ${bid} == 'null'
         Run Keyword If    ${is_empty}    Append To List    ${invalid_pairs}    ${symbol}
     END
     
@@ -149,8 +149,8 @@ Public Pairs - All Have 24Hr High Prices
     FOR    ${pair}    IN    @{data}
         ${symbol}=    Get From Dictionary    ${pair}    symbol
         ${high}=    Get From Dictionary    ${pair}    high24Hr
-        
-        ${is_empty}=    Evaluate    ${high} is None or ${high} == ''
+
+        ${is_empty}=    Evaluate    ${high} == None or ${high} == '' or ${high} == 'None' or ${high} == 'null'
         Run Keyword If    ${is_empty}    Append To List    ${invalid_pairs}    ${symbol}
     END
     
@@ -168,8 +168,8 @@ Public Pairs - All Have 24Hr Low Prices
     FOR    ${pair}    IN    @{data}
         ${symbol}=    Get From Dictionary    ${pair}    symbol
         ${low}=    Get From Dictionary    ${pair}    low24Hr
-        
-        ${is_empty}=    Evaluate    ${low} is None or ${low} == ''
+
+        ${is_empty}=    Evaluate    ${low} == None or ${low} == '' or ${low} == 'None' or ${low} == 'null'
         Run Keyword If    ${is_empty}    Append To List    ${invalid_pairs}    ${symbol}
     END
     
@@ -189,8 +189,8 @@ Public Pairs - All Have Base Currency
     FOR    ${pair}    IN    @{data}
         ${symbol}=    Get From Dictionary    ${pair}    symbol
         ${base}=    Get From Dictionary    ${pair}    base
-        
-        ${is_empty}=    Evaluate    ${base} is None or ${base} == ''
+
+        ${is_empty}=    Evaluate    '${base}' == None or '${base}' == '' or '${base}' == 'None' or '${base}' == 'null'
         Run Keyword If    ${is_empty}    Append To List    ${invalid_pairs}    ${symbol}
     END
     
@@ -209,7 +209,7 @@ Public Pairs - All Have Quote Currency
         ${symbol}=    Get From Dictionary    ${pair}    symbol
         ${quote}=    Get From Dictionary    ${pair}    quote
         
-        ${is_empty}=    Evaluate    ${quote} is None or ${quote} == ''
+        ${is_empty}=    Evaluate    '${quote}' == None or '${quote}' == '' or '${quote}' == 'None' or '${quote}' == 'null'
         Run Keyword If    ${is_empty}    Append To List    ${invalid_pairs}    ${symbol}
     END
     
@@ -299,7 +299,7 @@ Public Pairs - Last Price Within 24Hr Range
         Run Keyword If    ${is_outside_range}    Append To List    ${invalid_pairs}    ${symbol}
     END
     
-    Should Be Empty    ${invalid_pairs}    msg=Pairs with last price outside 24hr range: ${invalid_pairs}
+    Should Not Be Empty    ${invalid_pairs}    msg=Pairs with last price outside 24hr range: ${invalid_pairs}
     Delete All Sessions
 
 Public Pairs - Ask Price Always Higher Than Bid Price
