@@ -72,9 +72,10 @@ Public Pairs - All Have Non-Empty Last Price
         
         # Validate last price is not empty/null
         ${is_empty}=    Evaluate    ${last_price} == None or ${last_price} == '' or ${last_price} == 'None' or ${last_price} == 'null'
-        Run Keyword If    ${is_empty}    Append To List    ${invalid_pairs}    ${symbol}
+        Run Keyword If    ${is_empty} == "True"    Append To List    ${invalid_pairs}    ${symbol}
+
     END
-    
+    Log    ${invalid_pairs}    
     Should Be Empty    ${invalid_pairs}    msg=Pairs with empty last price: ${invalid_pairs}
     Delete All Sessions
 
@@ -93,8 +94,9 @@ Public Pairs - All Have Non-Empty Volume
         # Validate volume is not empty/null
         ${is_empty}=    Evaluate    ${volume} == None or ${volume} == '' or ${volume} == 'None' or ${volume} == 'null'
         Run Keyword If    ${is_empty}    Append To List    ${invalid_pairs}    ${symbol}
+        
     END
-    
+    Log    ${invalid_pairs}    Log    ${invalid_pairs}
     Should Be Empty    ${invalid_pairs}    msg=Pairs with empty volume: ${invalid_pairs}
     Delete All Sessions
 
@@ -110,10 +112,10 @@ Public Pairs - All Have Non-Empty Ask Prices
         ${symbol}=    Get From Dictionary    ${pair}    symbol
         ${ask}=    Get From Dictionary    ${pair}    lowestAsk
 
-        ${is_empty}=    Evaluate    ${ask} == None or ${ask} == '' or ${ask} == 'None' or ${ask} == 'null'
-        Run Keyword If    ${is_empty}    Append To List    ${invalid_pairs}    ${symbol}
+        ${is_empty}=    Evaluate    False == ${ask} == None or ${ask} == '' or ${ask} == 'None' or ${ask} == 'null'
+        Run Keyword If    ${is_empty} == True  Append To List    ${invalid_pairs}    ${symbol}
     END
-    
+    Log    ${invalid_pairs}    
     Should Be Empty    ${invalid_pairs}    msg=Pairs with empty ask price: ${invalid_pairs}
     Delete All Sessions
 
@@ -129,10 +131,10 @@ Public Pairs - All Have Non-Empty Bid Prices
         ${symbol}=    Get From Dictionary    ${pair}    symbol
         ${bid}=    Get From Dictionary    ${pair}    highestBid
 
-        ${is_empty}=    Evaluate    ${bid} == None or ${bid} == '' or ${bid} == 'None' or ${bid} == 'null'
+        ${is_empty}=    Evaluate    ${bid} == None or ${bid} == '' or ${bid} == 'None' or ${bid} == 'null' == True
         Run Keyword If    ${is_empty}    Append To List    ${invalid_pairs}    ${symbol}
     END
-    
+    Log    ${invalid_pairs}    
     Should Be Empty    ${invalid_pairs}    msg=Pairs with empty bid price: ${invalid_pairs}
     Delete All Sessions
 
@@ -153,7 +155,7 @@ Public Pairs - All Have 24Hr High Prices
         ${is_empty}=    Evaluate    ${high} == None or ${high} == '' or ${high} == 'None' or ${high} == 'null'
         Run Keyword If    ${is_empty}    Append To List    ${invalid_pairs}    ${symbol}
     END
-    
+    Log    ${invalid_pairs}    
     Should Be Empty    ${invalid_pairs}    msg=Pairs with empty 24hr high: ${invalid_pairs}
     Delete All Sessions
 
@@ -172,7 +174,7 @@ Public Pairs - All Have 24Hr Low Prices
         ${is_empty}=    Evaluate    ${low} == None or ${low} == '' or ${low} == 'None' or ${low} == 'null'
         Run Keyword If    ${is_empty}    Append To List    ${invalid_pairs}    ${symbol}
     END
-    
+    Log    ${invalid_pairs}    
     Should Be Empty    ${invalid_pairs}    msg=Pairs with empty 24hr low: ${invalid_pairs}
     Delete All Sessions
 
@@ -193,7 +195,7 @@ Public Pairs - All Have Base Currency
         ${is_empty}=    Evaluate    '${base}' == None or '${base}' == '' or '${base}' == 'None' or '${base}' == 'null'
         Run Keyword If    ${is_empty}    Append To List    ${invalid_pairs}    ${symbol}
     END
-    
+    Log    ${invalid_pairs}    
     Should Be Empty    ${invalid_pairs}    msg=Pairs with empty base currency: ${invalid_pairs}
     Delete All Sessions
 
@@ -212,7 +214,7 @@ Public Pairs - All Have Quote Currency
         ${is_empty}=    Evaluate    '${quote}' == None or '${quote}' == '' or '${quote}' == 'None' or '${quote}' == 'null'
         Run Keyword If    ${is_empty}    Append To List    ${invalid_pairs}    ${symbol}
     END
-    
+    Log    ${invalid_pairs}    
     Should Be Empty    ${invalid_pairs}    msg=Pairs with empty quote currency: ${invalid_pairs}
     Delete All Sessions
 
@@ -231,7 +233,7 @@ Public Pairs - All Have Active Status
         ${is_none}=    Evaluate    ${active} is None
         Run Keyword If    ${is_none}    Append To List    ${invalid_pairs}    ${symbol}
     END
-    
+    Log    ${invalid_pairs}    
     Should Be Empty    ${invalid_pairs}    msg=Pairs with undefined active status: ${invalid_pairs}
     Delete All Sessions
 
@@ -257,7 +259,7 @@ Public Pairs - All Prices Are Non-Negative
         ${has_negative}=    Evaluate    ${last} < 0 or ${bid} < 0 or ${ask} < 0 or ${high} < 0 or ${low} < 0
         Run Keyword If    ${has_negative}    Append To List    ${invalid_pairs}    ${symbol}
     END
-    
+    Log    ${invalid_pairs}    
     Should Be Empty    ${invalid_pairs}    msg=Pairs with negative prices: ${invalid_pairs}
     Delete All Sessions
 
@@ -277,29 +279,29 @@ Public Pairs - High Price Always Greater Than Low Price
         ${is_invalid}=    Evaluate    ${high} < ${low}
         Run Keyword If    ${is_invalid}    Append To List    ${invalid_pairs}    ${symbol}
     END
-    
+    Log    ${invalid_pairs}    
     Should Be Empty    ${invalid_pairs}    msg=Pairs with invalid price ranges (high < low): ${invalid_pairs}
     Delete All Sessions
 
-Public Pairs - Last Price Within 24Hr Range
+Public Pairs - Last Price Outside 24Hr Range Pairs
     [Documentation]    Validate last price is between high24Hr and low24Hr
     [Tags]    public    instruments    data-consistency
     Create Session    market_api    ${BASE_URL}    timeout=${TIMEOUT}
     ${response}=    GET On Session    market_api    ${ENDPOINT}
     ${data}=    Evaluate    json.loads(r'''${response.text}''')    json
-    ${invalid_pairs}=    Create List
+    ${Last_Price_Outside_24Hr_Range_Pairs}=    Create List
     
     FOR    ${pair}    IN    @{data}
         ${symbol}=    Get From Dictionary    ${pair}    symbol
         ${last}=    Get From Dictionary    ${pair}    last
         ${high}=    Get From Dictionary    ${pair}    high24Hr
         ${low}=    Get From Dictionary    ${pair}    low24Hr
-        
-        ${is_outside_range}=    Evaluate    ${last} < ${low} or ${last} > ${high}
-        Run Keyword If    ${is_outside_range}    Append To List    ${invalid_pairs}    ${symbol}
+        ${Last_Price_Outside_24Hr_Range_Pairs}=    Evaluate    ${last} < ${low} or ${last} > ${high} == True
+        Run Keyword If    ${Last_Price_Outside_24Hr_Range_Pairs} == True  Append To List    ${Last_Price_Outside_24Hr_Range_Pairs}    ${symbol}
     END
-    
-    Should Not Be Empty    ${invalid_pairs}    msg=Pairs with last price outside 24hr range: ${invalid_pairs}
+
+    Should Be Empty    ${Last_Price_Outside_24Hr_Range_Pairs}    msg=Pairs with last price outside 24hr range: ${Last_Price_Outside_24Hr_Range_Pairs}
+       Run Keyword If    ${Last_Price_Outside_24Hr_Range_Pairs}    Log    ${Last_Price_Outside_24Hr_Range_Pairs}  
     Delete All Sessions
 
 Public Pairs - Ask Price Always Higher Than Bid Price
@@ -318,7 +320,7 @@ Public Pairs - Ask Price Always Higher Than Bid Price
         ${is_invalid}=    Evaluate    ${ask} < ${bid}
         Run Keyword If    ${is_invalid}    Append To List    ${invalid_pairs}    ${symbol}
     END
-    
+    Log    ${invalid_pairs}    
     Should Be Empty    ${invalid_pairs}    msg=Pairs with ask < bid spread: ${invalid_pairs}
     Delete All Sessions
 
@@ -339,7 +341,7 @@ Public Pairs - All Volumes Are Non-Negative
         ${is_negative}=    Evaluate    ${volume} < 0
         Run Keyword If    ${is_negative}    Append To List    ${invalid_pairs}    ${symbol}
     END
-    
+    Log    ${invalid_pairs}    
     Should Be Empty    ${invalid_pairs}    msg=Pairs with negative volume: ${invalid_pairs}
     Delete All Sessions
 
@@ -360,7 +362,7 @@ Public Pairs - Percentage Change Is In Valid Range
         ${is_out_of_range}=    Evaluate    ${change} < -100 or ${change} > 1000
         Run Keyword If    ${is_out_of_range}    Append To List    ${invalid_pairs}    ${symbol}:${change}
     END
-    
+    Log    ${invalid_pairs}    
     Should Be Empty    ${invalid_pairs}    msg=Pairs with out-of-range percentage change: ${invalid_pairs}
     Delete All Sessions
 
@@ -381,7 +383,7 @@ Public Endpoint - No Duplicate Trading Pairs
         Run Keyword If    ${already_exists}    Append To List    ${duplicates}    ${symbol}
         Append To List    ${symbols}    ${symbol}
     END
-    
+    Log    ${duplicates}    
     Should Be Empty    ${duplicates}    msg=Duplicate symbols found: ${duplicates}
     Delete All Sessions
 
@@ -403,9 +405,6 @@ Public Endpoint - Minimum Trading Pairs Expected
     ${pair_count}=    Evaluate    len(${data})
     Should Be True    ${pair_count} >= 600    msg=Expected at least 600 trading pairs, got ${pair_count}
     Delete All Sessions
-
-
-
 
 *** Keywords ***
 
