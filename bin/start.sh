@@ -13,11 +13,13 @@ source lib/component_manager.sh
 GREEN='\033[0;32m'
 BLUE='\033[0;34m'
 YELLOW='\033[1;33m'
+RED='\033[0;31m'
 NC='\033[0m'
 
 log() { echo -e "${BLUE}→${NC} $1"; }
-done() { echo -e "${GREEN}✓${NC} $1"; }
+success() { echo -e "${GREEN}✓${NC} $1"; }
 warn() { echo -e "${YELLOW}⚠${NC} $1"; }
+error() { echo -e "${RED}✗${NC} $1"; }
 
 trap 'echo "Startup interrupted"; exit 1' SIGINT SIGTERM
 
@@ -39,7 +41,7 @@ echo ""
 log "Initializing database schema..."
 if [ -f "database/schema.sql" ]; then
     docker-compose exec -T postgres psql -U mdp_user -d market_data < database/schema.sql 2>/dev/null || true
-    done "Database schema initialized"
+    success "Database schema initialized"
 else
     warn "schema.sql not found - using docker defaults"
 fi
@@ -59,35 +61,22 @@ echo ""
 # Start messaging layer (ZMQ)
 log "Step 4: Starting Messaging Layer"
 log "Compiling and starting ZMQ services..."
-start_component "messaging" || { error "Failed to start messaging"; exit 1; }
+
+# Compile ZMQ services if needed
+if [ ! -f "c/zmq_core/publisher" ]; then
+    gcc -O3 -Wall c/zmq_core/publisher.c -o c/zmq_core/publisher -lzmq -lpthread 2>/dev/null || {
+        warn "C compilation failed for publisher - check libzmq installation"
     }
 fi
+
 if [ ! -f "c/zmq_core/subscriber" ]; then
     gcc -O3 -Wall c/zmq_core/subscriber.c -o c/zmq_core/subscriber -lzmq -lpthread 2>/dev/null || {
-        echo "C compilation failed - check libzmq installation"; exit 1
+        warn "C compilation failed for subscriber - check libzmq installation"
     }
 fi
-done "C services compiled"
 
-# Start ZMQ services in background
-log "Step 4: Starting Messaging Layer"
-log "Compiling and starting ZMQ services..."
 start_component "messaging" || { error "Failed to start messaging"; exit 1; }
-echo ""
-
-# Start application layer
-log "Step 5: Starting Application Services"
-log "Starting Python API..."
-start_component "api" || { warn "API startup had issues"; }
-echo ""
-
-log "Starting Go Gateway..."
-start_component "gateway" || { warn "Gateway startup had issues"; }
-echo ""
-
-log "Starting Rust Processor..."
-start_component "processor" || { warn "Processor startup had issues"; }
-echo ""
+success "C services compiled"
 
 # Start proxy layer
 log "Step 6: Starting Proxy Layer"

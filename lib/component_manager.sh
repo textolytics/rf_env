@@ -16,7 +16,7 @@ YELLOW='\033[1;33m'
 NC='\033[0m'
 
 log() { echo -e "${BLUE}→${NC} $1"; }
-done() { echo -e "${GREEN}✓${NC} $1"; }
+success() { echo -e "${GREEN}✓${NC} $1"; }
 warn() { echo -e "${YELLOW}⚠${NC} $1"; }
 error() { echo -e "${RED}✗${NC} $1"; }
 
@@ -114,44 +114,44 @@ validate_component_health() {
             database)
                 if docker-compose exec -T postgres pg_isready -U mdp_user >/dev/null 2>&1 && \
                    docker-compose exec -T redis redis-cli ping >/dev/null 2>&1; then
-                    done "Database component healthy"
+                    success "Database component healthy"
                     return 0
                 fi
                 ;;
             storage)
                 if curl -s http://localhost:8086/health >/dev/null 2>&1; then
-                    done "Storage component healthy"
+                    success "Storage component healthy"
                     return 0
                 fi
                 ;;
             monitoring)
                 if curl -s http://localhost:9090/-/healthy >/dev/null 2>&1; then
-                    done "Monitoring component healthy"
+                    success "Monitoring component healthy"
                     return 0
                 fi
                 ;;
             api)
                 if curl -s http://localhost:8000/health >/dev/null 2>&1; then
-                    done "API component healthy"
+                    success "API component healthy"
                     return 0
                 fi
                 ;;
             gateway)
                 if curl -s http://localhost:8080/health >/dev/null 2>&1; then
-                    done "Gateway component healthy"
+                    success "Gateway component healthy"
                     return 0
                 fi
                 ;;
             proxy)
                 if curl -s http://localhost/health >/dev/null 2>&1; then
-                    done "Proxy component healthy"
+                    success "Proxy component healthy"
                     return 0
                 fi
                 ;;
             messaging)
                 # ZMQ check - verify processes are running
                 if is_component_running "messaging"; then
-                    done "Messaging component healthy"
+                    success "Messaging component healthy"
                     return 0
                 fi
                 ;;
@@ -213,7 +213,7 @@ start_component() {
         return 1
     fi
     
-    done "Component started: ${component}"
+    success "Component started: ${component}"
     return 0
 }
 
@@ -299,7 +299,7 @@ stop_component() {
             ;;
     esac
     
-    done "Component stopped: ${component}"
+    success "Component stopped: ${component}"
     return 0
 }
 
@@ -315,7 +315,7 @@ stop_messaging_component() {
             # Wait for graceful shutdown
             for i in {1..5}; do
                 if ! kill -0 "$pid" 2>/dev/null; then
-                    done "  ZMQ publisher stopped"
+                    success "  ZMQ publisher stopped"
                     break
                 fi
                 sleep 1
@@ -340,7 +340,7 @@ stop_messaging_component() {
             # Wait for graceful shutdown
             for i in {1..5}; do
                 if ! kill -0 "$pid" 2>/dev/null; then
-                    done "  ZMQ subscriber stopped"
+                    success "  ZMQ subscriber stopped"
                     break
                 fi
                 sleep 1

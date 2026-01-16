@@ -1,0 +1,1 @@
+publisher: c/zmq_core/publisher.c:41: main: Assertion `rc == 0' failed.

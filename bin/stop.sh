@@ -69,13 +69,11 @@ if command -v docker &> /dev/null; then
     if [ "$remaining" -gt 0 ]; then
         warn "⚠ $remaining Docker containers still running"
         docker ps --filter "name=mdp" --format "table {{.Names}}\t{{.Status}}"
-    fi
-fi
-
-echo "✅ Graceful shutdown complete"
-echo """
-        docker ps --filter "name=market_data|name=mdp" --format "table {{.Names}}\t{{.Status}}"
     else
         echo -e "${GREEN}✓ All containers stopped${NC}"
     fi
 fi
+
+echo ""
+echo "✅ Graceful shutdown complete"
+echo ""

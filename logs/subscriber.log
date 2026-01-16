@@ -1,0 +1,3 @@
+[ZMQ Router] Connected to publisher at tcp://127.0.0.1:5555
+[ZMQ Router] Bound to tcp://127.0.0.1:5556
+[ZMQ Router] Gracefully stopped
