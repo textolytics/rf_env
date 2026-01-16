@@ -118,7 +118,9 @@ Gateway Performance Test
     [Documentation]    Test gateway performance
     [Tags]    gateway    performance
     Log    Running gateway performance test
-    :FOR    ${i}    IN RANGE    5
-    \    Test Gateway Connectivity    gate.io
-    \    Sleep    1s
+    FOR    ${i}    IN RANGE    5
+        Connect To Gateway    gate.io
+        Stream Market Data    gate.io    ETH_USDT
+        Stop Stream    gate.io
+    END
     Log    Gateway performance test completed

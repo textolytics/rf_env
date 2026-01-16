@@ -1,341 +1,426 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<robot generator="Robot 7.4.1 (Python 3.13.11 on linux)" generated="2026-01-16T13:57:24.836002" rpa="false" schemaversion="5">
+<robot generator="Robot 7.4.1 (Python 3.13.11 on linux)" generated="2026-01-16T14:16:06.971439" rpa="false" schemaversion="5">
 <suite id="s1" name="Rf Env" source="/root/rf_env">
 <suite id="s1-s1" name="Market Data Platform" source="/root/rf_env/market_data_platform">
 <suite id="s1-s1-s1" name="Testing" source="/root/rf_env/market_data_platform/testing">
-<suite id="s1-s1-s1-s1" name="Integration Tests" source="/root/rf_env/market_data_platform/testing/integration_tests.robot">
-<kw name="Initialize Test Environment" type="SETUP">
+<suite id="s1-s1-s1-s1" name="Gateways" source="/root/rf_env/market_data_platform/testing/gateways.robot">
+<test id="s1-s1-s1-s1-t1" name="Gateway Performance Test" line="117">
 <kw name="Log" owner="BuiltIn">
-<msg time="2026-01-16T13:57:26.291270" level="INFO">Initializing test environment</msg>
-<arg>Initializing test environment</arg>
+<msg time="2026-01-16T14:16:07.527595" level="INFO">Running gateway performance test</msg>
+<arg>Running gateway performance test</arg>
 <doc>Logs the given message with the given level.</doc>
-<status status="PASS" start="2026-01-16T13:57:26.290139" elapsed="0.001517"/>
+<status status="PASS" start="2026-01-16T14:16:07.525482" elapsed="0.003854"/>
 </kw>
-<kw name="Verify InfluxDB Connectivity">
-<kw name="Get InfluxDB Health">
-<msg time="2026-01-16T13:57:26.298758" level="FAIL">No keyword with name 'Get InfluxDB Health' found. Did you try using keyword 'RequestsLibrary.GET' and forgot to use enough whitespace between keyword and arguments?</msg>
-<var>${status}</var>
-<status status="FAIL" start="2026-01-16T13:57:26.295896" elapsed="0.090615">No keyword with name 'Get InfluxDB Health' found. Did you try using keyword 'RequestsLibrary.GET' and forgot to use enough whitespace between keyword and arguments?</status>
-</kw>
-<kw name="Should Be Equal" owner="BuiltIn">
-<arg>${status}</arg>
-<arg>ok</arg>
-<doc>Fails if the given objects are unequal.</doc>
-<status status="NOT RUN" start="2026-01-16T13:57:26.392207" elapsed="0.000266"/>
-</kw>
-<doc>Check InfluxDB is accessible</doc>
-<status status="FAIL" start="2026-01-16T13:57:26.292185" elapsed="0.100583">No keyword with name 'Get InfluxDB Health' found. Did you try using keyword 'RequestsLibrary.GET' and forgot to use enough whitespace between keyword and arguments?</status>
-</kw>
-<kw name="Verify ZMQ Broker Availability">
-<doc>Check ZMQ broker is running</doc>
-<status status="NOT RUN" start="2026-01-16T13:57:26.393111" elapsed="0.000175"/>
-</kw>
-<kw name="Load Gateway Configuration">
-<doc>Load gateway settings</doc>
-<status status="NOT RUN" start="2026-01-16T13:57:26.393501" elapsed="0.000149"/>
-</kw>
-<doc>Setup test environment</doc>
-<status status="FAIL" start="2026-01-16T13:57:26.287556" elapsed="0.106277">No keyword with name 'Get InfluxDB Health' found. Did you try using keyword 'RequestsLibrary.GET' and forgot to use enough whitespace between keyword and arguments?</status>
-</kw>
-<test id="s1-s1-s1-s1-t1" name="FreeDOM Exchange Gateway - Connect and Retrieve Data" line="36">
-<doc>Test FreeDOM Exchange REST API connectivity</doc>
-<tag>connectivity</tag>
-<tag>freedx</tag>
-<tag>gateway</tag>
-<status status="FAIL" start="2026-01-16T13:57:26.394061" elapsed="0.289113">Parent suite setup failed:
-No keyword with name 'Get InfluxDB Health' found. Did you try using keyword 'RequestsLibrary.GET' and forgot to use enough whitespace between keyword and arguments?</status>
-</test>
-<test id="s1-s1-s1-s1-t2" name="Gate.io Gateway - WebSocket Connectivity" line="45">
-<doc>Test Gate.io WebSocket streaming</doc>
-<tag>gateio</tag>
-<tag>gateway</tag>
-<tag>websocket</tag>
-<status status="FAIL" start="2026-01-16T13:57:26.862684" elapsed="0.190733">Parent suite setup failed:
-No keyword with name 'Get InfluxDB Health' found. Did you try using keyword 'RequestsLibrary.GET' and forgot to use enough whitespace between keyword and arguments?</status>
-</test>
-<test id="s1-s1-s1-s1-t3" name="OANDA Gateway - Forex API Integration" line="55">
-<doc>Test OANDA forex connectivity and EURUSD pair</doc>
-<tag>forex</tag>
-<tag>gateway</tag>
-<tag>oanda</tag>
-<status status="FAIL" start="2026-01-16T13:57:27.162388" elapsed="0.142895">Parent suite setup failed:
-No keyword with name 'Get InfluxDB Health' found. Did you try using keyword 'RequestsLibrary.GET' and forgot to use enough whitespace between keyword and arguments?</status>
-</test>
-<test id="s1-s1-s1-s1-t4" name="Kraken Gateway - Hybrid REST/WebSocket" line="65">
-<doc>Test Kraken hybrid connectivity</doc>
-<tag>gateway</tag>
-<tag>hybrid</tag>
-<tag>kraken</tag>
-<status status="FAIL" start="2026-01-16T13:57:27.400775" elapsed="0.214485">Parent suite setup failed:
-No keyword with name 'Get InfluxDB Health' found. Did you try using keyword 'RequestsLibrary.GET' and forgot to use enough whitespace between keyword and arguments?</status>
-</test>
-<test id="s1-s1-s1-s1-t5" name="Twitter Sentiment Gateway - Stream Analysis" line="76">
-<doc>Test Twitter sentiment analysis</doc>
-<tag>gateway</tag>
-<tag>sentiment</tag>
-<tag>twitter</tag>
-<status status="FAIL" start="2026-01-16T13:57:27.693824" elapsed="0.083080">Parent suite setup failed:
-No keyword with name 'Get InfluxDB Health' found. Did you try using keyword 'RequestsLibrary.GET' and forgot to use enough whitespace between keyword and arguments?</status>
-</test>
-<test id="s1-s1-s1-s1-t6" name="Betfair Gateway - Streaming Market Data" line="86">
-<doc>Test Betfair betting exchange</doc>
-<tag>betfair</tag>
-<tag>gateway</tag>
-<tag>streaming</tag>
-<status status="FAIL" start="2026-01-16T13:57:27.885722" elapsed="0.180179">Parent suite setup failed:
-No keyword with name 'Get InfluxDB Health' found. Did you try using keyword 'RequestsLibrary.GET' and forgot to use enough whitespace between keyword and arguments?</status>
-</test>
-<test id="s1-s1-s1-s1-t7" name="ZMQ Broker - Publish Subscribe Pattern" line="99">
-<doc>Test ZMQ pub/sub functionality</doc>
-<tag>broker</tag>
-<tag>messaging</tag>
-<tag>zmq</tag>
-<status status="FAIL" start="2026-01-16T13:57:28.211221" elapsed="0.134013">Parent suite setup failed:
-No keyword with name 'Get InfluxDB Health' found. Did you try using keyword 'RequestsLibrary.GET' and forgot to use enough whitespace between keyword and arguments?</status>
-</test>
-<test id="s1-s1-s1-s1-t8" name="ZMQ Broker - Multiple Topics" line="110">
-<doc>Test multiple topic subscriptions</doc>
-<tag>broker</tag>
-<tag>topics</tag>
-<tag>zmq</tag>
-<status status="FAIL" start="2026-01-16T13:57:28.454218" elapsed="0.252169">Parent suite setup failed:
-No keyword with name 'Get InfluxDB Health' found. Did you try using keyword 'RequestsLibrary.GET' and forgot to use enough whitespace between keyword and arguments?</status>
-</test>
-<test id="s1-s1-s1-s1-t9" name="ZMQ Broker - High Throughput" line="123">
-<doc>Test ZMQ broker with high message volume</doc>
-<tag>broker</tag>
-<tag>performance</tag>
-<tag>stress</tag>
-<tag>zmq</tag>
-<status status="FAIL" start="2026-01-16T13:57:29.157916" elapsed="0.081383">Parent suite setup failed:
-No keyword with name 'Get InfluxDB Health' found. Did you try using keyword 'RequestsLibrary.GET' and forgot to use enough whitespace between keyword and arguments?</status>
-</test>
-<test id="s1-s1-s1-s1-t10" name="InfluxDB - Write Market Tick Data" line="148">
-<doc>Test market data persistence</doc>
-<tag>influxdb</tag>
-<tag>market_data</tag>
-<tag>storage</tag>
-<status status="FAIL" start="2026-01-16T13:57:29.314477" elapsed="0.089914">Parent suite setup failed:
-No keyword with name 'Get InfluxDB Health' found. Did you try using keyword 'RequestsLibrary.GET' and forgot to use enough whitespace between keyword and arguments?</status>
-</test>
-<test id="s1-s1-s1-s1-t11" name="InfluxDB - Write Trade Data" line="157">
-<doc>Test trade data persistence</doc>
-<tag>influxdb</tag>
-<tag>storage</tag>
-<tag>trades</tag>
-<status status="FAIL" start="2026-01-16T13:57:29.422624" elapsed="0.187958">Parent suite setup failed:
-No keyword with name 'Get InfluxDB Health' found. Did you try using keyword 'RequestsLibrary.GET' and forgot to use enough whitespace between keyword and arguments?</status>
-</test>
-<test id="s1-s1-s1-s1-t12" name="InfluxDB - Write Sentiment Data" line="166">
-<doc>Test sentiment data persistence</doc>
-<tag>influxdb</tag>
-<tag>sentiment</tag>
-<tag>storage</tag>
-<status status="FAIL" start="2026-01-16T13:57:29.678945" elapsed="0.124265">Parent suite setup failed:
-No keyword with name 'Get InfluxDB Health' found. Did you try using keyword 'RequestsLibrary.GET' and forgot to use enough whitespace between keyword and arguments?</status>
-</test>
-<test id="s1-s1-s1-s1-t13" name="InfluxDB - Query OHLC Data" line="175">
-<doc>Test OHLC query generation</doc>
-<tag>influxdb</tag>
-<tag>queries</tag>
-<tag>storage</tag>
-<status status="FAIL" start="2026-01-16T13:57:29.824022" elapsed="0.619183">Parent suite setup failed:
-No keyword with name 'Get InfluxDB Health' found. Did you try using keyword 'RequestsLibrary.GET' and forgot to use enough whitespace between keyword and arguments?</status>
-</test>
-<test id="s1-s1-s1-s1-t14" name="InfluxDB - Data Retention Policy" line="183">
-<doc>Test retention policy enforcement</doc>
-<tag>influxdb</tag>
-<tag>retention</tag>
-<tag>storage</tag>
-<status status="FAIL" start="2026-01-16T13:57:30.781859" elapsed="0.238622">Parent suite setup failed:
-No keyword with name 'Get InfluxDB Health' found. Did you try using keyword 'RequestsLibrary.GET' and forgot to use enough whitespace between keyword and arguments?</status>
-</test>
-<test id="s1-s1-s1-s1-t15" name="CLI - Connect Command" line="195">
-<doc>Test CLI connect functionality</doc>
-<tag>cli</tag>
-<tag>commands</tag>
-<tag>connectivity</tag>
-<status status="FAIL" start="2026-01-16T13:57:31.578736" elapsed="0.249543">Parent suite setup failed:
-No keyword with name 'Get InfluxDB Health' found. Did you try using keyword 'RequestsLibrary.GET' and forgot to use enough whitespace between keyword and arguments?</status>
-</test>
-<test id="s1-s1-s1-s1-t16" name="CLI - Streaming Command" line="203">
-<doc>Test CLI data streaming</doc>
-<tag>cli</tag>
-<tag>commands</tag>
-<tag>streaming</tag>
-<status status="FAIL" start="2026-01-16T13:57:31.951282" elapsed="0.157253">Parent suite setup failed:
-No keyword with name 'Get InfluxDB Health' found. Did you try using keyword 'RequestsLibrary.GET' and forgot to use enough whitespace between keyword and arguments?</status>
-</test>
-<test id="s1-s1-s1-s1-t17" name="CLI - Price Query" line="212">
-<doc>Test CLI price query</doc>
-<tag>cli</tag>
-<tag>commands</tag>
-<tag>queries</tag>
-<status status="FAIL" start="2026-01-16T13:57:32.271212" elapsed="0.157903">Parent suite setup failed:
-No keyword with name 'Get InfluxDB Health' found. Did you try using keyword 'RequestsLibrary.GET' and forgot to use enough whitespace between keyword and arguments?</status>
-</test>
-<test id="s1-s1-s1-s1-t18" name="CLI - Sentiment Analysis" line="220">
-<doc>Test CLI sentiment display</doc>
-<tag>cli</tag>
-<tag>commands</tag>
-<tag>sentiment</tag>
-<status status="FAIL" start="2026-01-16T13:57:32.548155" elapsed="0.195662">Parent suite setup failed:
-No keyword with name 'Get InfluxDB Health' found. Did you try using keyword 'RequestsLibrary.GET' and forgot to use enough whitespace between keyword and arguments?</status>
-</test>
-<test id="s1-s1-s1-s1-t19" name="CLI - Command Auto-Completion" line="228">
-<doc>Test CLI command completion</doc>
-<tag>cli</tag>
-<tag>completion</tag>
-<tag>ui</tag>
-<status status="FAIL" start="2026-01-16T13:57:32.951977" elapsed="0.194942">Parent suite setup failed:
-No keyword with name 'Get InfluxDB Health' found. Did you try using keyword 'RequestsLibrary.GET' and forgot to use enough whitespace between keyword and arguments?</status>
-</test>
-<test id="s1-s1-s1-s1-t20" name="CLI - Export Functionality" line="236">
-<doc>Test data export</doc>
-<tag>cli</tag>
-<tag>commands</tag>
-<tag>export</tag>
-<status status="FAIL" start="2026-01-16T13:57:33.292645" elapsed="0.201330">Parent suite setup failed:
-No keyword with name 'Get InfluxDB Health' found. Did you try using keyword 'RequestsLibrary.GET' and forgot to use enough whitespace between keyword and arguments?</status>
-</test>
-<test id="s1-s1-s1-s1-t21" name="Data Quality - Price Range Validation" line="248">
-<doc>Validate price data is within reasonable ranges</doc>
-<tag>data_quality</tag>
-<tag>validation</tag>
-<status status="FAIL" start="2026-01-16T13:57:33.597304" elapsed="0.089707">Parent suite setup failed:
-No keyword with name 'Get InfluxDB Health' found. Did you try using keyword 'RequestsLibrary.GET' and forgot to use enough whitespace between keyword and arguments?</status>
-</test>
-<test id="s1-s1-s1-s1-t22" name="Data Quality - Volume Consistency" line="260">
-<doc>Validate volume data consistency</doc>
-<tag>data_quality</tag>
-<tag>volume</tag>
-<status status="FAIL" start="2026-01-16T13:57:33.842241" elapsed="0.132778">Parent suite setup failed:
-No keyword with name 'Get InfluxDB Health' found. Did you try using keyword 'RequestsLibrary.GET' and forgot to use enough whitespace between keyword and arguments?</status>
-</test>
-<test id="s1-s1-s1-s1-t23" name="Data Quality - No Duplicate Messages" line="271">
-<doc>Validate no duplicate messages in stream</doc>
-<tag>data_quality</tag>
-<tag>duplicates</tag>
-<status status="FAIL" start="2026-01-16T13:57:34.347099" elapsed="0.065293">Parent suite setup failed:
-No keyword with name 'Get InfluxDB Health' found. Did you try using keyword 'RequestsLibrary.GET' and forgot to use enough whitespace between keyword and arguments?</status>
-</test>
-<test id="s1-s1-s1-s1-t24" name="Performance - Gateway Latency" line="283">
-<doc>Measure gateway response times</doc>
-<tag>latency</tag>
-<tag>performance</tag>
-<tag>stress</tag>
-<status status="FAIL" start="2026-01-16T13:57:34.491986" elapsed="0.182224">Parent suite setup failed:
-No keyword with name 'Get InfluxDB Health' found. Did you try using keyword 'RequestsLibrary.GET' and forgot to use enough whitespace between keyword and arguments?</status>
-</test>
-<test id="s1-s1-s1-s1-t25" name="Performance - ZMQ Throughput" line="298">
-<doc>Measure ZMQ message throughput</doc>
-<tag>performance</tag>
-<tag>throughput</tag>
-<tag>zmq</tag>
-<status status="FAIL" start="2026-01-16T13:57:34.701066" elapsed="0.109842">Parent suite setup failed:
-No keyword with name 'Get InfluxDB Health' found. Did you try using keyword 'RequestsLibrary.GET' and forgot to use enough whitespace between keyword and arguments?</status>
-</test>
-<test id="s1-s1-s1-s1-t26" name="Performance - InfluxDB Write Speed" line="319">
-<doc>Measure InfluxDB write performance</doc>
-<tag>influxdb</tag>
-<tag>performance</tag>
-<tag>storage</tag>
-<status status="FAIL" start="2026-01-16T13:57:35.003050" elapsed="0.106420">Parent suite setup failed:
-No keyword with name 'Get InfluxDB Health' found. Did you try using keyword 'RequestsLibrary.GET' and forgot to use enough whitespace between keyword and arguments?</status>
-</test>
-<kw name="Cleanup Test Environment" type="TEARDOWN">
+<for flavor="IN RANGE">
+<iter>
+<kw name="Connect To Gateway">
 <kw name="Log" owner="BuiltIn">
-<msg time="2026-01-16T13:57:35.263987" level="INFO">Cleaning up test environment</msg>
-<arg>Cleaning up test environment</arg>
+<msg time="2026-01-16T14:16:07.534070" level="INFO">Connecting to gate.io...</msg>
+<arg>Connecting to ${gateway}...</arg>
 <doc>Logs the given message with the given level.</doc>
-<status status="PASS" start="2026-01-16T13:57:35.262770" elapsed="0.001718"/>
+<status status="PASS" start="2026-01-16T14:16:07.533038" elapsed="0.001470"/>
 </kw>
-<kw name="Close All Connections">
-<msg time="2026-01-16T13:57:35.271144" level="FAIL">No keyword with name 'Close All Connections' found.</msg>
-<status status="FAIL" start="2026-01-16T13:57:35.268046" elapsed="0.065933">No keyword with name 'Close All Connections' found.</status>
+<kw name="Log" owner="BuiltIn">
+<msg time="2026-01-16T14:16:07.535430" level="INFO">Authenticating with gateway</msg>
+<arg>Authenticating with gateway</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2026-01-16T14:16:07.534862" elapsed="0.000838"/>
 </kw>
-<kw name="Stop All Streams">
-<msg time="2026-01-16T13:57:35.342644" level="FAIL">No keyword with name 'Stop All Streams' found.</msg>
-<status status="FAIL" start="2026-01-16T13:57:35.340138" elapsed="0.014810">No keyword with name 'Stop All Streams' found.</status>
+<kw name="Log" owner="BuiltIn">
+<msg time="2026-01-16T14:16:07.536698" level="INFO">Connected to gate.io</msg>
+<arg>Connected to ${gateway}</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2026-01-16T14:16:07.536072" elapsed="0.000864"/>
 </kw>
-<doc>Teardown test environment</doc>
-<status status="FAIL" start="2026-01-16T13:57:35.261858" elapsed="0.096290">Several failures occurred:
-
-1) No keyword with name 'Close All Connections' found.
-
-2) No keyword with name 'Stop All Streams' found.</status>
+<arg>gate.io</arg>
+<doc>Connect to specified gateway</doc>
+<status status="PASS" start="2026-01-16T14:16:07.531866" elapsed="0.005261"/>
 </kw>
-<doc>Market Data Platform - Integration Test Suite
-Tests connectivity modules, data storage, and CLI
-Validates all gateway integrations and data quality</doc>
-<status status="FAIL" start="2026-01-16T13:57:25.581967" elapsed="9.776405">Suite setup failed:
-No keyword with name 'Get InfluxDB Health' found. Did you try using keyword 'RequestsLibrary.GET' and forgot to use enough whitespace between keyword and arguments?
-
-Also suite teardown failed:
-Several failures occurred:
-
-1) No keyword with name 'Close All Connections' found.
-
-2) No keyword with name 'Stop All Streams' found.</status>
+<kw name="Stream Market Data">
+<kw name="Log" owner="BuiltIn">
+<msg time="2026-01-16T14:16:07.539277" level="INFO">Starting stream from gate.io for ETH_USDT</msg>
+<arg>Starting stream from ${gateway} for ${symbol}</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2026-01-16T14:16:07.538320" elapsed="0.001261"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2026-01-16T14:16:07.540422" level="INFO">Subscribing to candlestick updates</msg>
+<arg>Subscribing to candlestick updates</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2026-01-16T14:16:07.539929" elapsed="0.000868"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2026-01-16T14:16:07.541791" level="INFO">Stream active</msg>
+<arg>Stream active</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2026-01-16T14:16:07.541061" elapsed="0.000916"/>
+</kw>
+<arg>gate.io</arg>
+<arg>ETH_USDT</arg>
+<doc>Stream market data from gateway</doc>
+<status status="PASS" start="2026-01-16T14:16:07.537471" elapsed="0.004693"/>
+</kw>
+<kw name="Stop Stream">
+<kw name="Log" owner="BuiltIn">
+<msg time="2026-01-16T14:16:07.543579" level="INFO">Stopping stream from gate.io</msg>
+<arg>Stopping stream from ${gateway}</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2026-01-16T14:16:07.543033" elapsed="0.000785"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2026-01-16T14:16:07.544772" level="INFO">Unsubscribing from all topics</msg>
+<arg>Unsubscribing from all topics</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2026-01-16T14:16:07.544089" elapsed="0.000961"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2026-01-16T14:16:07.546323" level="INFO">Stream stopped</msg>
+<arg>Stream stopped</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2026-01-16T14:16:07.545492" elapsed="0.001231"/>
+</kw>
+<arg>gate.io</arg>
+<doc>Stop market data stream</doc>
+<status status="PASS" start="2026-01-16T14:16:07.542436" elapsed="0.004495"/>
+</kw>
+<var name="${i}">0</var>
+<status status="PASS" start="2026-01-16T14:16:07.531054" elapsed="0.015983"/>
+</iter>
+<iter>
+<kw name="Connect To Gateway">
+<kw name="Log" owner="BuiltIn">
+<msg time="2026-01-16T14:16:07.549104" level="INFO">Connecting to gate.io...</msg>
+<arg>Connecting to ${gateway}...</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2026-01-16T14:16:07.548301" elapsed="0.001131"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2026-01-16T14:16:07.550251" level="INFO">Authenticating with gateway</msg>
+<arg>Authenticating with gateway</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2026-01-16T14:16:07.549746" elapsed="0.000723"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2026-01-16T14:16:07.551230" level="INFO">Connected to gate.io</msg>
+<arg>Connected to ${gateway}</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2026-01-16T14:16:07.550711" elapsed="0.000726"/>
+</kw>
+<arg>gate.io</arg>
+<doc>Connect to specified gateway</doc>
+<status status="PASS" start="2026-01-16T14:16:07.547678" elapsed="0.003924"/>
+</kw>
+<kw name="Stream Market Data">
+<kw name="Log" owner="BuiltIn">
+<msg time="2026-01-16T14:16:07.553111" level="INFO">Starting stream from gate.io for ETH_USDT</msg>
+<arg>Starting stream from ${gateway} for ${symbol}</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2026-01-16T14:16:07.552485" elapsed="0.000839"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2026-01-16T14:16:07.554068" level="INFO">Subscribing to candlestick updates</msg>
+<arg>Subscribing to candlestick updates</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2026-01-16T14:16:07.553594" elapsed="0.000678"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2026-01-16T14:16:07.554950" level="INFO">Stream active</msg>
+<arg>Stream active</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2026-01-16T14:16:07.554484" elapsed="0.000669"/>
+</kw>
+<arg>gate.io</arg>
+<arg>ETH_USDT</arg>
+<doc>Stream market data from gateway</doc>
+<status status="PASS" start="2026-01-16T14:16:07.551967" elapsed="0.003349"/>
+</kw>
+<kw name="Stop Stream">
+<kw name="Log" owner="BuiltIn">
+<msg time="2026-01-16T14:16:07.556898" level="INFO">Stopping stream from gate.io</msg>
+<arg>Stopping stream from ${gateway}</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2026-01-16T14:16:07.556081" elapsed="0.001133"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2026-01-16T14:16:07.558689" level="INFO">Unsubscribing from all topics</msg>
+<arg>Unsubscribing from all topics</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2026-01-16T14:16:07.557477" elapsed="0.001782"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2026-01-16T14:16:07.561450" level="INFO">Stream stopped</msg>
+<arg>Stream stopped</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2026-01-16T14:16:07.559883" elapsed="0.001888"/>
+</kw>
+<arg>gate.io</arg>
+<doc>Stop market data stream</doc>
+<status status="PASS" start="2026-01-16T14:16:07.555555" elapsed="0.006446"/>
+</kw>
+<var name="${i}">1</var>
+<status status="PASS" start="2026-01-16T14:16:07.547289" elapsed="0.014827"/>
+</iter>
+<iter>
+<kw name="Connect To Gateway">
+<kw name="Log" owner="BuiltIn">
+<msg time="2026-01-16T14:16:07.564129" level="INFO">Connecting to gate.io...</msg>
+<arg>Connecting to ${gateway}...</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2026-01-16T14:16:07.563359" elapsed="0.001032"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2026-01-16T14:16:07.565155" level="INFO">Authenticating with gateway</msg>
+<arg>Authenticating with gateway</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2026-01-16T14:16:07.564631" elapsed="0.000745"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2026-01-16T14:16:07.566179" level="INFO">Connected to gate.io</msg>
+<arg>Connected to ${gateway}</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2026-01-16T14:16:07.565595" elapsed="0.001146"/>
+</kw>
+<arg>gate.io</arg>
+<doc>Connect to specified gateway</doc>
+<status status="PASS" start="2026-01-16T14:16:07.562761" elapsed="0.004173"/>
+</kw>
+<kw name="Stream Market Data">
+<kw name="Log" owner="BuiltIn">
+<msg time="2026-01-16T14:16:07.568466" level="INFO">Starting stream from gate.io for ETH_USDT</msg>
+<arg>Starting stream from ${gateway} for ${symbol}</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2026-01-16T14:16:07.567864" elapsed="0.000865"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2026-01-16T14:16:07.569521" level="INFO">Subscribing to candlestick updates</msg>
+<arg>Subscribing to candlestick updates</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2026-01-16T14:16:07.569009" elapsed="0.000821"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2026-01-16T14:16:07.570568" level="INFO">Stream active</msg>
+<arg>Stream active</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2026-01-16T14:16:07.570081" elapsed="0.000729"/>
+</kw>
+<arg>gate.io</arg>
+<arg>ETH_USDT</arg>
+<doc>Stream market data from gateway</doc>
+<status status="PASS" start="2026-01-16T14:16:07.567198" elapsed="0.003787"/>
+</kw>
+<kw name="Stop Stream">
+<kw name="Log" owner="BuiltIn">
+<msg time="2026-01-16T14:16:07.572359" level="INFO">Stopping stream from gate.io</msg>
+<arg>Stopping stream from ${gateway}</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2026-01-16T14:16:07.571804" elapsed="0.000772"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2026-01-16T14:16:07.573394" level="INFO">Unsubscribing from all topics</msg>
+<arg>Unsubscribing from all topics</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2026-01-16T14:16:07.572825" elapsed="0.000782"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2026-01-16T14:16:07.574292" level="INFO">Stream stopped</msg>
+<arg>Stream stopped</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2026-01-16T14:16:07.573852" elapsed="0.000649"/>
+</kw>
+<arg>gate.io</arg>
+<doc>Stop market data stream</doc>
+<status status="PASS" start="2026-01-16T14:16:07.571241" elapsed="0.003450"/>
+</kw>
+<var name="${i}">2</var>
+<status status="PASS" start="2026-01-16T14:16:07.562359" elapsed="0.012440"/>
+</iter>
+<iter>
+<kw name="Connect To Gateway">
+<kw name="Log" owner="BuiltIn">
+<msg time="2026-01-16T14:16:07.576995" level="INFO">Connecting to gate.io...</msg>
+<arg>Connecting to ${gateway}...</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2026-01-16T14:16:07.576128" elapsed="0.001174"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2026-01-16T14:16:07.578440" level="INFO">Authenticating with gateway</msg>
+<arg>Authenticating with gateway</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2026-01-16T14:16:07.577643" elapsed="0.001046"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2026-01-16T14:16:07.579509" level="INFO">Connected to gate.io</msg>
+<arg>Connected to ${gateway}</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2026-01-16T14:16:07.578994" elapsed="0.000775"/>
+</kw>
+<arg>gate.io</arg>
+<doc>Connect to specified gateway</doc>
+<status status="PASS" start="2026-01-16T14:16:07.575298" elapsed="0.004705"/>
+</kw>
+<kw name="Stream Market Data">
+<kw name="Log" owner="BuiltIn">
+<msg time="2026-01-16T14:16:07.581445" level="INFO">Starting stream from gate.io for ETH_USDT</msg>
+<arg>Starting stream from ${gateway} for ${symbol}</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2026-01-16T14:16:07.580792" elapsed="0.000911"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2026-01-16T14:16:07.582403" level="INFO">Subscribing to candlestick updates</msg>
+<arg>Subscribing to candlestick updates</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2026-01-16T14:16:07.581939" elapsed="0.000676"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2026-01-16T14:16:07.583310" level="INFO">Stream active</msg>
+<arg>Stream active</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2026-01-16T14:16:07.582860" elapsed="0.000656"/>
+</kw>
+<arg>gate.io</arg>
+<arg>ETH_USDT</arg>
+<doc>Stream market data from gateway</doc>
+<status status="PASS" start="2026-01-16T14:16:07.580259" elapsed="0.003449"/>
+</kw>
+<kw name="Stop Stream">
+<kw name="Log" owner="BuiltIn">
+<msg time="2026-01-16T14:16:07.585130" level="INFO">Stopping stream from gate.io</msg>
+<arg>Stopping stream from ${gateway}</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2026-01-16T14:16:07.584580" elapsed="0.000763"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2026-01-16T14:16:07.586040" level="INFO">Unsubscribing from all topics</msg>
+<arg>Unsubscribing from all topics</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2026-01-16T14:16:07.585562" elapsed="0.000685"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2026-01-16T14:16:07.587015" level="INFO">Stream stopped</msg>
+<arg>Stream stopped</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2026-01-16T14:16:07.586488" elapsed="0.000733"/>
+</kw>
+<arg>gate.io</arg>
+<doc>Stop market data stream</doc>
+<status status="PASS" start="2026-01-16T14:16:07.584085" elapsed="0.003306"/>
+</kw>
+<var name="${i}">3</var>
+<status status="PASS" start="2026-01-16T14:16:07.575003" elapsed="0.012484"/>
+</iter>
+<iter>
+<kw name="Connect To Gateway">
+<kw name="Log" owner="BuiltIn">
+<msg time="2026-01-16T14:16:07.589144" level="INFO">Connecting to gate.io...</msg>
+<arg>Connecting to ${gateway}...</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2026-01-16T14:16:07.588570" elapsed="0.000790"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2026-01-16T14:16:07.590174" level="INFO">Authenticating with gateway</msg>
+<arg>Authenticating with gateway</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2026-01-16T14:16:07.589576" elapsed="0.000915"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2026-01-16T14:16:07.592156" level="INFO">Connected to gate.io</msg>
+<arg>Connected to ${gateway}</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2026-01-16T14:16:07.590841" elapsed="0.001875"/>
+</kw>
+<arg>gate.io</arg>
+<doc>Connect to specified gateway</doc>
+<status status="PASS" start="2026-01-16T14:16:07.588082" elapsed="0.004971"/>
+</kw>
+<kw name="Stream Market Data">
+<kw name="Log" owner="BuiltIn">
+<msg time="2026-01-16T14:16:07.594958" level="INFO">Starting stream from gate.io for ETH_USDT</msg>
+<arg>Starting stream from ${gateway} for ${symbol}</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2026-01-16T14:16:07.594184" elapsed="0.001126"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2026-01-16T14:16:07.596553" level="INFO">Subscribing to candlestick updates</msg>
+<arg>Subscribing to candlestick updates</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2026-01-16T14:16:07.595939" elapsed="0.001132"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2026-01-16T14:16:07.598018" level="INFO">Stream active</msg>
+<arg>Stream active</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2026-01-16T14:16:07.597344" elapsed="0.000942"/>
+</kw>
+<arg>gate.io</arg>
+<arg>ETH_USDT</arg>
+<doc>Stream market data from gateway</doc>
+<status status="PASS" start="2026-01-16T14:16:07.593375" elapsed="0.005117"/>
+</kw>
+<kw name="Stop Stream">
+<kw name="Log" owner="BuiltIn">
+<msg time="2026-01-16T14:16:07.602125" level="INFO">Stopping stream from gate.io</msg>
+<arg>Stopping stream from ${gateway}</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2026-01-16T14:16:07.599940" elapsed="0.003100"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2026-01-16T14:16:07.604426" level="INFO">Unsubscribing from all topics</msg>
+<arg>Unsubscribing from all topics</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2026-01-16T14:16:07.603548" elapsed="0.001286"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2026-01-16T14:16:07.605946" level="INFO">Stream stopped</msg>
+<arg>Stream stopped</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2026-01-16T14:16:07.605332" elapsed="0.001003"/>
+</kw>
+<arg>gate.io</arg>
+<doc>Stop market data stream</doc>
+<status status="PASS" start="2026-01-16T14:16:07.598820" elapsed="0.007868"/>
+</kw>
+<var name="${i}">4</var>
+<status status="PASS" start="2026-01-16T14:16:07.587713" elapsed="0.019140"/>
+</iter>
+<var>${i}</var>
+<value>5</value>
+<status status="PASS" start="2026-01-16T14:16:07.530257" elapsed="0.076700"/>
+</for>
+<kw name="Log" owner="BuiltIn">
+<msg time="2026-01-16T14:16:07.608618" level="INFO">Gateway performance test completed</msg>
+<arg>Gateway performance test completed</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2026-01-16T14:16:07.607739" elapsed="0.001139"/>
+</kw>
+<doc>Test gateway performance</doc>
+<tag>gateway</tag>
+<tag>performance</tag>
+<status status="PASS" start="2026-01-16T14:16:07.376967" elapsed="0.232754"/>
+</test>
+<doc>Market Data Platform - Gateway Management Test Suite</doc>
+<status status="PASS" start="2026-01-16T14:16:07.284285" elapsed="0.539289"/>
 </suite>
-<status status="FAIL" start="2026-01-16T13:57:25.569196" elapsed="11.146816"/>
+<status status="PASS" start="2026-01-16T14:16:07.216695" elapsed="0.786858"/>
 </suite>
-<status status="FAIL" start="2026-01-16T13:57:25.557041" elapsed="11.174803"/>
+<status status="PASS" start="2026-01-16T14:16:07.200074" elapsed="0.855217"/>
 </suite>
-<status status="FAIL" start="2026-01-16T13:57:24.918512" elapsed="11.864812"/>
+<status status="PASS" start="2026-01-16T14:16:07.033373" elapsed="1.081408"/>
 </suite>
 <statistics>
 <total>
-<stat pass="0" fail="26" skip="0">All Tests</stat>
+<stat pass="1" fail="0" skip="0">All Tests</stat>
 </total>
 <tag>
-<stat pass="0" fail="1" skip="0">betfair</stat>
-<stat pass="0" fail="3" skip="0">broker</stat>
-<stat pass="0" fail="6" skip="0">cli</stat>
-<stat pass="0" fail="5" skip="0">commands</stat>
-<stat pass="0" fail="1" skip="0">completion</stat>
-<stat pass="0" fail="2" skip="0">connectivity</stat>
-<stat pass="0" fail="3" skip="0">data_quality</stat>
-<stat pass="0" fail="1" skip="0">duplicates</stat>
-<stat pass="0" fail="1" skip="0">export</stat>
-<stat pass="0" fail="1" skip="0">forex</stat>
-<stat pass="0" fail="1" skip="0">freedx</stat>
-<stat pass="0" fail="1" skip="0">gateio</stat>
-<stat pass="0" fail="6" skip="0">gateway</stat>
-<stat pass="0" fail="1" skip="0">hybrid</stat>
-<stat pass="0" fail="6" skip="0">influxdb</stat>
-<stat pass="0" fail="1" skip="0">kraken</stat>
-<stat pass="0" fail="1" skip="0">latency</stat>
-<stat pass="0" fail="1" skip="0">market_data</stat>
-<stat pass="0" fail="1" skip="0">messaging</stat>
-<stat pass="0" fail="1" skip="0">oanda</stat>
-<stat pass="0" fail="4" skip="0">performance</stat>
-<stat pass="0" fail="2" skip="0">queries</stat>
-<stat pass="0" fail="1" skip="0">retention</stat>
-<stat pass="0" fail="3" skip="0">sentiment</stat>
-<stat pass="0" fail="6" skip="0">storage</stat>
-<stat pass="0" fail="2" skip="0">streaming</stat>
-<stat pass="0" fail="2" skip="0">stress</stat>
-<stat pass="0" fail="1" skip="0">throughput</stat>
-<stat pass="0" fail="1" skip="0">topics</stat>
-<stat pass="0" fail="1" skip="0">trades</stat>
-<stat pass="0" fail="1" skip="0">twitter</stat>
-<stat pass="0" fail="1" skip="0">ui</stat>
-<stat pass="0" fail="1" skip="0">validation</stat>
-<stat pass="0" fail="1" skip="0">volume</stat>
-<stat pass="0" fail="1" skip="0">websocket</stat>
-<stat pass="0" fail="4" skip="0">zmq</stat>
+<stat pass="1" fail="0" skip="0">gateway</stat>
+<stat pass="1" fail="0" skip="0">performance</stat>
 </tag>
 <suite>
-<stat name="Rf Env" id="s1" pass="0" fail="26" skip="0">Rf Env</stat>
-<stat name="Market Data Platform" id="s1-s1" pass="0" fail="26" skip="0">Rf Env.Market Data Platform</stat>
-<stat name="Testing" id="s1-s1-s1" pass="0" fail="26" skip="0">Rf Env.Market Data Platform.Testing</stat>
-<stat name="Integration Tests" id="s1-s1-s1-s1" pass="0" fail="26" skip="0">Rf Env.Market Data Platform.Testing.Integration Tests</stat>
+<stat name="Rf Env" id="s1" pass="1" fail="0" skip="0">Rf Env</stat>
+<stat name="Market Data Platform" id="s1-s1" pass="1" fail="0" skip="0">Rf Env.Market Data Platform</stat>
+<stat name="Testing" id="s1-s1-s1" pass="1" fail="0" skip="0">Rf Env.Market Data Platform.Testing</stat>
+<stat name="Gateways" id="s1-s1-s1-s1" pass="1" fail="0" skip="0">Rf Env.Market Data Platform.Testing.Gateways</stat>
 </suite>
 </statistics>
 <errors>
-<msg time="2026-01-16T13:57:25.899542" level="ERROR">Error in file '/root/rf_env/market_data_platform/testing/integration_tests.robot' on line 14: Resource file '../keywords/gateway_keywords.robot' does not exist.</msg>
-<msg time="2026-01-16T13:57:25.949497" level="ERROR">Error in file '/root/rf_env/market_data_platform/testing/integration_tests.robot' on line 15: Resource file '../keywords/storage_keywords.robot' does not exist.</msg>
-<msg time="2026-01-16T13:57:26.046310" level="ERROR">Error in file '/root/rf_env/market_data_platform/testing/integration_tests.robot' on line 16: Resource file '../keywords/cli_keywords.robot' does not exist.</msg>
 </errors>
 </robot>
