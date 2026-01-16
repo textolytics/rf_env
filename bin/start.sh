@@ -12,7 +12,8 @@ BLUE='\033[0;34m'
 NC='\033[0m'
 
 log() { echo -e "${BLUE}→${NC} $1"; }
-done() { echo -e "${GREEN}✓${NC} $1"; }
+
+# done() { echo -e "${GREEN}✓${NC} $1"; }
 
 trap 'echo "Startup interrupted"; exit 1' SIGINT SIGTERM
 
