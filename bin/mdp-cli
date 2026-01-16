@@ -1,0 +1,664 @@
+#!/usr/bin/env bash
+# Market Data Platform CLI - Enhanced with component management
+# Provides commands for managing components, connectivity validation, and operations
+
+set -euo pipefail
+
+PROJECT_ROOT="${PROJECT_ROOT:-.}"
+cd "$PROJECT_ROOT" || exit 1
+
+# Colors
+GREEN='\033[0;32m'
+RED='\033[0;31m'
+BLUE='\033[0;34m'
+YELLOW='\033[1;33m'
+NC='\033[0m'
+
+log() { echo -e "${BLUE}→${NC} $1"; }
+done() { echo -e "${GREEN}✓${NC} $1"; }
+warn() { echo -e "${YELLOW}⚠${NC} $1"; }
+error() { echo -e "${RED}✗${NC} $1"; }
+
+###############################################################################
+# HELP & USAGE
+###############################################################################
+
+show_help() {
+    cat << 'EOF'
+╔════════════════════════════════════════════════════════════════════╗
+║   Market Data Platform - CLI Commands                              ║
+║   Enhanced Component Management & Connectivity Validation          ║
+╚════════════════════════════════════════════════════════════════════╝
+
+COMPONENT MANAGEMENT COMMANDS:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  component start [COMPONENT]      Start component(s)
+                                    - No args: start all
+                                    - database | storage | messaging | api | gateway | processor | proxy
+                                    Examples: component start database
+                                             component start messaging api
+
+  component stop [COMPONENT]       Stop component(s)
+                                    - No args: stop all
+                                    - Examples: component stop proxy
+                                               component stop all
+
+  component status                 Show component status
+                                    - Displays all running components
+
+  component restart [COMPONENT]    Restart component(s)
+                                    - Example: component restart database
+
+  component logs [COMPONENT]       Show component logs
+                                    - Example: component logs publisher
+
+CONNECTIVITY & VALIDATION COMMANDS:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  validate connectivity            Validate all services connectivity
+  validate service [SERVICE]       Validate specific service
+  validate database               Validate database warehousing
+  validate messaging              Validate ZMQ messaging infrastructure
+  validate all                    Comprehensive connectivity check
+
+  health check                     Display system health status
+  health report                    Generate detailed health report
+
+  wait service [SERVICE] [TIMEOUT] Wait for service to be ready
+                                    - Default timeout: 30s
+                                    - Example: wait service database_postgres 60s
+
+TESTING & DIAGNOSTICS:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  test component                   Run component management tests
+  test connectivity               Run connectivity validation tests
+  test zmq                        Run ZMQ messaging tests
+  test warehousing                Run data warehousing tests
+  test all                        Run all system tests
+
+  benchmark services              Benchmark all service response times
+  benchmark [SERVICE]             Benchmark specific service
+
+SYSTEM COMMANDS:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  system init                      Initialize full system
+  system verify                    Verify all systems operational
+  system shutdown                  Graceful system shutdown
+  system restart                   Restart entire system
+
+DATABASE COMMANDS:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  db shell                         Connect to PostgreSQL shell
+  db redis                         Connect to Redis CLI
+  db influx                        Connect to InfluxDB
+
+INFORMATION & HELP:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  help [COMMAND]                   Show help (optionally for specific command)
+  version                          Show version information
+  config                           Show current configuration
+
+USAGE EXAMPLES:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  # Start specific components
+  mdp component start database
+  mdp component start messaging api gateway
+
+  # Validate connectivity
+  mdp validate connectivity
+  mdp validate service api_python
+
+  # Check system health
+  mdp health check
+  mdp health report
+
+  # Run tests
+  mdp test component
+  mdp test connectivity
+
+  # System operations
+  mdp system init
+  mdp system verify
+  mdp system shutdown
+
+EOF
+}
+
+show_help_component() {
+    cat << 'EOF'
+Component Management - Detailed Help
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+AVAILABLE COMPONENTS:
+
+  database    - PostgreSQL + Redis (data storage & caching)
+  storage     - InfluxDB (time-series data)
+  monitoring  - Prometheus + Grafana (metrics & dashboards)
+  messaging   - ZMQ Publisher + Subscriber (message broker)
+  api         - Python API service
+  gateway     - Go Gateway service
+  processor   - Rust processor
+  proxy       - Nginx reverse proxy
+
+COMMANDS:
+
+  component start [COMPONENT]
+    Start one or more components in dependency order
+    Examples:
+      component start database          # Start PostgreSQL + Redis
+      component start messaging         # Start ZMQ services
+      component start api gateway       # Start both API and Gateway
+
+  component stop [COMPONENT]
+    Stop one or more components gracefully
+    Examples:
+      component stop proxy              # Stop Nginx
+      component stop all                # Stop all components
+
+  component status
+    Display status of all components
+    Output shows running components with ✓ or ✗
+
+  component restart [COMPONENT]
+    Stop and then start a component
+    Useful for clearing state or reloading configuration
+
+  component logs [COMPONENT]
+    Follow component logs
+    Examples:
+      component logs publisher          # Follow ZMQ publisher
+      component logs subscriber         # Follow ZMQ subscriber
+
+EOF
+}
+
+show_help_validate() {
+    cat << 'EOF'
+Connectivity & Validation - Detailed Help
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+VALIDATION COMMANDS:
+
+  validate connectivity
+    Comprehensive connectivity check of all services
+    Validates:
+      - PostgreSQL database
+      - Redis cache
+      - InfluxDB storage
+      - Prometheus monitoring
+      - Python API
+      - Go Gateway
+      - ZMQ messaging endpoints
+
+  validate service [SERVICE]
+    Validate specific service connectivity
+    Available services:
+      - database_postgres
+      - cache_redis
+      - storage_influxdb
+      - monitoring_prometheus
+      - api_python
+      - gateway_go
+      - messaging_zmq_publisher
+      - messaging_zmq_subscriber
+
+  validate database
+    Validate data warehousing infrastructure
+    (PostgreSQL + Redis + InfluxDB)
+
+  validate messaging
+    Validate ZMQ messaging infrastructure
+    (Publisher + Subscriber)
+
+  validate all
+    Run all validation checks comprehensively
+
+HEALTH COMMANDS:
+
+  health check
+    Quick health status display
+    Shows: Overall status + component summary
+
+  health report
+    Detailed health report with response times
+
+EOF
+}
+
+###############################################################################
+# COMPONENT COMMANDS
+###############################################################################
+
+component_start() {
+    local components=("$@")
+    
+    if [ ${#components[@]} -eq 0 ]; then
+        log "Starting all components..."
+        bash lib/component_manager.sh start
+    else
+        for component in "${components[@]}"; do
+            log "Starting component: $component"
+            bash lib/component_manager.sh start "$component" || {
+                error "Failed to start component: $component"
+                return 1
+            }
+        done
+    fi
+    
+    done "Components started successfully"
+}
+
+component_stop() {
+    local components=("$@")
+    
+    if [ ${#components[@]} -eq 0 ]; then
+        log "Stopping all components..."
+        bash lib/component_manager.sh stop
+    else
+        for component in "${components[@]}"; do
+            log "Stopping component: $component"
+            bash lib/component_manager.sh stop "$component" || {
+                error "Failed to stop component: $component"
+                return 1
+            }
+        done
+    fi
+    
+    done "Components stopped successfully"
+}
+
+component_status() {
+    bash lib/component_manager.sh status
+}
+
+component_restart() {
+    local component="$1"
+    
+    if [ -z "$component" ]; then
+        error "Please specify component to restart"
+        return 1
+    fi
+    
+    component_stop "$component"
+    sleep 2
+    component_start "$component"
+}
+
+component_logs() {
+    local component="$1"
+    
+    if [ -z "$component" ]; then
+        error "Please specify component"
+        return 1
+    fi
+    
+    case "$component" in
+        publisher)
+            tail -f logs/publisher.log
+            ;;
+        subscriber)
+            tail -f logs/subscriber.log
+            ;;
+        *)
+            docker-compose logs -f "$component"
+            ;;
+    esac
+}
+
+###############################################################################
+# VALIDATION COMMANDS
+###############################################################################
+
+validate_connectivity() {
+    log "Validating service connectivity..."
+    
+    python3 << 'PYTHON_EOF'
+import sys
+sys.path.insert(0, '.')
+import json
+from market_data_platform.connectivity.validator import ConnectivityValidatorSync
+
+validator = ConnectivityValidatorSync()
+summary = validator.get_summary()
+
+print(f"\nOverall Status: {summary['overall_status'].upper()}")
+print(f"Timestamp: {summary['timestamp']}")
+print("\nService Summary:")
+print(f"  ✓ Healthy:    {summary['summary']['healthy']}")
+print(f"  ⚠ Degraded:   {summary['summary']['degraded']}")
+print(f"  ✗ Unhealthy:  {summary['summary']['unhealthy']}")
+print(f"  ✗ Unreachable: {summary['summary']['unreachable']}")
+
+print("\nDetailed Service Status:")
+for service, details in sorted(summary['services'].items()):
+    status_icon = "✓" if details['status'] == 'healthy' else "✗"
+    print(f"  {status_icon} {service:<30} {details['status']:<12} ({details['response_time']:.3f}s)")
+PYTHON_EOF
+}
+
+validate_service() {
+    local service="$1"
+    
+    if [ -z "$service" ]; then
+        error "Please specify service to validate"
+        return 1
+    fi
+    
+    python3 << PYTHON_EOF
+import sys
+sys.path.insert(0, '.')
+import json
+from market_data_platform.connectivity.validator import ConnectivityValidatorSync
+
+validator = ConnectivityValidatorSync()
+results = validator.validate_all()
+health = results.get('$service')
+
+if health:
+    print(f"Service: $service")
+    print(f"Status: {health.status.value}")
+    print(f"Response Time: {health.response_time:.3f}s")
+    print(f"Details: {json.dumps(health.details, indent=2)}")
+else:
+    print(f"Unknown service: $service")
+    sys.exit(1)
+PYTHON_EOF
+}
+
+validate_database() {
+    log "Validating data warehousing infrastructure..."
+    python3 << 'PYTHON_EOF'
+import sys
+sys.path.insert(0, '.')
+from market_data_platform.connectivity.validator import ConnectivityValidatorSync
+
+validator = ConnectivityValidatorSync()
+results = validator.validate_all()
+
+services = ['database_postgres', 'cache_redis', 'storage_influxdb']
+print("\nData Warehousing Status:")
+all_healthy = True
+for service in services:
+    health = results.get(service)
+    if health:
+        status = "✓" if health.status.value == 'healthy' else "✗"
+        print(f"  {status} {service:<25} {health.status.value}")
+        if health.status.value != 'healthy':
+            all_healthy = False
+
+sys.exit(0 if all_healthy else 1)
+PYTHON_EOF
+}
+
+validate_messaging() {
+    log "Validating ZMQ messaging infrastructure..."
+    python3 << 'PYTHON_EOF'
+import sys
+sys.path.insert(0, '.')
+from market_data_platform.connectivity.validator import ConnectivityValidatorSync
+
+validator = ConnectivityValidatorSync()
+results = validator.validate_all()
+
+services = ['messaging_zmq_publisher', 'messaging_zmq_subscriber']
+print("\nMessaging (ZMQ) Status:")
+all_healthy = True
+for service in services:
+    health = results.get(service)
+    if health:
+        status = "✓" if health.status.value == 'healthy' else "✗"
+        print(f"  {status} {service:<30} {health.status.value}")
+        if health.status.value != 'healthy':
+            all_healthy = False
+
+sys.exit(0 if all_healthy else 1)
+PYTHON_EOF
+}
+
+###############################################################################
+# HEALTH & STATUS
+###############################################################################
+
+health_check() {
+    log "System Health Check"
+    echo ""
+    python3 << 'PYTHON_EOF'
+import sys
+sys.path.insert(0, '.')
+from market_data_platform.connectivity.validator import ConnectivityValidatorSync
+
+validator = ConnectivityValidatorSync()
+summary = validator.get_summary()
+
+status_icon = "✓" if summary['overall_status'] == 'healthy' else "✗"
+print(f"{status_icon} Overall Status: {summary['overall_status'].upper()}")
+print(f"\n📊 Summary:")
+print(f"   Healthy:     {summary['summary']['healthy']}/{summary['summary']['total']}")
+print(f"   Degraded:    {summary['summary']['degraded']}/{summary['summary']['total']}")
+print(f"   Unhealthy:   {summary['summary']['unhealthy']}/{summary['summary']['total']}")
+print(f"   Unreachable: {summary['summary']['unreachable']}/{summary['summary']['total']}")
+PYTHON_EOF
+}
+
+health_report() {
+    log "Detailed Health Report"
+    echo ""
+    python3 << 'PYTHON_EOF'
+import sys
+sys.path.insert(0, '.')
+import json
+from market_data_platform.connectivity.validator import ConnectivityValidatorSync
+
+validator = ConnectivityValidatorSync()
+summary = validator.get_summary()
+
+print(json.dumps(summary, indent=2, default=str))
+PYTHON_EOF
+}
+
+###############################################################################
+# TEST COMMANDS
+###############################################################################
+
+test_component() {
+    log "Running component management tests..."
+    robot --outputdir results/component_tests \
+        robot_framework/test_suites/system_tests/component_management.robot
+}
+
+test_connectivity() {
+    log "Running connectivity validation tests..."
+    robot --outputdir results/connectivity_tests \
+        robot_framework/test_suites/system_tests/connectivity_validation.robot
+}
+
+test_zmq() {
+    log "Running ZMQ messaging tests..."
+    robot --outputdir results/zmq_tests \
+        robot_framework/test_suites/system_tests/zmq_messaging_tests.robot
+}
+
+test_warehousing() {
+    log "Running data warehousing tests..."
+    robot --outputdir results/warehousing_tests \
+        robot_framework/test_suites/system_tests/data_warehousing_tests.robot
+}
+
+test_all() {
+    log "Running all system tests..."
+    robot --outputdir results/all_tests \
+        robot_framework/test_suites/system_tests/
+}
+
+###############################################################################
+# SYSTEM COMMANDS
+###############################################################################
+
+system_init() {
+    log "Initializing system..."
+    bash bin/start.sh
+}
+
+system_verify() {
+    log "Verifying system..."
+    if command -v bash &>/dev/null && [ -f "bin/verify_services.sh" ]; then
+        bash bin/verify_services.sh
+    else
+        validate_connectivity
+    fi
+}
+
+system_shutdown() {
+    log "Shutting down system..."
+    bash bin/stop.sh
+}
+
+system_restart() {
+    log "Restarting system..."
+    system_shutdown
+    sleep 3
+    system_init
+}
+
+###############################################################################
+# DATABASE COMMANDS
+###############################################################################
+
+db_shell() {
+    log "Connecting to PostgreSQL..."
+    docker-compose exec postgres psql -U mdp_user -d market_data
+}
+
+db_redis() {
+    log "Connecting to Redis..."
+    docker-compose exec redis redis-cli
+}
+
+db_influx() {
+    log "Connecting to InfluxDB..."
+    docker-compose exec influxdb influx
+}
+
+###############################################################################
+# MAIN DISPATCHER
+###############################################################################
+
+main() {
+    local cmd="${1:-help}"
+    shift || true
+    
+    case "$cmd" in
+        # Component commands
+        component)
+            local subcmd="${1:-}"
+            shift || true
+            case "$subcmd" in
+                start) component_start "$@" ;;
+                stop) component_stop "$@" ;;
+                status) component_status ;;
+                restart) component_restart "$@" ;;
+                logs) component_logs "$@" ;;
+                *) error "Unknown component command: $subcmd"; show_help_component; exit 1 ;;
+            esac
+            ;;
+        
+        # Validation commands
+        validate)
+            local subcmd="${1:-}"
+            shift || true
+            case "$subcmd" in
+                connectivity) validate_connectivity ;;
+                service) validate_service "$@" ;;
+                database) validate_database ;;
+                messaging) validate_messaging ;;
+                all) validate_connectivity; validate_database; validate_messaging ;;
+                *) error "Unknown validate command: $subcmd"; show_help_validate; exit 1 ;;
+            esac
+            ;;
+        
+        # Health commands
+        health)
+            local subcmd="${1:-check}"
+            case "$subcmd" in
+                check) health_check ;;
+                report) health_report ;;
+                *) health_check ;;
+            esac
+            ;;
+        
+        # Test commands
+        test)
+            local subcmd="${1:-all}"
+            case "$subcmd" in
+                component) test_component ;;
+                connectivity) test_connectivity ;;
+                zmq) test_zmq ;;
+                warehousing) test_warehousing ;;
+                all) test_all ;;
+                *) error "Unknown test: $subcmd"; exit 1 ;;
+            esac
+            ;;
+        
+        # System commands
+        system)
+            local subcmd="${1:-}"
+            case "$subcmd" in
+                init) system_init ;;
+                verify) system_verify ;;
+                shutdown) system_shutdown ;;
+                restart) system_restart ;;
+                *) error "Unknown system command: $subcmd"; exit 1 ;;
+            esac
+            ;;
+        
+        # Database commands
+        db)
+            local subcmd="${1:-}"
+            case "$subcmd" in
+                shell) db_shell ;;
+                redis) db_redis ;;
+                influx) db_influx ;;
+                *) error "Unknown db command: $subcmd"; exit 1 ;;
+            esac
+            ;;
+        
+        # Info commands
+        help)
+            if [ -n "${1:-}" ]; then
+                case "$1" in
+                    component) show_help_component ;;
+                    validate) show_help_validate ;;
+                    *) show_help ;;
+                esac
+            else
+                show_help
+            fi
+            ;;
+        
+        version)
+            echo "Market Data Platform - Enhanced Component Management"
+            echo "Version: 2.0"
+            ;;
+        
+        config)
+            echo "Current Configuration:"
+            echo "  Project Root: $PROJECT_ROOT"
+            echo "  Docker Compose File: docker-compose.yml"
+            echo "  Component Manager: lib/component_manager.sh"
+            ;;
+        
+        *)
+            error "Unknown command: $cmd"
+            show_help
+            exit 1
+            ;;
+    esac
+}
+
+main "$@"
