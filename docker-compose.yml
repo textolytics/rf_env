@@ -1,0 +1,185 @@
+version: '3.9'
+
+services:
+  # PostgreSQL Database
+  postgres:
+    image: postgres:15-alpine
+    container_name: mdp-postgres
+    environment:
+      POSTGRES_USER: mdp_user
+      POSTGRES_PASSWORD: mdp_password
+      POSTGRES_DB: market_data
+      POSTGRES_INITDB_ARGS: "--encoding=UTF8 --locale=C"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./config/database/schema.sql:/docker-entrypoint-initdb.d/init.sql
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U mdp_user"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - mdp-network
+
+  # Redis Cache
+  redis:
+    image: redis:7-alpine
+    container_name: mdp-redis
+    command: redis-server --appendonly yes --appendfsync everysec
+    volumes:
+      - redis_data:/data
+      - ./config/redis/redis.conf:/usr/local/etc/redis/redis.conf
+    ports:
+      - "6379:6379"
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - mdp-network
+
+  # Prometheus Monitoring
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: mdp-prometheus
+    volumes:
+      - ./config/monitoring/prometheus.yml:/etc/prometheus/prometheus.yml
+      - prometheus_data:/prometheus
+    ports:
+      - "9090:9090"
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+    networks:
+      - mdp-network
+
+  # Grafana Dashboards
+  grafana:
+    image: grafana/grafana:latest
+    container_name: mdp-grafana
+    environment:
+      GF_SECURITY_ADMIN_PASSWORD: admin
+      GF_USERS_ALLOW_SIGN_UP: 'false'
+    volumes:
+      - grafana_data:/var/lib/grafana
+      - ./config/monitoring/grafana-dashboards:/etc/grafana/provisioning/dashboards
+      - ./config/monitoring/grafana-datasources.yml:/etc/grafana/provisioning/datasources/datasources.yml
+    ports:
+      - "3000:3000"
+    depends_on:
+      - prometheus
+    networks:
+      - mdp-network
+
+  # Python API Service
+  python-api:
+    build:
+      context: .
+      dockerfile: build/docker/Dockerfile.python
+    container_name: mdp-python-api
+    environment:
+      PYTHONUNBUFFERED: 1
+      DATABASE_URL: postgresql://mdp_user:mdp_password@postgres:5432/market_data
+      REDIS_URL: redis://redis:6379/0
+      ZMQ_PUBLISHER_URL: tcp://zmq-publisher:5555
+      LOG_LEVEL: INFO
+    volumes:
+      - .:/app
+      - ./market_data_platform:/app/market_data_platform
+    ports:
+      - "8000:8000"
+      - "8001:8001"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    networks:
+      - mdp-network
+    command: >
+      sh -c "python -m pip install -e . &&
+             alembic upgrade head &&
+             uvicorn market_data_platform.api:app --host 0.0.0.0 --port 8000"
+
+  # Go Gateway Service
+  go-gateway:
+    build:
+      context: ./go
+      dockerfile: ../build/docker/Dockerfile.go
+    container_name: mdp-go-gateway
+    environment:
+      DATABASE_URL: postgresql://mdp_user:mdp_password@postgres:5432/market_data
+      REDIS_URL: redis://redis:6379/0
+      ZMQ_PUBLISHER_URL: tcp://zmq-publisher:5555
+      LOG_LEVEL: info
+      GATEIO_API_KEY: ${GATEIO_API_KEY:-}
+      GATEIO_API_SECRET: ${GATEIO_API_SECRET:-}
+    ports:
+      - "8080:8080"
+      - "9000:9000"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    networks:
+      - mdp-network
+    command: ./gateway
+
+  # Rust Data Processor
+  rust-processor:
+    build:
+      context: ./rust
+      dockerfile: ../build/docker/Dockerfile.rust
+    container_name: mdp-rust-processor
+    environment:
+      DATABASE_URL: postgresql://mdp_user:mdp_password@postgres:5432/market_data
+      REDIS_URL: redis://redis:6379/0
+      ZMQ_SUBSCRIBER_URL: tcp://zmq-publisher:5555
+      LOG_LEVEL: info
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    networks:
+      - mdp-network
+    command: ./target/release/processor
+
+  # ZMQ Message Broker
+  zmq-publisher:
+    image: tianon/zmq:latest
+    container_name: mdp-zmq
+    ports:
+      - "5555:5555"
+      - "5556:5556"
+    networks:
+      - mdp-network
+
+  # Nginx Reverse Proxy
+  nginx:
+    image: nginx:alpine
+    container_name: mdp-nginx
+    volumes:
+      - ./build/docker/nginx.conf:/etc/nginx/nginx.conf:ro
+    ports:
+      - "80:80"
+      - "443:443"
+    depends_on:
+      - python-api
+      - go-gateway
+    networks:
+      - mdp-network
+
+volumes:
+  postgres_data:
+  redis_data:
+  prometheus_data:
+  grafana_data:
+
+networks:
+  mdp-network:
+    driver: bridge

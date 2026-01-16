@@ -1,0 +1,142 @@
+# Market Data Platform - Application Configuration
+# YAML format - environment-specific overrides via env variables
+
+server:
+  host: 0.0.0.0
+  port: 8000
+  debug: false
+  workers: 4
+  timeout: 30
+  ssl:
+    enabled: false
+    cert_file: /etc/ssl/certs/cert.pem
+    key_file: /etc/ssl/private/key.pem
+
+database:
+  url: "postgresql://mdp_user:mdp_password@localhost:5432/market_data"
+  pool_size: 20
+  max_overflow: 40
+  echo: false
+  pool_recycle: 3600
+  pool_pre_ping: true
+
+cache:
+  url: "redis://localhost:6379/0"
+  backend: redis
+  ttl: 3600
+  max_pool_connections: 10
+
+logging:
+  level: INFO
+  format: json
+  output: stdout
+  file: /var/log/market_data/app.log
+  handlers:
+    - console
+    - file
+  rotation: daily
+  retention_days: 30
+
+security:
+  secret_key: "CHANGE_THIS_IN_PRODUCTION"
+  password_min_length: 8
+  password_require_special: true
+  jwt_algorithm: HS256
+  jwt_expiration_hours: 24
+  cors_origins:
+    - "*"
+  rate_limit_per_minute: 60
+  rate_limit_per_hour: 3600
+
+api:
+  version: "v1"
+  prefix: "/api/v1"
+  doc_url: "/api/docs"
+  ws_url: "/api/ws"
+  timeout: 30
+  max_request_size: 10485760  # 10MB
+
+gateway:
+  type: gateio
+  api_endpoint: "https://api.gateio.ws/api/v4"
+  ws_endpoint: "wss://ws.gateio.ws/v4"
+  reconnect_interval: 5
+  reconnect_max_retries: 10
+  rate_limit:
+    requests_per_second: 10
+    burst_size: 20
+
+zmq:
+  publisher_url: "tcp://127.0.0.1:5555"
+  subscriber_url: "tcp://127.0.0.1:5556"
+  high_water_mark: 1000
+
+monitoring:
+  enabled: true
+  prometheus:
+    enabled: true
+    port: 9000
+    metrics_path: /metrics
+  health_check:
+    enabled: true
+    path: /health
+
+processing:
+  batch_size: 1000
+  batch_timeout_ms: 100
+  worker_threads: 4
+  data_retention_days: 90
+
+notifications:
+  enabled: true
+  email:
+    enabled: false
+    smtp_server: smtp.gmail.com
+    smtp_port: 587
+    from_address: noreply@marketdata.local
+  slack:
+    enabled: false
+    webhook_url: ""
+  webhook:
+    enabled: true
+    retry_count: 3
+    retry_delay_seconds: 60
+
+storage:
+  type: postgresql
+  backup:
+    enabled: true
+    schedule: "0 2 * * *"  # 2 AM daily
+    retention_days: 30
+
+features:
+  enable_trading: true
+  enable_analytics: true
+  enable_alerts: true
+  enable_websocket: true
+  maintenance_mode: false
+
+# Environment-specific overrides
+environments:
+  development:
+    server:
+      debug: true
+    logging:
+      level: DEBUG
+    security:
+      cors_origins:
+        - "http://localhost:3000"
+        - "http://localhost:8000"
+  
+  staging:
+    security:
+      secret_key: "USE_ENVIRONMENT_VARIABLE"
+  
+  production:
+    server:
+      debug: false
+      ssl:
+        enabled: true
+    security:
+      jwt_expiration_hours: 1
+      rate_limit_per_minute: 30

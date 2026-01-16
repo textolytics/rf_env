@@ -1,0 +1,96 @@
+# Database Configuration
+
+database:
+  # PostgreSQL Configuration
+  postgres:
+    host: localhost
+    port: 5432
+    user: mdp_user
+    password: mdp_password
+    database: market_data
+    
+    # Connection pool settings
+    pool:
+      min_size: 5
+      max_size: 20
+      max_overflow: 40
+      recycle: 3600
+      timeout: 30
+      pre_ping: true
+    
+    # Connection string format
+    # postgresql://user:password@host:port/database?sslmode=require
+    
+    # SSL/TLS settings
+    ssl:
+      enabled: false
+      mode: prefer  # disable, allow, prefer, require, verify-ca, verify-full
+      ca_cert: /etc/ssl/certs/ca-certificates.crt
+      client_cert: /etc/ssl/certs/client.crt
+      client_key: /etc/ssl/private/client.key
+    
+    # Performance settings
+    performance:
+      enable_echo: false
+      enable_statement_logging: false
+      log_slow_queries_ms: 1000
+    
+    # Backup settings
+    backup:
+      enabled: true
+      schedule: "0 2 * * *"  # 2 AM daily
+      retention_days: 30
+      backup_path: /var/backups/database
+    
+    # Replication settings (for HA)
+    replication:
+      enabled: false
+      role: primary  # primary or standby
+      standby_servers: []
+
+  # Connection URLs for different environments
+  urls:
+    development: "postgresql://mdp_user:mdp_password@localhost:5432/market_data_dev"
+    staging: "postgresql://mdp_user:mdp_password@postgres.staging:5432/market_data"
+    production: "postgresql://mdp_user:mdp_password@postgres.prod:5432/market_data"
+
+# Migration settings
+migrations:
+  enabled: true
+  auto_migrate: true
+  migration_dir: ./migrations
+  version_table: alembic_version
+
+# Query optimization
+query_optimization:
+  enable_query_cache: true
+  cache_ttl: 3600
+  enable_explain_analysis: false
+  enable_query_monitoring: true
+
+# Index settings
+indexing:
+  auto_create_indexes: true
+  auto_analyze: true
+  analyze_threshold: 1000
+
+# Statistics and monitoring
+statistics:
+  collect_statistics: true
+  sample_rate: 0.1
+  enable_pg_stat_statements: true
+
+# Maintenance
+maintenance:
+  vacuum:
+    enabled: true
+    schedule: "0 1 * * *"  # 1 AM daily
+    full_vacuum_schedule: "0 3 * * 0"  # 3 AM on Sundays
+  
+  reindex:
+    enabled: true
+    schedule: "0 4 * * 1"  # 4 AM on Mondays
+  
+  analyze:
+    enabled: true
+    schedule: "0 5 * * *"  # 5 AM daily

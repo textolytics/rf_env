@@ -1,33 +1,327 @@
-# Terminal Quick Reference - Instant Command Guide
+# Terminal System - Quick Reference Card
 
-## Launch Commands
+## 🚀 QUICK START
 
 ```bash
-# Interactive mode selector
-python -m market_data_platform.cli.enhanced_terminal_launcher
-
-# Integrated mode (recommended)
-python -m market_data_platform.cli.enhanced_terminal_launcher --mode integrated
-
-# Standard Commander mode
-python -m market_data_platform.cli.enhanced_terminal_launcher --mode commander
-
-# Advanced Dashboard
-python -m market_data_platform.cli.enhanced_terminal_launcher --mode dashboard
-
-# Direct Commander
-python market_data_platform/cli/commander_terminal.py
+cd /root/rf_env
+python market_data_platform/cli/unified_terminal_launcher.py
+# Select: 1 (Advanced Menu Terminal)
 ```
 
-## Essential Keyboard Shortcuts
+---
 
-| Shortcut | Action | Mode |
-|----------|--------|------|
-| ↑ ↓ | Navigate items | All |
-| ← → | Switch panels | All |
-| Tab | Cycle panels | All |
-| Enter | Execute item | All |
-| F1 | Help | All |
+## ⌨️ KEYBOARD CONTROLS
+
+| Key | Action |
+|-----|--------|
+| **↑** | Move up in menu |
+| **↓** | Move down in menu |
+| **→** | In some menus: Next option |
+| **←** | In some menus: Previous option |
+| **Enter** | Select/Execute current item |
+| **q** | Go back or Quit |
+| **1-9** | Jump to menu item number |
+
+---
+
+## 📋 MAIN MENU STRUCTURE
+
+```
+1.  📋 Components
+    ├─ View Status      → Show all 7 components + status
+    ├─ Start Component  → Start any component
+    └─ Stop Component   → Stop any component
+
+2.  🧪 Testing
+    ├─ Run Tests        → 6 test types (All, Python, Go, Rust, RF, Integration)
+    └─ Run Specific Test → 6 test suites
+
+3.  ⚙️ Configuration
+    ├─ View Config      → Display all 15 settings
+    ├─ Edit Config      → Change: Theme, Refresh, Timeout, Ports, LogLevel
+    └─ Reset Config     → Restore defaults
+
+4.  🔑 Keywords
+    └─ Show Keywords    → Browse 5 categories (27 total keywords)
+
+5.  💾 Commands
+    └─ Execute Command  → Health Check, Install, Build, Connect, Get Prices
+
+6.  q - Back/Quit
+```
+
+---
+
+## 🔧 COMPONENTS (7 Total)
+
+1. **ZMQ Bus** (Port 5555) - Message routing
+2. **Python Gateway** (Port 8001) - Python module
+3. **Go Gateway** (Port 8002) - Gate.io connector
+4. **Rust Gateway** (Port 8003) - Data processor
+5. **Robot Framework** - Test automation
+6. **Redis Cache** (Port 6379) - Data cache
+7. **Postgres DB** (Port 5432) - Primary database
+
+---
+
+## 🧪 TESTS (12 Total)
+
+**Test Types** (6):
+- All Tests
+- Python Tests
+- Go Tests
+- Rust Tests
+- Robot Framework Tests
+- Integration Tests
+
+**Specific Tests** (6):
+- Test Python Modules
+- Test Go Connectivity
+- Test Rust Processor
+- Test RF Execution
+- Test Data Pipeline
+- Test Complete Flow
+
+---
+
+## ⚙️ CONFIGURATION (15 Settings)
+
+```
+theme                   = byobu
+auto_start              = true
+auto_refresh            = true
+refresh_interval        = 5000 (ms)
+execution_timeout       = 30 (s)
+max_history             = 100 (lines)
+zmq_host                = 127.0.0.1
+zmq_port                = 5555
+python_gateway_port     = 8001
+go_gateway_port         = 8002
+rust_gateway_port       = 8003
+database                = postgresql://localhost/market_data
+redis_url               = redis://localhost:6379
+log_level               = INFO
+environment             = development
+```
+
+---
+
+## 🔑 KEYWORDS (27 Total in 5 Categories)
+
+**Gateway Management (6)**: Connect, Disconnect, List, GetStatus, Stream, Stop
+
+**Component Management (6)**: Start, Stop, Check, Restart, GetInfo, ShowAll
+
+**Data Operations (5)**: FetchOHLC, ProcessData, Store, Query, Aggregate
+
+**Configuration (5)**: SetValue, GetValue, Load, Save, Reset
+
+**Testing (5)**: RunAll, RunPython, RunGo, RunRust, RunIntegration
+
+---
+
+## 💾 COMMANDS (5 Total)
+
+1. **Health Check** - Verify all systems operational
+2. **Install Dependencies** - Setup environment
+3. **Build All** - Compile all modules
+4. **Connect Gate.io** - Test external connectivity
+5. **Get Market Prices** - Fetch current market data
+
+---
+
+## 📊 COMPONENT STATUS INDICATORS
+
+| Symbol | Status | Meaning |
+|--------|--------|---------|
+| ▶ | RUNNING | Component is active |
+| ⊡ | STOPPED | Component is inactive |
+| ✗ | ERROR | Component has error |
+| ? | UNKNOWN | Status unknown |
+| ⟳ | STARTING | Component starting up |
+
+---
+
+## 🎨 COLOR SCHEME
+
+| Color | Usage |
+|-------|-------|
+| 🔵 Blue | Headers, titles, sections |
+| 🟢 Green | Menu items, success |
+| 🟡 Yellow | Warnings, timeouts |
+| 🔷 Cyan | Information, help |
+
+---
+
+## 📁 FILES
+
+```
+/root/rf_env/market_data_platform/cli/
+├── unified_terminal_launcher.py       # ← START HERE
+├── advanced_menu_terminal.py          # Main menu system (30.8 KB)
+├── commander_terminal.py              # Two-panel interface (20.1 KB)
+├── advanced_dashboard.py              # System monitoring (15.3 KB)
+├── terminal_integration.py            # Utilities (16.7 KB)
+└── test_components.py                 # Validation tests (9.8 KB)
+
+~/.market_data_config.json              # Configuration file
+```
+
+---
+
+## ✅ COMMON TASKS
+
+### Check Component Status
+1. Launch → Option 1
+2. Press ↓ to "View Status"
+3. Press Enter
+4. Review each component
+
+### Start/Stop Components
+1. Go to "Start Component" or "Stop Component"
+2. Press Enter
+3. Select component with ↓
+4. Press Enter to execute
+
+### Run Tests
+1. Go to "Run Tests"
+2. Press Enter
+3. Select test type
+4. Press Enter to run
+
+### Manage Configuration
+- **View**: Go to "View Config"
+- **Edit**: Go to "Edit Config" → select setting → modify
+- **Reset**: Go to "Reset Config" (auto-saved)
+
+### Browse Keywords
+1. Go to "Show Keywords"
+2. Press Enter
+3. Select category (27 total in 5 categories)
+4. View keywords for that category
+
+---
+
+## 🔍 STATUS INFORMATION
+
+**Show detailed status:**
+```bash
+Components:  7 available (ZMQ, Python, Go, Rust, RF, Redis, Postgres)
+Keywords:    27 total in 5 categories (Gateway, Component, Data, Config, Testing)
+Settings:    15 configuration options (theme, ports, timeouts, URLs, etc.)
+Tests:       12 test suites (6 types + 6 specific)
+Commands:    5 system commands (health, install, build, connect, prices)
+```
+
+---
+
+## 🚀 VALIDATION
+
+**Verify all systems operational:**
+```bash
+python /root/rf_env/market_data_platform/cli/test_components.py
+```
+
+**Expected output:**
+```
+✓ PASS - File Structure
+✓ PASS - Components (7 components)
+✓ PASS - Configuration (15 settings)
+✓ PASS - Keywords (27 keywords)
+✓ PASS - Menu System (21 menu items)
+✓ PASS - Unified Launcher
+
+Results: 6/6 tests passed ✅
+```
+
+---
+
+## 🎯 GETTING STARTED
+
+1. **Launch the terminal**
+   ```bash
+   python unified_terminal_launcher.py
+   ```
+
+2. **Select Mode 1** (Advanced Menu Terminal)
+
+3. **Navigate** with arrow keys (↑↓)
+
+4. **Select** with Enter key
+
+5. **Go Back** with 'q' key
+
+6. **Explore** Components → Testing → Config → Keywords → Commands
+
+---
+
+## 📚 DOCUMENTATION
+
+- **User Guide**: See [TERMINAL_SYSTEM_GUIDE.md](TERMINAL_SYSTEM_GUIDE.md)
+- **Technical Details**: See [TERMINAL_IMPLEMENTATION_COMPLETE.md](TERMINAL_IMPLEMENTATION_COMPLETE.md)
+- **This File**: Quick reference for common tasks
+
+---
+
+## ⚡ QUICK COMMANDS
+
+```bash
+# Launch unified launcher
+python /root/rf_env/market_data_platform/cli/unified_terminal_launcher.py
+
+# Direct to menu terminal
+python /root/rf_env/market_data_platform/cli/advanced_menu_terminal.py
+
+# Validate all systems
+python /root/rf_env/market_data_platform/cli/test_components.py
+
+# View configuration
+cat ~/.market_data_config.json
+
+# Edit configuration
+nano ~/.market_data_config.json
+```
+
+---
+
+## 💡 TIPS & TRICKS
+
+- Use **↑↓** for navigation (faster than typing)
+- Press **q** at any time to go back
+- Type **number keys** to jump to menu items
+- Status bar shows hints for current menu
+- Output section shows last 100 lines of activity
+- All operations are logged to output history
+
+---
+
+## 🆘 TROUBLESHOOTING
+
+| Problem | Solution |
+|---------|----------|
+| Terminal won't start | Ensure Linux/WSL2, Python 3.7+, curses available |
+| Colors broken | Set `TERM=xterm-256color` |
+| Component not responding | Try "Start Component" from menu |
+| Config not saving | Check ~/.market_data_config.json permissions |
+| Tests failing | Run "Health Check" or "Install Dependencies" |
+
+---
+
+## 📊 SYSTEM STATUS
+
+```
+Status: ✅ OPERATIONAL
+Tests:  6/6 Passed ✅
+Files:  5 core + 1 test file
+Code:   97+ KB production code
+Ready:  YES - Launch immediately!
+```
+
+---
+
+**Version**: 1.0  
+**Status**: Production Ready ✅  
+**Last Updated**: 2024
 | F2 | Refresh | All |
 | F3 | System status | All |
 | F4 | Execute | All |

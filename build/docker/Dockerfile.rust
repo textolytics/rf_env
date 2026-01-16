@@ -1,0 +1,45 @@
+# Rust Data Processor - Multi-stage Build
+FROM rust:1.72-alpine AS builder
+
+WORKDIR /build
+
+# Install build dependencies
+RUN apk add --no-cache \
+    build-base \
+    libzmq-dev \
+    postgresql-dev \
+    openssl-dev
+
+# Copy Cargo files
+COPY Cargo.toml Cargo.lock ./
+
+# Copy source code
+COPY src ./src
+
+# Build the binary in release mode
+RUN cargo build --release --locked
+
+# Runtime stage
+FROM alpine:3.18
+
+WORKDIR /app
+
+# Install runtime dependencies
+RUN apk add --no-cache \
+    ca-certificates \
+    libzmq \
+    postgresql-libs \
+    openssl
+
+# Copy binary from builder
+COPY --from=builder /build/target/release/processor .
+
+# Create non-root user
+RUN addgroup -g 1000 appuser && adduser -D -u 1000 -G appuser appuser
+USER appuser
+
+# Expose ports
+EXPOSE 9001
+
+# Default command
+CMD ["./processor"]

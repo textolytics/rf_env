@@ -1,0 +1,224 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: rust-processor-config
+  namespace: market-data
+data:
+  LOG_LEVEL: "info"
+  ENVIRONMENT: "production"
+  BATCH_SIZE: "1000"
+  PROCESSING_INTERVAL_MS: "100"
+
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: rust-processor-secrets
+  namespace: market-data
+type: Opaque
+stringData:
+  DATABASE_URL: "postgresql://mdp_user:mdp_password@postgres-service:5432/market_data"
+  REDIS_URL: "redis://redis-service:6379/2"
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rust-processor
+  namespace: market-data
+  labels:
+    app: rust-processor
+    version: v1
+spec:
+  replicas: 2
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+  selector:
+    matchLabels:
+      app: rust-processor
+  template:
+    metadata:
+      labels:
+        app: rust-processor
+        version: v1
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "9001"
+        prometheus.io/path: "/metrics"
+    spec:
+      serviceAccountName: rust-processor
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        fsGroup: 1000
+      
+      containers:
+      - name: rust-processor
+        image: market-data-platform:rust-latest
+        imagePullPolicy: Always
+        
+        ports:
+        - name: metrics
+          containerPort: 9001
+          protocol: TCP
+        
+        env:
+        - name: LOG_LEVEL
+          valueFrom:
+            configMapKeyRef:
+              name: rust-processor-config
+              key: LOG_LEVEL
+        - name: ENVIRONMENT
+          valueFrom:
+            configMapKeyRef:
+              name: rust-processor-config
+              key: ENVIRONMENT
+        - name: BATCH_SIZE
+          valueFrom:
+            configMapKeyRef:
+              name: rust-processor-config
+              key: BATCH_SIZE
+        - name: PROCESSING_INTERVAL_MS
+          valueFrom:
+            configMapKeyRef:
+              name: rust-processor-config
+              key: PROCESSING_INTERVAL_MS
+        - name: DATABASE_URL
+          valueFrom:
+            secretKeyRef:
+              name: rust-processor-secrets
+              key: DATABASE_URL
+        - name: REDIS_URL
+          valueFrom:
+            secretKeyRef:
+              name: rust-processor-secrets
+              key: REDIS_URL
+        - name: ZMQ_SUBSCRIBER_URL
+          value: "tcp://zmq-service:5556"
+        
+        resources:
+          requests:
+            cpu: "1000m"
+            memory: "1Gi"
+          limits:
+            cpu: "4000m"
+            memory: "4Gi"
+        
+        # No HTTP endpoint for liveness/readiness, use startup probe instead
+        startupProbe:
+          exec:
+            command:
+            - /bin/sh
+            - -c
+            - "ps aux | grep -v grep | grep processor"
+          initialDelaySeconds: 10
+          periodSeconds: 5
+          timeoutSeconds: 3
+          failureThreshold: 6
+        
+        volumeMounts:
+        - name: config
+          mountPath: /etc/processor/config
+          readOnly: true
+      
+      volumes:
+      - name: config
+        configMap:
+          name: rust-processor-config
+      
+      affinity:
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 100
+            podAffinityTerm:
+              labelSelector:
+                matchExpressions:
+                - key: app
+                  operator: In
+                  values:
+                  - rust-processor
+              topologyKey: kubernetes.io/hostname
+        nodeAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 100
+            preference:
+              matchExpressions:
+              - key: node-type
+                operator: In
+                values:
+                - compute-intensive
+
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: rust-processor
+  namespace: market-data
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: rust-processor-service
+  namespace: market-data
+  labels:
+    app: rust-processor
+spec:
+  type: ClusterIP
+  clusterIP: None  # Headless service for direct pod addressing
+  selector:
+    app: rust-processor
+  ports:
+  - name: metrics
+    port: 9001
+    targetPort: metrics
+    protocol: TCP
+
+---
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: rust-processor-hpa
+  namespace: market-data
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: rust-processor
+  minReplicas: 2
+  maxReplicas: 8
+  metrics:
+  - type: Resource
+    resource:
+      name: cpu
+      target:
+        type: Utilization
+        averageUtilization: 80
+  - type: Resource
+    resource:
+      name: memory
+      target:
+        type: Utilization
+        averageUtilization: 85
+  behavior:
+    scaleDown:
+      stabilizationWindowSeconds: 300
+      policies:
+      - type: Percent
+        value: 50
+        periodSeconds: 60
+
+---
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: rust-processor-pdb
+  namespace: market-data
+spec:
+  minAvailable: 1
+  selector:
+    matchLabels:
+      app: rust-processor
