@@ -11,10 +11,24 @@ from dataclasses import dataclass
 from enum import Enum
 from typing import Dict, List, Optional
 
-import httpx
-import redis
-import psycopg2
-from psycopg2 import sql
+try:
+    import httpx
+    HAS_HTTPX = True
+except ImportError:
+    HAS_HTTPX = False
+    httpx = None
+
+try:
+    import redis
+except ImportError:
+    redis = None
+
+try:
+    import psycopg2
+    from psycopg2 import sql
+except ImportError:
+    psycopg2 = None
+    sql = None
 
 logger = logging.getLogger(__name__)
 
@@ -172,22 +186,40 @@ class ConnectivityValidator:
         """Validate HTTP service"""
         url = config.get("url")
         
-        async with httpx.AsyncClient(timeout=self.timeout) as client:
-            response = await client.get(url)
-            
-            if response.status_code == 200:
-                status = ServiceStatus.HEALTHY
-            else:
-                status = ServiceStatus.DEGRADED
-            
+        if not HAS_HTTPX:
             return ServiceHealth(
                 name=service_name,
-                status=status,
-                response_time=response.elapsed.total_seconds(),
-                details={
-                    "status_code": response.status_code,
-                    "url": url
-                },
+                status=ServiceStatus.UNREACHABLE,
+                response_time=0,
+                details={"error": "httpx module not available"},
+                timestamp=time.time()
+            )
+        
+        try:
+            async with httpx.AsyncClient(timeout=self.timeout) as client:
+                response = await client.get(url)
+                
+                if response.status_code == 200:
+                    status = ServiceStatus.HEALTHY
+                else:
+                    status = ServiceStatus.DEGRADED
+                
+                return ServiceHealth(
+                    name=service_name,
+                    status=status,
+                    response_time=response.elapsed.total_seconds(),
+                    details={
+                        "status_code": response.status_code,
+                        "url": url
+                    },
+                    timestamp=time.time()
+                )
+        except Exception as e:
+            return ServiceHealth(
+                name=service_name,
+                status=ServiceStatus.UNREACHABLE,
+                response_time=0,
+                details={"error": str(e)},
                 timestamp=time.time()
             )
     

@@ -1,0 +1,89 @@
+{
+  "timestamp": "2026-01-16T21:57:49.459886",
+  "total_services": 11,
+  "services": {
+    "postgres": {
+      "status": "RUNNING",
+      "status_text": "\u2713 Running",
+      "type": "docker",
+      "port": 5432,
+      "details": "Container running"
+    },
+    "redis": {
+      "status": "STOPPED",
+      "status_text": "\u2717 Stopped",
+      "type": "docker",
+      "port": 6379,
+      "details": "Container stopped"
+    },
+    "influxdb": {
+      "status": "STOPPED",
+      "status_text": "\u2717 Stopped",
+      "type": "docker",
+      "port": 8086,
+      "details": "Container stopped"
+    },
+    "prometheus": {
+      "status": "STOPPED",
+      "status_text": "\u2717 Stopped",
+      "type": "docker",
+      "port": 9090,
+      "details": "Container stopped"
+    },
+    "grafana": {
+      "status": "STOPPED",
+      "status_text": "\u2717 Stopped",
+      "type": "docker",
+      "port": 3000,
+      "details": "Container stopped"
+    },
+    "zmq-publisher": {
+      "status": "STOPPED",
+      "status_text": "\u2717 Stopped",
+      "type": "binary",
+      "port": 5555,
+      "details": "Not listening on port 5555"
+    },
+    "zmq-subscriber": {
+      "status": "STOPPED",
+      "status_text": "\u2717 Stopped",
+      "type": "binary",
+      "port": 5556,
+      "details": "Not listening on port 5556"
+    },
+    "api": {
+      "status": "STOPPED",
+      "status_text": "\u2717 Stopped",
+      "type": "docker",
+      "port": 8000,
+      "details": "Container stopped"
+    },
+    "gateway": {
+      "status": "STOPPED",
+      "status_text": "\u2717 Stopped",
+      "type": "docker",
+      "port": 8001,
+      "details": "Container stopped"
+    },
+    "processor": {
+      "status": "STOPPED",
+      "status_text": "\u2717 Stopped",
+      "type": "docker",
+      "port": 8002,
+      "details": "Container stopped"
+    },
+    "proxy": {
+      "status": "STOPPED",
+      "status_text": "\u2717 Stopped",
+      "type": "docker",
+      "port": 80,
+      "details": "Container stopped"
+    }
+  },
+  "components": {},
+  "summary": {
+    "running": 1,
+    "stopped": 10,
+    "health": "DEGRADED"
+  }
+}

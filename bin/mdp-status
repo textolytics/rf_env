@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+# Rich Status Display Wrapper
+# Provides easy access to rich status display for component management
+
+set -euo pipefail
+
+PROJECT_ROOT="${PROJECT_ROOT:-.}"
+
+python3 -m market_data_platform.cli.rich_status "$@"

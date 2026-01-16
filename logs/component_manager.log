@@ -1,0 +1,161 @@
+2026-01-16 21:54:42,269 - ComponentManager - INFO - Starting service: all
+2026-01-16 21:55:01,364 - ComponentManager - INFO - Starting service: all
+2026-01-16 21:55:54,618 - ComponentManager - INFO - Installing service: postgres
+2026-01-16 21:55:55,375 - ComponentManager - DEBUG - State saved to .component_state.json
+2026-01-16 21:55:55,376 - ComponentManager - INFO - Service installed: postgres
+2026-01-16 21:55:55,377 - ComponentManager - INFO - Installing service: redis
+2026-01-16 21:55:55,917 - ComponentManager - DEBUG - State saved to .component_state.json
+2026-01-16 21:55:55,919 - ComponentManager - INFO - Service installed: redis
+2026-01-16 21:55:55,920 - ComponentManager - INFO - Installing service: influxdb
+2026-01-16 21:55:55,994 - ComponentManager - DEBUG - State saved to .component_state.json
+2026-01-16 21:55:55,998 - ComponentManager - ERROR - Installation failed for influxdb: no such service: influxdb
+
+2026-01-16 21:56:38,823 - ComponentManager - INFO - Installing service: postgres
+2026-01-16 21:56:41,089 - ComponentManager - DEBUG - State saved to .component_state.json
+2026-01-16 21:56:41,092 - ComponentManager - ERROR - Installation failed for postgres: time="2026-01-16T21:56:38+02:00" level=warning msg="No services to build"
+ Container mdp-postgres Recreate 
+ Container mdp-postgres Recreated 
+ Container mdp-postgres Starting 
+Error response from daemon: failed to set up container networking: driver failed programming external connectivity on endpoint mdp-postgres (2f0520903402736dea443d6ef461fa6272ced07951affebfa2f1212ad354638b): failed to bind host port 0.0.0.0:5432/tcp: address already in use
+
+2026-01-16 21:57:14,338 - ComponentManager - INFO - Installing service: postgres
+2026-01-16 21:57:14,855 - ComponentManager - DEBUG - State saved to .component_state.json
+2026-01-16 21:57:14,861 - ComponentManager - INFO - Service installed: postgres
+2026-01-16 21:57:14,865 - ComponentManager - INFO - Installing service: redis
+2026-01-16 21:57:16,693 - ComponentManager - DEBUG - State saved to .component_state.json
+2026-01-16 21:57:16,695 - ComponentManager - ERROR - Installation failed for redis: time="2026-01-16T21:57:15+02:00" level=warning msg="No services to build"
+ Container mdp-redis Recreate 
+ Container mdp-redis Recreated 
+ Container mdp-redis Starting 
+Error response from daemon: failed to set up container networking: driver failed programming external connectivity on endpoint mdp-redis (3f35e1485ff6909d3023550a84398a241f493ed9422084aa45dec4185cf13a94): failed to bind host port 0.0.0.0:6379/tcp: address already in use
+
+2026-01-16 21:58:29,517 - ComponentManager - INFO - Installing service: postgres
+2026-01-16 21:58:31,347 - ComponentManager - DEBUG - State saved to .component_state.json
+2026-01-16 21:58:31,350 - ComponentManager - ERROR - Installation failed for postgres: time="2026-01-16T21:58:29+02:00" level=warning msg="No services to build"
+ Container mdp-postgres Recreate 
+ Container mdp-postgres Recreated 
+ Container mdp-postgres Starting 
+Error response from daemon: failed to set up container networking: driver failed programming external connectivity on endpoint mdp-postgres (be6ae1e93509761585ac13a6f64bd9b2c54c93ced901e9933d52eecd66745e49): failed to bind host port 0.0.0.0:5432/tcp: address already in use
+
+2026-01-16 21:58:47,240 - ComponentManager - INFO - Starting service: postgres
+2026-01-16 21:58:47,679 - ComponentManager - DEBUG - State saved to .component_state.json
+2026-01-16 21:58:47,680 - ComponentManager - INFO - Service started: postgres
+2026-01-16 21:58:48,731 - ComponentManager - INFO - Starting service: redis
+2026-01-16 21:58:49,247 - ComponentManager - DEBUG - State saved to .component_state.json
+2026-01-16 21:58:49,248 - ComponentManager - INFO - Service started: redis
+2026-01-16 21:58:50,292 - ComponentManager - INFO - Starting service: influxdb
+2026-01-16 21:58:50,345 - ComponentManager - DEBUG - State saved to .component_state.json
+2026-01-16 21:58:50,346 - ComponentManager - INFO - Starting service: prometheus
+2026-01-16 21:58:50,804 - ComponentManager - DEBUG - State saved to .component_state.json
+2026-01-16 21:58:50,809 - ComponentManager - INFO - Starting service: grafana
+2026-01-16 21:58:50,810 - ComponentManager - INFO - Starting service: zmq-publisher
+2026-01-16 21:58:50,895 - ComponentManager - DEBUG - State saved to .component_state.json
+2026-01-16 21:58:50,896 - ComponentManager - INFO - Service started: zmq-publisher
+2026-01-16 21:58:51,985 - ComponentManager - INFO - Starting service: zmq-subscriber
+2026-01-16 21:58:52,062 - ComponentManager - DEBUG - State saved to .component_state.json
+2026-01-16 21:58:52,062 - ComponentManager - INFO - Service started: zmq-subscriber
+2026-01-16 21:58:53,185 - ComponentManager - INFO - Starting service: api
+2026-01-16 21:58:53,186 - ComponentManager - INFO - Starting service: gateway
+2026-01-16 21:58:53,186 - ComponentManager - INFO - Starting service: processor
+2026-01-16 21:58:53,187 - ComponentManager - INFO - Starting service: proxy
+2026-01-16 22:01:01,197 - ComponentManager - INFO - Starting service: all
+2026-01-16 22:01:10,933 - ComponentManager - INFO - Starting service: api
+2026-01-16 22:01:15,185 - ComponentManager - INFO - Starting service: db
+2026-01-16 22:01:46,607 - ComponentManager - INFO - Installing service: postgres
+2026-01-16 22:01:48,209 - ComponentManager - DEBUG - State saved to .component_state.json
+2026-01-16 22:01:48,212 - ComponentManager - ERROR - Installation failed for postgres: time="2026-01-16T22:01:46+02:00" level=warning msg="No services to build"
+ Container mdp-postgres Recreate 
+ Container mdp-postgres Recreated 
+ Container mdp-postgres Starting 
+Error response from daemon: failed to set up container networking: driver failed programming external connectivity on endpoint mdp-postgres (2f12d8d774f768d9f5591b0ff61895c6bbbc76b4a10845db3255a0eaa928496b): failed to bind host port 0.0.0.0:5432/tcp: address already in use
+
+2026-01-16 22:02:00,554 - ComponentManager - INFO - Graceful shutdown initiated
+2026-01-16 22:02:00,554 - ComponentManager - INFO - Stopping service: zmq-subscriber, graceful=True
+2026-01-16 22:02:00,573 - ComponentManager - WARNING - Graceful stop failed for zmq-subscriber: 
+2026-01-16 22:02:00,588 - ComponentManager - INFO - Stopping service: zmq-publisher, graceful=True
+2026-01-16 22:02:00,599 - ComponentManager - WARNING - Graceful stop failed for zmq-publisher: 
+2026-01-16 22:02:00,615 - ComponentManager - INFO - Stopping service: redis, graceful=True
+2026-01-16 22:02:01,028 - ComponentManager - DEBUG - State saved to .component_state.json
+2026-01-16 22:02:01,029 - ComponentManager - INFO - Service stopped: redis
+2026-01-16 22:02:01,029 - ComponentManager - INFO - Graceful shutdown complete
+2026-01-16 22:02:06,856 - ComponentManager - INFO - Installing service: postgres
+2026-01-16 22:02:07,411 - ComponentManager - DEBUG - State saved to .component_state.json
+2026-01-16 22:02:07,412 - ComponentManager - INFO - Service installed: postgres
+2026-01-16 22:02:07,414 - ComponentManager - INFO - Installing service: redis
+2026-01-16 22:02:07,873 - ComponentManager - DEBUG - State saved to .component_state.json
+2026-01-16 22:02:07,874 - ComponentManager - INFO - Service installed: redis
+2026-01-16 22:02:07,876 - ComponentManager - INFO - Installing service: influxdb
+2026-01-16 22:02:07,935 - ComponentManager - DEBUG - State saved to .component_state.json
+2026-01-16 22:02:07,937 - ComponentManager - ERROR - Installation failed for influxdb: no such service: influxdb
+
+2026-01-16 22:02:12,025 - ComponentManager - INFO - Installing service: postgres
+2026-01-16 22:02:13,769 - ComponentManager - DEBUG - State saved to .component_state.json
+2026-01-16 22:02:13,772 - ComponentManager - ERROR - Installation failed for postgres: time="2026-01-16T22:02:12+02:00" level=warning msg="No services to build"
+ Container mdp-postgres Recreate 
+ Container mdp-postgres Recreated 
+ Container mdp-postgres Starting 
+Error response from daemon: failed to set up container networking: driver failed programming external connectivity on endpoint mdp-postgres (f9f2768de7bf5f51743faf98bfd3c9bad93d10843024af7a34614aabeee09230): failed to bind host port 0.0.0.0:5432/tcp: address already in use
+
+2026-01-16 22:02:18,072 - ComponentManager - INFO - Graceful shutdown initiated
+2026-01-16 22:02:18,073 - ComponentManager - INFO - Stopping service: zmq-subscriber, graceful=True
+2026-01-16 22:02:18,083 - ComponentManager - WARNING - Graceful stop failed for zmq-subscriber: 
+2026-01-16 22:02:18,099 - ComponentManager - INFO - Stopping service: zmq-publisher, graceful=True
+2026-01-16 22:02:18,112 - ComponentManager - WARNING - Graceful stop failed for zmq-publisher: 
+2026-01-16 22:02:18,125 - ComponentManager - INFO - Stopping service: redis, graceful=True
+2026-01-16 22:02:18,458 - ComponentManager - DEBUG - State saved to .component_state.json
+2026-01-16 22:02:18,459 - ComponentManager - INFO - Service stopped: redis
+2026-01-16 22:02:18,460 - ComponentManager - INFO - Graceful shutdown complete
+2026-01-16 22:02:20,796 - ComponentManager - INFO - Installing service: postgres
+2026-01-16 22:02:21,366 - ComponentManager - DEBUG - State saved to .component_state.json
+2026-01-16 22:02:21,367 - ComponentManager - INFO - Service installed: postgres
+2026-01-16 22:02:21,369 - ComponentManager - INFO - Installing service: redis
+2026-01-16 22:02:22,044 - ComponentManager - DEBUG - State saved to .component_state.json
+2026-01-16 22:02:22,045 - ComponentManager - INFO - Service installed: redis
+2026-01-16 22:02:22,046 - ComponentManager - INFO - Installing service: influxdb
+2026-01-16 22:02:22,098 - ComponentManager - DEBUG - State saved to .component_state.json
+2026-01-16 22:02:22,101 - ComponentManager - ERROR - Installation failed for influxdb: no such service: influxdb
+
+2026-01-16 22:02:24,560 - ComponentManager - INFO - Graceful shutdown initiated
+2026-01-16 22:02:24,561 - ComponentManager - INFO - Stopping service: zmq-subscriber, graceful=True
+2026-01-16 22:02:24,573 - ComponentManager - WARNING - Graceful stop failed for zmq-subscriber: 
+2026-01-16 22:02:24,586 - ComponentManager - INFO - Stopping service: zmq-publisher, graceful=True
+2026-01-16 22:02:24,601 - ComponentManager - WARNING - Graceful stop failed for zmq-publisher: 
+2026-01-16 22:02:24,614 - ComponentManager - INFO - Stopping service: redis, graceful=True
+2026-01-16 22:02:24,976 - ComponentManager - DEBUG - State saved to .component_state.json
+2026-01-16 22:02:24,977 - ComponentManager - INFO - Service stopped: redis
+2026-01-16 22:02:24,978 - ComponentManager - INFO - Stopping service: postgres, graceful=True
+2026-01-16 22:02:25,564 - ComponentManager - DEBUG - State saved to .component_state.json
+2026-01-16 22:02:25,565 - ComponentManager - INFO - Service stopped: postgres
+2026-01-16 22:02:25,566 - ComponentManager - INFO - Graceful shutdown complete
+2026-01-16 22:02:52,360 - ComponentManager - INFO - Installing service: postgres
+2026-01-16 22:02:53,018 - ComponentManager - DEBUG - State saved to .component_state.json
+2026-01-16 22:02:53,019 - ComponentManager - INFO - Service installed: postgres
+2026-01-16 22:02:53,021 - ComponentManager - INFO - Installing service: redis
+2026-01-16 22:02:53,592 - ComponentManager - DEBUG - State saved to .component_state.json
+2026-01-16 22:02:53,593 - ComponentManager - INFO - Service installed: redis
+2026-01-16 22:02:53,593 - ComponentManager - INFO - Installing service: influxdb
+2026-01-16 22:02:53,657 - ComponentManager - DEBUG - State saved to .component_state.json
+2026-01-16 22:02:53,660 - ComponentManager - ERROR - Installation failed for influxdb: no such service: influxdb
+
+2026-01-16 22:03:39,949 - ComponentManager - INFO - Installing service: api
+2026-01-16 22:03:45,508 - ComponentManager - DEBUG - State saved to .component_state.json
+2026-01-16 22:03:45,510 - ComponentManager - ERROR - Installation failed for api:  Image rf_env-python-api Building 
+Dockerfile.python:17
+
+--------------------
+
+  15 |     # Copy requirements and install Python dependencies
+
+  16 |     COPY requirements.txt .
+
+  17 | >>> RUN pip install --no-cache-dir -r requirements.txt
+
+  18 |     
+
+  19 |     # Copy application code
+
+--------------------
+
+failed to solve: process "/bin/sh -c pip install --no-cache-dir -r requirements.txt" did not complete successfully: exit code: 1
+
+

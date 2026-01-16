@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+# Component Manager Wrapper
+# Provides easy access to component management system
+
+set -euo pipefail
+
+PROJECT_ROOT="${PROJECT_ROOT:-.}"
+
+python3 -m market_data_platform.cli.component_manager "$@"

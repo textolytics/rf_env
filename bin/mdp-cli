@@ -33,6 +33,18 @@ show_help() {
 COMPONENT MANAGEMENT COMMANDS:
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
+  component install [COMPONENT]    Install component(s)
+                                    - No args: install all
+                                    - With dependencies resolved
+                                    Examples: component install database
+                                             component install database api
+
+  component uninstall [COMPONENT]  Uninstall component(s)
+                                    - Graceful stop before uninstall
+                                    - Optional: --remove-data flag
+                                    Examples: component uninstall proxy
+                                             component uninstall api --remove-data
+
   component start [COMPONENT]      Start component(s)
                                     - No args: start all
                                     - database | storage | messaging | api | gateway | processor | proxy
@@ -40,12 +52,16 @@ COMPONENT MANAGEMENT COMMANDS:
                                              component start messaging api
 
   component stop [COMPONENT]       Stop component(s)
-                                    - No args: stop all
+                                    - No args: stop all (graceful shutdown)
                                     - Examples: component stop proxy
                                                component stop all
 
-  component status                 Show component status
-                                    - Displays all running components
+  component graceful-stop          Graceful shutdown of all services
+                                    - Shutdown in reverse dependency order
+                                    - Allows services to cleanup
+
+  component status                 Show rich status display
+                                    - Displays all components with rich formatting
 
   component restart [COMPONENT]    Restart component(s)
                                     - Example: component restart database
@@ -235,16 +251,73 @@ EOF
 # COMPONENT COMMANDS
 ###############################################################################
 
+component_install() {
+    local components=("$@")
+    
+    if [ ${#components[@]} -eq 0 ]; then
+        log "Installing all components..."
+        python3 -m market_data_platform.cli.component_manager install --all || return 1
+    else
+        for component in "${components[@]}"; do
+            log "Installing component: $component"
+            python3 -m market_data_platform.cli.component_manager install "$component" || {
+                error "Failed to install component: $component"
+                return 1
+            }
+        done
+    fi
+    
+    success "Components installed successfully"
+}
+
+component_uninstall() {
+    local remove_data=false
+    local components=()
+    
+    # Parse arguments
+    for arg in "$@"; do
+        if [ "$arg" = "--remove-data" ]; then
+            remove_data=true
+        else
+            components+=("$arg")
+        fi
+    done
+    
+    if [ ${#components[@]} -eq 0 ]; then
+        log "Uninstalling all components..."
+        if [ "$remove_data" = "true" ]; then
+            python3 -m market_data_platform.cli.component_manager uninstall --all --remove-data || return 1
+        else
+            python3 -m market_data_platform.cli.component_manager uninstall --all || return 1
+        fi
+    else
+        for component in "${components[@]}"; do
+            log "Uninstalling component: $component"
+            if [ "$remove_data" = "true" ]; then
+                python3 -m market_data_platform.cli.component_manager uninstall "$component" --remove-data || {
+                    warn "Uninstall failed for $component"
+                }
+            else
+                python3 -m market_data_platform.cli.component_manager uninstall "$component" || {
+                    warn "Uninstall failed for $component"
+                }
+            fi
+        done
+    fi
+    
+    success "Components uninstalled"
+}
+
 component_start() {
     local components=("$@")
     
     if [ ${#components[@]} -eq 0 ]; then
         log "Starting all components..."
-        bash lib/component_manager.sh start
+        python3 -m market_data_platform.cli.component_manager start --all || return 1
     else
         for component in "${components[@]}"; do
             log "Starting component: $component"
-            bash lib/component_manager.sh start "$component" || {
+            python3 -m market_data_platform.cli.component_manager start "$component" || {
                 error "Failed to start component: $component"
                 return 1
             }
@@ -259,11 +332,11 @@ component_stop() {
     
     if [ ${#components[@]} -eq 0 ]; then
         log "Stopping all components..."
-        bash lib/component_manager.sh stop
+        python3 -m market_data_platform.cli.component_manager stop --all || return 1
     else
         for component in "${components[@]}"; do
             log "Stopping component: $component"
-            bash lib/component_manager.sh stop "$component" || {
+            python3 -m market_data_platform.cli.component_manager stop "$component" || {
                 error "Failed to stop component: $component"
                 return 1
             }
@@ -273,8 +346,13 @@ component_stop() {
     success "Components stopped successfully"
 }
 
+component_graceful_stop() {
+    log "Initiating graceful shutdown..."
+    python3 -m market_data_platform.cli.component_manager shutdown
+}
+
 component_status() {
-    bash lib/component_manager.sh status
+    python3 -m market_data_platform.cli.rich_status dashboard
 }
 
 component_restart() {
@@ -592,8 +670,11 @@ main() {
             local subcmd="${1:-}"
             shift || true
             case "$subcmd" in
+                install) component_install "$@" ;;
+                uninstall) component_uninstall "$@" ;;
                 start) component_start "$@" ;;
                 stop) component_stop "$@" ;;
+                graceful-stop) component_graceful_stop ;;
                 status) component_status ;;
                 restart) component_restart "$@" ;;
                 logs) component_logs "$@" ;;

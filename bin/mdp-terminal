@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+# Terminal UI Launcher
+# Advanced interactive dashboard for component management
+
+set -euo pipefail
+
+PROJECT_ROOT="${PROJECT_ROOT:-.}"
+
+python3 -m market_data_platform.cli.terminal_ui "$@"

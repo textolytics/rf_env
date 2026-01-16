@@ -10,5 +10,6 @@
         ".",
         "-p",
         "*test.py"
-    ]
+    ],
+    "cmake.sourceDirectory": "/root/rf_env"
 }

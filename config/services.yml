@@ -1,0 +1,216 @@
+# Market Data Platform - Service Definitions
+# Defines all services with dependencies, health checks, and lifecycle management
+
+version: "1.0"
+
+services:
+  postgres:
+    name: "PostgreSQL Database"
+    type: "docker"
+    container: "postgres"
+    port: 5432
+    depends_on: []
+    startup_cmd: "docker-compose up -d postgres"
+    shutdown_cmd: "docker-compose stop postgres"
+    health_check: "pg_isready -h localhost -U mdp_user"
+    startup_timeout: 30
+    shutdown_timeout: 10
+    status_indicator: "🗄️"
+
+  redis:
+    name: "Redis Cache"
+    type: "docker"
+    container: "redis"
+    port: 6379
+    depends_on: []
+    startup_cmd: "docker-compose up -d redis"
+    shutdown_cmd: "docker-compose stop redis"
+    health_check: "redis-cli ping"
+    startup_timeout: 15
+    shutdown_timeout: 5
+    status_indicator: "📍"
+
+  influxdb:
+    name: "InfluxDB Time-Series"
+    type: "docker"
+    container: "influxdb"
+    port: 8086
+    depends_on: []
+    startup_cmd: "docker-compose up -d influxdb"
+    shutdown_cmd: "docker-compose stop influxdb"
+    health_check: "curl -s http://localhost:8086/health | grep -q '\"status\":\"ok\"'"
+    startup_timeout: 30
+    shutdown_timeout: 10
+    status_indicator: "📊"
+
+  prometheus:
+    name: "Prometheus Monitoring"
+    type: "docker"
+    container: "prometheus"
+    port: 9090
+    depends_on:
+      - postgres
+      - redis
+    startup_cmd: "docker-compose up -d prometheus"
+    shutdown_cmd: "docker-compose stop prometheus"
+    health_check: "curl -s http://localhost:9090/-/healthy | grep -q 'Prometheus Server is Healthy'"
+    startup_timeout: 20
+    shutdown_timeout: 10
+    status_indicator: "📈"
+
+  grafana:
+    name: "Grafana Dashboard"
+    type: "docker"
+    container: "grafana"
+    port: 3000
+    depends_on:
+      - prometheus
+      - influxdb
+    startup_cmd: "docker-compose up -d grafana"
+    shutdown_cmd: "docker-compose stop grafana"
+    health_check: "curl -s http://localhost:3000/api/health | grep -q '\"database\":\"ok\"'"
+    startup_timeout: 20
+    shutdown_timeout: 10
+    status_indicator: "📉"
+
+  zmq-publisher:
+    name: "ZMQ Publisher"
+    type: "binary"
+    port: 5555
+    depends_on:
+      - postgres
+      - redis
+    startup_cmd: "python -m market_data_platform.zmq.publisher &"
+    shutdown_cmd: "pkill -f 'zmq.publisher'"
+    health_check: "timeout 2 bash -c 'echo | nc localhost 5555' 2>/dev/null"
+    startup_timeout: 10
+    shutdown_timeout: 5
+    status_indicator: "📤"
+
+  zmq-subscriber:
+    name: "ZMQ Subscriber"
+    type: "binary"
+    port: 5556
+    depends_on:
+      - zmq-publisher
+    startup_cmd: "python -m market_data_platform.zmq.subscriber &"
+    shutdown_cmd: "pkill -f 'zmq.subscriber'"
+    health_check: "timeout 2 bash -c 'echo | nc localhost 5556' 2>/dev/null"
+    startup_timeout: 10
+    shutdown_timeout: 5
+    status_indicator: "📥"
+
+  api:
+    name: "Python API Server"
+    type: "docker"
+    container: "python-api"
+    port: 8000
+    depends_on:
+      - postgres
+      - redis
+      - influxdb
+    startup_cmd: "docker-compose up -d python-api"
+    shutdown_cmd: "docker-compose stop python-api"
+    health_check: "curl -s http://localhost:8000/health | grep -q '\"status\":\"healthy\"'"
+    startup_timeout: 30
+    shutdown_timeout: 10
+    status_indicator: "🐍"
+
+  gateway:
+    name: "Go Gateway"
+    type: "docker"
+    container: "go-gateway"
+    port: 8001
+    depends_on:
+      - api
+      - postgres
+    startup_cmd: "docker-compose up -d go-gateway"
+    shutdown_cmd: "docker-compose stop go-gateway"
+    health_check: "curl -s http://localhost:8001/health | grep -q '\"status\":\"up\"'"
+    startup_timeout: 20
+    shutdown_timeout: 10
+    status_indicator: "🚪"
+
+  processor:
+    name: "Rust Processor"
+    type: "docker"
+    container: "rust-processor"
+    port: 8002
+    depends_on:
+      - gateway
+      - zmq-publisher
+    startup_cmd: "docker-compose up -d rust-processor"
+    shutdown_cmd: "docker-compose stop rust-processor"
+    health_check: "curl -s http://localhost:8002/status | grep -q '\"running\":true'"
+    startup_timeout: 25
+    shutdown_timeout: 10
+    status_indicator: "⚙️"
+
+  proxy:
+    name: "Nginx Proxy"
+    type: "docker"
+    container: "nginx"
+    port: 80
+    depends_on:
+      - api
+      - gateway
+      - processor
+    startup_cmd: "docker-compose up -d nginx"
+    shutdown_cmd: "docker-compose stop nginx"
+    health_check: "curl -s http://localhost/health | grep -q '\"status\":\"ok\"'"
+    startup_timeout: 15
+    shutdown_timeout: 10
+    status_indicator: "🔀"
+
+# Component groups for batch operations
+components:
+  database:
+    name: "Database Layer"
+    services:
+      - postgres
+      - redis
+    description: "Core database and cache infrastructure"
+
+  storage:
+    name: "Storage Layer"
+    services:
+      - influxdb
+    description: "Time-series and analytical storage"
+
+  monitoring:
+    name: "Monitoring Stack"
+    services:
+      - prometheus
+      - grafana
+    description: "Monitoring, metrics, and visualization"
+
+  messaging:
+    name: "Messaging Layer"
+    services:
+      - zmq-publisher
+      - zmq-subscriber
+    description: "Asynchronous message passing"
+
+  api:
+    name: "API Services"
+    services:
+      - api
+    description: "REST API and Python services"
+
+  gateway:
+    name: "Gateway Layer"
+    services:
+      - gateway
+    description: "Request routing and protocol translation"
+
+  processor:
+    name: "Processing Engine"
+    services:
+      - processor
+    description: "Data processing and computation"
+
+  proxy:
+    name: "Proxy Layer"
+    services:
+      - proxy
+    description: "Reverse proxy and load balancing"

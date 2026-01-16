@@ -1,0 +1,38 @@
+{
+  "components": {},
+  "services": {
+    "postgres": {
+      "state": "running",
+      "installed_at": "2026-01-16T22:02:53.017643",
+      "type": "docker"
+    },
+    "redis": {
+      "state": "running",
+      "installed_at": "2026-01-16T22:02:53.591753",
+      "type": "docker"
+    },
+    "influxdb": {
+      "state": "failed",
+      "error": "no such service: influxdb\n",
+      "type": "docker"
+    },
+    "prometheus": {
+      "state": "failed",
+      "error": "time=\"2026-01-16T21:58:50+02:00\" level=warning msg=\"No services to build\"\n Container mdp-prometheus Starting \nError response from daemon: failed to create task for container: failed to create shim task: OCI runtime create failed: runc create failed: unable to start container process: error during container init: error mounting \"/root/rf_env/config/monitoring/prometheus.yml\" to rootfs at \"/etc/prometheus/prometheus.yml\": mount src=/root/rf_env/config/monitoring/prometheus.yml, dst=/etc/prometheus/prometheus.yml, dstFd=/proc/thread-self/fd/11, flags=MS_BIND|MS_REC: not a directory: Are you trying to mount a directory onto a file (or vice-versa)? Check if the specified host path exists and is the expected type\n"
+    },
+    "zmq-publisher": {
+      "state": "running",
+      "started_at": "2026-01-16T21:58:50.895510"
+    },
+    "zmq-subscriber": {
+      "state": "running",
+      "started_at": "2026-01-16T21:58:52.061972"
+    },
+    "api": {
+      "state": "failed",
+      "error": " Image rf_env-python-api Building \nDockerfile.python:17\n\n--------------------\n\n  15 |     # Copy requirements and install Python dependencies\n\n  16 |     COPY requirements.txt .\n\n  17 | >>> RUN pip install --no-cache-dir -r requirements.txt\n\n  18 |     \n\n  19 |     # Copy application code\n\n--------------------\n\nfailed to solve: process \"/bin/sh -c pip install --no-cache-dir -r requirements.txt\" did not complete successfully: exit code: 1\n\n",
+      "type": "docker"
+    }
+  },
+  "last_updated": "2026-01-16T22:03:45.508221"
+}
