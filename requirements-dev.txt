@@ -1,0 +1,95 @@
+# Development Dependencies for Market Data Platform
+# Install with: pip install -r requirements-dev.txt
+
+# Testing frameworks
+pytest>=7.2.0
+pytest-cov>=4.0.0
+pytest-asyncio>=0.20.0
+pytest-mock>=3.10.0
+pytest-xdist>=3.1.0
+pytest-timeout>=2.1.0
+responses>=0.22.0
+
+# Code quality and linting
+black>=23.1.0
+isort>=5.12.0
+flake8>=6.0.0
+pylint>=2.16.0
+mypy>=1.0.0
+pylint-django>=2.5.0
+pydocstyle>=6.3.0
+
+# Documentation
+sphinx>=6.1.0
+sphinx-rtd-theme>=1.2.0
+sphinx-autodoc-typehints>=1.22.0
+myst-parser>=0.19.0
+
+# Development tools
+ipython>=8.10.0
+ipdb>=0.13.0
+pre-commit>=3.0.0
+bump2version>=1.0.1
+python-dotenv>=1.0.0
+
+# Performance profiling
+memory-profiler>=0.61.0
+py-spy>=0.3.14
+line-profiler>=4.0.0
+
+# Debugging
+pdbpp>=0.10.3
+pudb>=2022.1.0
+
+# Database tools
+alembic>=1.10.0
+psycopg2-binary>=2.9.0
+sqlalchemy-utils>=0.37.0
+
+# API testing
+httpx>=0.23.0
+aioresponses>=0.7.3
+starlette-testclient>=0.0.2
+
+# Mock and fixtures
+factory-boy>=3.2.1
+faker>=17.0.0
+
+# CI/CD tools
+invoke>=2.0.0
+taskipy>=1.10.0
+
+# Type stubs
+types-requests>=2.28.0
+types-PyYAML>=6.0.0
+types-redis>=4.3.0
+
+# Development servers
+watchdog>=2.2.0
+watchdog[shell]>=2.2.0
+
+# Environment management
+virtualenv>=20.20.0
+venv-update>=3.0.0
+
+# Security scanning
+bandit>=1.7.4
+safety>=2.3.0
+
+# Advanced formatting
+autopep8>=2.0.0
+yapf>=0.32.0
+
+# API documentation
+pdoc>=12.3.0
+
+# Load testing
+locust>=2.14.0
+
+# Monitoring
+py-prometheus-client>=0.14.0
+structlog>=22.3.0
+
+# Container tools
+docker>=6.0.0
+kubernetes>=25.0.0
