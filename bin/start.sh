@@ -1,83 +1,65 @@
 #!/usr/bin/env bash
-# Graceful startup script - starts all services in proper order
-# Ensures dependencies are ready before starting dependent services
+# Graceful startup script - Enhanced with component management
+# Starts services by component group with health validation
 
 set -euo pipefail
 
-PROJECT_ROOT="/root/rf_env"
+PROJECT_ROOT="${PROJECT_ROOT:-.}"
 cd "$PROJECT_ROOT" || exit 1
+
+# Source component manager
+source lib/component_manager.sh
 
 GREEN='\033[0;32m'
 BLUE='\033[0;34m'
+YELLOW='\033[1;33m'
 NC='\033[0m'
 
 log() { echo -e "${BLUE}→${NC} $1"; }
-
-# done() { echo -e "${GREEN}✓${NC} $1"; }
+done() { echo -e "${GREEN}✓${NC} $1"; }
+warn() { echo -e "${YELLOW}⚠${NC} $1"; }
 
 trap 'echo "Startup interrupted"; exit 1' SIGINT SIGTERM
 
-# Start Docker services first
-log "Starting Docker services (PostgreSQL, Redis, InfluxDB, Grafana, Prometheus)..."
-docker-compose up -d postgres redis influxdb grafana prometheus
-done "Docker services starting (waiting for health checks)..."
+# Create necessary directories
+mkdir -p logs .pids database
 
-# Wait for critical services
-log "Waiting for PostgreSQL to be ready..."
-for i in {1..30}; do
-    if docker-compose exec -T postgres pg_isready -U postgres >/dev/null 2>&1; then
-        done "PostgreSQL ready"
-        break
-    fi
-    if [ $i -eq 30 ]; then
-        echo "PostgreSQL failed to start"; exit 1
-    fi
-    sleep 1
-done
+log "════════════════════════════════════════════════════════════════════"
+log "Market Data Platform - Graceful Component Startup"
+log "════════════════════════════════════════════════════════════════════"
+log ""
 
-log "Waiting for Redis to be ready..."
-for i in {1..20}; do
-    if docker-compose exec -T redis redis-cli ping >/dev/null 2>&1; then
-        done "Redis ready"
-        break
-    fi
-    if [ $i -eq 20 ]; then
-        echo "Redis failed to start"; exit 1
-    fi
-    sleep 1
-done
-
-log "Waiting for InfluxDB to be ready..."
-for i in {1..20}; do
-    if curl -s http://localhost:8086/health >/dev/null 2>&1; then
-        done "InfluxDB ready"
-        break
-    fi
-    if [ $i -eq 20 ]; then
-        echo "InfluxDB failed to start"; exit 1
-    fi
-    sleep 1
-done
+# Start database layer (dependencies for everything)
+log "Step 1: Starting Database Layer"
+log "Starting PostgreSQL and Redis..."
+start_component "database" || { error "Failed to start database"; exit 1; }
+echo ""
 
 # Initialize database schema
 log "Initializing database schema..."
 if [ -f "database/schema.sql" ]; then
-    docker-compose exec -T postgres psql -U postgres -d market_data < database/schema.sql || true
+    docker-compose exec -T postgres psql -U mdp_user -d market_data < database/schema.sql 2>/dev/null || true
     done "Database schema initialized"
 else
-    echo "Warning: schema.sql not found"
+    warn "schema.sql not found - using docker defaults"
 fi
 
-# Initialize InfluxDB
-log "Initializing InfluxDB..."
-docker-compose exec -T influxdb influx bucket create -n market_data --retention 30d -o influxdata -t "$(docker-compose exec -T influxdb influx auth create --org influxdata --description 'Market data token' --write-bucket 'd0d2df2b9e3cc000' --token market-data-token 2>/dev/null | grep -oP 'REDACTED' || echo 'local-token')" >/dev/null 2>&1 || true
-done "InfluxDB initialized"
+# Start storage layer
+log "Step 2: Starting Storage Layer"
+log "Starting InfluxDB..."
+start_component "storage" || { warn "Storage layer startup had issues"; }
+echo ""
 
-# Start ZMQ core services
-log "Compiling C ZMQ services..."
-if [ ! -f "c/zmq_core/publisher" ]; then
-    gcc -O3 -Wall c/zmq_core/publisher.c -o c/zmq_core/publisher -lzmq 2>/dev/null || {
-        echo "C compilation failed - check libzmq installation"; exit 1
+# Start monitoring layer
+log "Step 3: Starting Monitoring Layer"
+log "Starting Prometheus and Grafana..."
+start_component "monitoring" || { warn "Monitoring layer startup had issues"; }
+echo ""
+
+# Start messaging layer (ZMQ)
+log "Step 4: Starting Messaging Layer"
+log "Compiling and starting ZMQ services..."
+start_component "messaging" || { error "Failed to start messaging"; exit 1; }
     }
 fi
 if [ ! -f "c/zmq_core/subscriber" ]; then
@@ -88,64 +70,63 @@ fi
 done "C services compiled"
 
 # Start ZMQ services in background
-log "Starting ZMQ publisher..."
-nohup c/zmq_core/publisher > logs/publisher.log 2>&1 &
-echo $! > .pids/publisher.pid
-sleep 1
-done "ZMQ publisher started (PID: $(cat .pids/publisher.pid))"
-
-log "Starting ZMQ subscriber..."
-nohup c/zmq_core/subscriber > logs/subscriber.log 2>&1 &
-echo $! > .pids/subscriber.pid
-sleep 1
-done "ZMQ subscriber started (PID: $(cat .pids/subscriber.pid))"
-
-# Start Python services
-log "Starting Python API server..."
-docker-compose up -d python-api
-sleep 3
-done "Python API server started"
-
-# Start Go services
-log "Starting Go gateway..."
-if [ -f "go/cmd/gateway/main.go" ]; then
-    docker-compose up -d go-gateway
-    sleep 2
-    done "Go gateway started"
-else
-    echo "Go gateway not yet implemented"
-fi
-
-# Start Rust services
-log "Starting Rust processor..."
-if [ -f "rust/src/bin/validator.rs" ]; then
-    docker-compose up -d rust-processor
-    sleep 2
-    done "Rust processor started"
-else
-    echo "Rust processor not yet implemented"
-fi
-
-# Start Nginx (reverse proxy)
-log "Starting Nginx..."
-docker-compose up -d nginx
-sleep 1
-done "Nginx started"
-
+log "Step 4: Starting Messaging Layer"
+log "Compiling and starting ZMQ services..."
+start_component "messaging" || { error "Failed to start messaging"; exit 1; }
 echo ""
-echo "═══════════════════════════════════════════════════════════════════"
-echo "All services started successfully!"
-echo "═══════════════════════════════════════════════════════════════════"
+
+# Start application layer
+log "Step 5: Starting Application Services"
+log "Starting Python API..."
+start_component "api" || { warn "API startup had issues"; }
 echo ""
-echo "Running services:"
-docker-compose ps
+
+log "Starting Go Gateway..."
+start_component "gateway" || { warn "Gateway startup had issues"; }
 echo ""
-echo "Dashboards & Services:"
-echo "  Grafana:     http://localhost:3000 (admin/admin)"
-echo "  Prometheus:  http://localhost:9090"
-echo "  API:         http://localhost:8000"
-echo "  Gateway:     http://localhost:8080"
+
+log "Starting Rust Processor..."
+start_component "processor" || { warn "Processor startup had issues"; }
 echo ""
-echo "To view logs: tail -f logs/*.log"
-echo "To stop services: bash bin/stop.sh"
+
+# Start proxy layer
+log "Step 6: Starting Proxy Layer"
+log "Starting Nginx reverse proxy..."
+start_component "proxy" || { warn "Proxy startup had issues"; }
+echo ""
+
+# Final status
+log "Startup complete!"
+echo ""
+status_all_components
+
+# Show connectivity information
+log "Service Connectivity:"
+log "════════════════════════════════════════════════════════════════════"
+echo ""
+echo "📊 Dashboards & Monitoring:"
+echo "  • Grafana:      http://localhost:3000 (admin/admin)"
+echo "  • Prometheus:   http://localhost:9090"
+echo ""
+echo "🔌 API Services:"
+echo "  • Python API:   http://localhost:8000"
+echo "  • API Docs:     http://localhost:8000/docs"
+echo "  • Go Gateway:   http://localhost:8080"
+echo ""
+echo "📝 Data Access:"
+echo "  • Redis CLI:    redis-cli"
+echo "  • PostgreSQL:   psql -h localhost -U mdp_user -d market_data"
+echo "  • InfluxDB:     http://localhost:8086"
+echo ""
+echo "🔄 Messaging (ZMQ):"
+echo "  • Publisher:    tcp://127.0.0.1:5555"
+echo "  • Subscriber:   tcp://127.0.0.1:5556"
+echo ""
+echo "📋 Log Files:"
+echo "  • tail -f logs/publisher.log"
+echo "  • tail -f logs/subscriber.log"
+echo "  • docker-compose logs -f <service>"
+echo ""
+echo "🛑 To stop all services: bash bin/stop.sh"
+echo "📊 To check status: bash bin/component_manager.sh status"
 echo ""

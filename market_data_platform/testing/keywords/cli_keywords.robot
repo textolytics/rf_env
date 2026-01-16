@@ -1,3 +1,6 @@
+*** Settings ***
+Library    DateTime
+
 *** Keywords ***
 
 # CLI-specific test keywords

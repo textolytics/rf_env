@@ -1,3 +1,6 @@
+*** Settings ***
+Library    DateTime
+
 *** Keywords ***
 
 # Storage-specific keywords for InfluxDB and Parquet operations

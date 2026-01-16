@@ -1,3 +1,9 @@
+*** Settings ***
+Library    Collections
+Library    DateTime
+Library    BuiltIn
+Library    OperatingSystem
+
 *** Keywords ***
 
 # =============================================================================
