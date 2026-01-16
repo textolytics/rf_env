@@ -92,7 +92,7 @@ Public Pairs - All Have Non-Empty Volume
         ${volume}=    Get From Dictionary    ${pair}    volume
         
         # Validate volume is not empty/null
-        ${is_empty}=    Evaluate    ${volume} == None or ${volume} == '' or ${volume} == 'None' or ${volume} == 'null'
+        ${is_empty}=    Evaluate    ${volume} == None or ${volume} == '' or ${volume} == 'None' or ${volume} == 'null' or ${volume} == 'True'
         Run Keyword If    ${is_empty}    Append To List    ${invalid_pairs}    ${symbol}
         
     END
