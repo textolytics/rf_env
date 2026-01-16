@@ -1,0 +1,354 @@
+################################################################################
+# Market Data Platform - Gateway Configuration
+# Defines connectivity parameters for all supported data sources
+################################################################################
+
+gateways:
+  freedx:
+    name: "FreeDOM Exchange"
+    type: "rest"
+    base_url: "https://api.exchange.freedx.com"
+    endpoints:
+      market_summary: "/spot/api/v3.2/market_summary"
+      order_book: "/spot/api/v3.2/orderbook"
+      trades: "/spot/api/v3.2/trades"
+    zmq_topics:
+      - "freedx.market_summary"
+      - "freedx.orderbook"
+      - "freedx.trades"
+    rate_limit: 100  # requests per second
+    timeout: 10
+    enabled: true
+    connectivity_module: "rust"  # Rust for high-performance REST/ZMQ bridge
+    description: "Spot trading market data with real-time order book snapshots"
+
+  gate_io:
+    name: "Gate.io"
+    type: "websocket"
+    base_url: "https://api.gateio.ws"
+    ws_url: "wss://ws.gate.io/v4"
+    endpoints:
+      tickers: "/api/v4/spot/tickers"
+      trades: "/api/v4/spot/trades"
+    websocket_channels:
+      - "spot.tickers"
+      - "spot.trades"
+      - "spot.order_book_update"
+    zmq_topics:
+      - "gateio.tickers"
+      - "gateio.trades"
+      - "gateio.orderbook"
+    rate_limit: 200
+    timeout: 15
+    enabled: true
+    connectivity_module: "cpp"  # C++ for low-latency WebSocket handling
+    description: "Global spot trading with WebSocket for streaming updates"
+
+  oanda:
+    name: "OANDA"
+    type: "rest"
+    base_url: "https://api-fxpractice.oanda.com"
+    endpoints:
+      instruments: "/v3/accounts/{account_id}/instruments"
+      rates: "/v3/accounts/{account_id}/pricing"
+      trades: "/v3/accounts/{account_id}/trades"
+    zmq_topics:
+      - "oanda.eurusd"
+      - "oanda.trades"
+      - "oanda.pricing"
+    authentication: "bearer_token"
+    rate_limit: 50
+    timeout: 10
+    enabled: true
+    connectivity_module: "python"  # Python for research and complex order logic
+    description: "Forex trading with EURUSD primary focus for research"
+
+  kraken:
+    name: "Kraken"
+    type: "rest_websocket"
+    base_url: "https://api.kraken.com"
+    ws_url: "wss://ws.kraken.com"
+    endpoints:
+      ticker: "/0/public/Ticker"
+      ohlc: "/0/public/OHLC"
+      trades: "/0/public/Trades"
+      depth: "/0/public/Depth"
+    websocket_channels:
+      - "ticker"
+      - "trade"
+      - "book"
+    zmq_topics:
+      - "kraken.ticker"
+      - "kraken.trades"
+      - "kraken.depth"
+      - "kraken.eurusd_depth"
+    rate_limit: 100
+    timeout: 12
+    enabled: true
+    connectivity_module: "rust"  # Rust for hybrid REST/WebSocket handling
+    description: "Cryptocurrency exchange with EURUSD pair focus"
+
+  twitter:
+    name: "Twitter/X"
+    type: "streaming"
+    base_url: "https://api.twitter.com/2"
+    streaming_url: "https://stream.twitter.com/2"
+    endpoints:
+      search: "/tweets/search/recent"
+      stream: "/tweets/search/stream"
+    stream_rules:
+      - "crypto OR blockchain OR #DeFi lang:en"
+      - "market OR trading OR #stocks lang:en"
+      - "forex OR currencies OR #FX lang:en"
+    zmq_topics:
+      - "twitter.crypto_sentiment"
+      - "twitter.market_news"
+      - "twitter.trading_signals"
+    rate_limit: 50  # Academic access limits
+    timeout: 30
+    enabled: true
+    connectivity_module: "python"  # Python for NLP and sentiment analysis
+    description: "Real-time sentiment and news stream for market context"
+
+  betfair:
+    name: "Betfair"
+    type: "rest_streaming"
+    base_url: "https://api.betfair.com"
+    streaming_url: "https://stream-api.betfair.com"
+    endpoints:
+      markets: "/betting/rest/static/v1"
+      prices: "/exchange/betting/rest/v1"
+    zmq_topics:
+      - "betfair.market_books"
+      - "betfair.order_books"
+      - "betfair.trading_updates"
+    rate_limit: 100
+    timeout: 15
+    enabled: true
+    connectivity_module: "cpp"  # C++ for high-frequency streaming data
+    description: "Betting exchange with price prediction capabilities"
+
+################################################################################
+# ZMQ Configuration
+################################################################################
+
+zmq:
+  broker_host: "127.0.0.1"
+  broker_port: 5560
+  subscribe_port: 5561
+  publish_port: 5559
+  
+  topics:
+    # FreeDOM Exchange Topics
+    "freedx.market_summary":
+      description: "Market summary for all trading pairs"
+      priority: 9
+      persistence: true
+      format: "json"
+      
+    "freedx.orderbook":
+      description: "Real-time order book updates"
+      priority: 8
+      persistence: true
+      format: "json"
+    
+    # Gate.io Topics
+    "gateio.tickers":
+      description: "Ticker data with 24hr changes"
+      priority: 8
+      persistence: false
+      format: "json"
+      
+    "gateio.trades":
+      description: "Recent trades stream"
+      priority: 7
+      persistence: false
+      format: "json"
+    
+    # OANDA Topics
+    "oanda.eurusd":
+      description: "EURUSD forex pair (primary research focus)"
+      priority: 10
+      persistence: true
+      format: "protobuf"
+      
+    "oanda.trades":
+      description: "Active trading positions"
+      priority: 9
+      persistence: true
+      format: "json"
+    
+    # Kraken Topics
+    "kraken.ticker":
+      description: "Kraken ticker with bid/ask spreads"
+      priority: 8
+      persistence: false
+      format: "json"
+      
+    "kraken.eurusd_depth":
+      description: "Kraken EURUSD order book depth"
+      priority: 9
+      persistence: true
+      format: "json"
+      
+    "kraken.trades":
+      description: "Kraken trade stream"
+      priority: 7
+      persistence: false
+      format: "json"
+    
+    # Twitter Topics
+    "twitter.crypto_sentiment":
+      description: "Cryptocurrency sentiment analysis"
+      priority: 6
+      persistence: true
+      format: "json"
+      
+    "twitter.market_news":
+      description: "Market-relevant news and signals"
+      priority: 7
+      persistence: true
+      format: "json"
+    
+    # Betfair Topics
+    "betfair.market_books":
+      description: "Betting market data with odds"
+      priority: 7
+      persistence: true
+      format: "json"
+
+################################################################################
+# InfluxDB Configuration
+################################################################################
+
+influxdb:
+  host: "localhost"
+  port: 8086
+  org: "market_data"
+  bucket: "market_data_bucket"
+  token: "${INFLUXDB_TOKEN}"  # Set via environment variable
+  retention: "30d"
+  
+  databases:
+    market_data:
+      measurement: "market_ticks"
+      fields:
+        - "price"
+        - "volume"
+        - "bid"
+        - "ask"
+        - "high_24h"
+        - "low_24h"
+      tags:
+        - "symbol"
+        - "exchange"
+        - "asset_class"
+    
+    trades:
+      measurement: "trades"
+      fields:
+        - "quantity"
+        - "price"
+        - "side"
+      tags:
+        - "symbol"
+        - "exchange"
+    
+    order_book:
+      measurement: "orderbook"
+      fields:
+        - "bid_volume"
+        - "ask_volume"
+        - "bid_price"
+        - "ask_price"
+      tags:
+        - "symbol"
+        - "exchange"
+        - "depth_level"
+    
+    sentiment:
+      measurement: "sentiment"
+      fields:
+        - "sentiment_score"
+        - "tweet_count"
+      tags:
+        - "topic"
+        - "source"
+
+################################################################################
+# Grafana Configuration
+################################################################################
+
+grafana:
+  url: "http://localhost:3000"
+  admin_user: "admin"
+  admin_password: "${GRAFANA_PASSWORD}"
+  dashboards:
+    - name: "Market Overview"
+      description: "Real-time market data across all gateways"
+      refresh: "5s"
+    
+    - name: "EURUSD Trading"
+      description: "EURUSD pair analysis with OANDA and Kraken"
+      refresh: "1s"
+    
+    - name: "Order Book Heatmap"
+      description: "Order book depth visualization"
+      refresh: "2s"
+    
+    - name: "Sentiment Analysis"
+      description: "Twitter sentiment with market correlation"
+      refresh: "30s"
+    
+    - name: "System Health"
+      description: "Connectivity and performance metrics"
+      refresh: "10s"
+
+################################################################################
+# Apache Parquet Data Warehouse
+################################################################################
+
+parquet:
+  storage_path: "/data/warehouse"
+  partition_by: "date"
+  compression: "snappy"
+  tables:
+    - name: "market_history"
+      columns: ["timestamp", "symbol", "exchange", "price", "volume", "bid", "ask"]
+      
+    - name: "trades_history"
+      columns: ["timestamp", "symbol", "exchange", "quantity", "price", "side", "account_id"]
+      
+    - name: "orderbook_history"
+      columns: ["timestamp", "symbol", "exchange", "level", "bid_price", "bid_qty", "ask_price", "ask_qty"]
+      
+    - name: "sentiment_history"
+      columns: ["timestamp", "topic", "sentiment_score", "source", "text"]
+
+################################################################################
+# Data Transformation Rules
+################################################################################
+
+transformations:
+  price_normalization:
+    enabled: true
+    rules:
+      - from: "EURUSD_OANDA"
+        to: "EURUSD_normalized"
+        factor: 1.0
+      
+      - from: "XEUR_KRAKEN"
+        to: "EURUSD_normalized"
+        factor: 1.0
+  
+  volume_standardization:
+    enabled: true
+    rules:
+      - normalize_to_usd: true
+      - min_volume_filter: 1000
+  
+  sentiment_enrichment:
+    enabled: true
+    keywords:
+      bullish: ["bull", "moon", "pump", "breakthrough"]
+      bearish: ["bear", "crash", "dump", "recession"]
