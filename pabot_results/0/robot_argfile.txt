@@ -1,0 +1,16 @@
+--suite Market Summary Api Tests
+--variable CALLER_ID:3ae42debde1e4f62b702f09fb3342531
+--variable PABOTLIBURI:127.0.0.1:55201
+--variable PABOTEXECUTIONPOOLID:0
+--variable PABOTISLASTEXECUTIONINPOOL:1
+--variable PABOTNUMBEROFPROCESSES:8
+--variable PABOTQUEUEINDEX:0
+--variable PABOTLASTLEVEL:
+--listener RobotStackTracer
+--log NONE
+--report NONE
+--xunit NONE
+--outputdir ./pabot_results/0
+--consolecolors off
+--consolemarkers off
+market_summary_api_tests.robot

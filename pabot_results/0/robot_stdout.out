@@ -1,0 +1,63 @@
+==============================================================================
+Market Summary Api Tests :: Regression test suite for FreeDX Exchange Marke...
+==============================================================================
+Public Endpoint - Market Summary Returns 200 :: Verify public mark... | PASS |
+------------------------------------------------------------------------------
+Public Endpoint - Response Is Valid JSON Array :: Validate respons... | PASS |
+------------------------------------------------------------------------------
+Public Endpoint - Response Body Is Not Empty :: Verify response bo... | PASS |
+------------------------------------------------------------------------------
+Public Endpoint - Content Type Is JSON :: Verify response content ... | PASS |
+------------------------------------------------------------------------------
+Public Pairs - All Have Non-Empty Last Price :: Iterate over all p... | PASS |
+------------------------------------------------------------------------------
+Public Pairs - All Have Non-Empty Volume :: Iterate over all publi... | PASS |
+------------------------------------------------------------------------------
+Public Pairs - All Have Non-Empty Ask Prices :: Validate lowestAsk... | PASS |
+------------------------------------------------------------------------------
+Public Pairs - All Have Non-Empty Bid Prices :: Validate highestBi... | PASS |
+------------------------------------------------------------------------------
+Public Pairs - All Have 24Hr High Prices :: Validate high24Hr is p... | PASS |
+------------------------------------------------------------------------------
+Public Pairs - All Have 24Hr Low Prices :: Validate low24Hr is pop... | PASS |
+------------------------------------------------------------------------------
+Public Pairs - All Have Base Currency :: Validate base currency is... | PASS |
+------------------------------------------------------------------------------
+Public Pairs - All Have Quote Currency :: Validate quote currency ... | PASS |
+------------------------------------------------------------------------------
+Public Pairs - All Have Active Status :: Validate active status is... | PASS |
+------------------------------------------------------------------------------
+Public Pairs - All Prices Are Non-Negative :: Validate all price v... | PASS |
+------------------------------------------------------------------------------
+Public Pairs - High Price Always Greater Than Low Price :: Validat... | PASS |
+------------------------------------------------------------------------------
+Public Pairs - Last Price Outside 24Hr Range Pairs :: Validate las...   
+  Traceback (most recent call last):
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    File  /root/rf_env/market_summary_api_tests.robot:286
+    T:  Public Pairs - Last Price Outside 24Hr Range Pairs    
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    File  /root/rf_env/market_summary_api_tests.robot:303
+      Should Be Empty    ${Last_Price_Outside_24Hr_Range_Pairs}    msg=Pairs with last price outside 24hr range: ${Last_Price_Outside_24Hr_Range_Pairs}
+      |  ${Last_Price_Outside_24Hr_Range_Pairs} = ['1INCH-BTC', '1INCH-ETH', 'AAVE-BTC', 'AAVE-ETH', 'ACH-BTC', 'ADA-BTC', 'ADA-ETH', 'AERGO-BTC', 'AERGO-ETH', 'AEVO-ETH', 'ALGO-BTC', 'ALGO-ETH', 'ALICE-BTC', 'ALICE-ETH', 'ANKR-BTC', 'ANKR-ETH', 'APE-BTC', 'APE-ETH', 'APT-BTC', 'APT-ETH', 'ARB-BTC', 'ARB-ETH', 'ARKM-BTC', 'ARKM-ETH', 'ASTER-ETH', 'ATH-ETH', 'ATOM-ETH', 'AUCTION-BTC', 'AUCTION-ETH', 'AVAX-ETH', 'AVNT-ETH', 'AWE-ETH', 'AXS-BTC', 'AXS-ETH', 'B-ETH', 'BAND-BTC', 'BAND-ETH', 'BAT-BTC', 'BAT-ETH', 'BB-ETH', 'BIO-ETH', 'BLUR-BTC', 'BLUR-ETH', 'BMT-ETH', 'BRETT-ETH', 'CAKE-BTC', 'CAKE-ETH', 'CATI-ETH', 'CELR-BTC', 'CELR-ETH', 'CETUS-ETH', 'CHZ-BTC', 'CHZ-ETH', 'COMP-BTC', 'COMP-ETH', 'CRV-BTC', 'CRV-ETH', 'CTSI-BTC', 'CTSI-ETH', 'CVX-BTC', 'CVX-ETH', 'CYBER-BTC', 'CYBER-ETH', 'DAO-BTC', 'DAO-ETH', 'DOG-BTC', 'DOG-ETH', 'DOGE-BTC', 'DOGE-ETH', 'DOT-BTC', 'EIGEN-ETH', 'ENA-ETH', 'ENJ-BTC', 'ENJ-ETH', 'ENS-BTC', 'ENS-ETH', 'ETHFI-ETH', 'ETHW-BTC', 'ETHW-ETH', 'ETHW-USDC', 'FET-ETH', 'FIL-BTC', 'FIL-ETH', 'GALA-BTC', 'GALA-ETH', 'GLMR-BTC', 'GLMR-ETH', 'GMT-BTC', 'GMT-ETH', 'GRT-BTC', 'GRT-ETH', 'GTC-BTC', 'GTC-ETH', 'HAEDAL-ETH', 'HOLO-ETH', 'ID-BTC', 'ID-ETH', 'ILV-BTC', 'ILV-ETH', 'IMX-BTC', 'IMX-ETH', 'INJ-BTC', 'INJ-ETH', 'IO-ETH', 'IOTX-BTC', 'IOTX-ETH', 'JTO-ETH', 'JUP-ETH', 'KAIA-BTC', 'KAIA-ETH', 'KAITO-ETH', 'KAS-BTC', 'KAS-ETH', 'KNC-BTC', 'KNC-ETH', 'KSM-BTC', 'KSM-ETH', 'LDO-BTC', 'LDO-ETH', 'LINK-BTC', 'LINK-ETH', 'LPT-BTC', 'LPT-ETH', 'LRC-BTC', 'LRC-ETH', 'MANA-BTC', 'MANA-ETH', 'MASA-ETH', 'MASK-BTC', 'MASK-ETH', 'MAVIA-ETH', 'METIS-ETH', 'MOODENG-ETH', 'MOVE-ETH', 'MYRO-ETH', 'NAVX-ETH', 'NEAR-BTC', 'NEAR-ETH', 'NMR-BTC', 'NMR-ETH', 'NXPC-ETH', 'ONE-BTC', 'OP-BTC', 'OP-ETH', 'ORDI-ETH', 'PENDLE-BTC', 'PENDLE-ETH', 'PLUME-ETH', 'PONKE-ETH', 'POPCAT-ETH', 'PORTAL-ETH', 'PRO-ETH', 'PUFFER-USDC', 'PYTH-ETH', 'RSR-BTC', 'RSR-ETH', 'S-ETH', 'SAND-BTC', 'SAND-ETH', 'SAROS-BTC', 'SHELL-ETH', 'SKL-BTC', 'SKL-ETH', 'SLP-BTC', 'SLP-ETH', 'SNX-BTC', 'SNX-ETH', 'SONIC-ETH', 'SOON-ETH', 'SPX-ETH', 'STORJ-BTC', 'STRK-ETH', 'SUI-BTC', 'SUI-ETH', 'SUSHI-BTC', 'SUSHI-ETH', 'SWARMS-ETH', 'TAIKO-ETH', 'TIA-ETH', 'TOKEN-ETH', 'TON-BTC', 'TON-ETH', 'TRB-ETH', 'TRUMP-ETH', 'TRUMP-USDC', 'TRX-ETH', 'TST-ETH', 'UNI-BTC', 'UNI-ETH', 'W-ETH', 'WIF-ETH', 'WLD-BTC', 'WLD-ETH', 'XAI-ETH', 'XAUT-BTC', 'XAUT-USDC', 'XTZ-BTC', 'XTZ-ETH', 'YFI-BTC', 'YFI-ETH', 'YGG-BTC', 'YGG-ETH', 'ZETA-ETH', 'ZRO-ETH', 'ZRX-BTC', 'ZRX-ETH'] (list)
+      |  msg=Pairs with last price outside 24hr range: ${Last_Price_Outside_24Hr_Range_Pairs} = msg=Pairs with last price outside 24hr range: ['1INCH-BTC', '1INCH-ETH', 'AAVE-BTC', 'AAVE-ETH', 'ACH-BTC', 'ADA-BTC', 'ADA-ETH', 'AERGO-BTC', 'AERGO-ETH', 'AEVO-ETH', 'ALGO-BTC', 'ALGO-ETH', 'ALICE-BTC', 'ALICE-ETH', 'ANKR-BTC', 'ANKR-ETH', 'APE-BTC', 'APE-ETH', 'APT-BTC', 'APT-ETH', 'ARB-BTC', 'ARB-ETH', 'ARKM-BTC', 'ARKM-ETH', 'ASTER-ETH', 'ATH-ETH', 'ATOM-ETH', 'AUCTION-BTC', 'AUCTION-ETH', 'AVAX-ETH', 'AVNT-ETH', 'AWE-ETH', 'AXS-BTC', 'AXS-ETH', 'B-ETH', 'BAND-BTC', 'BAND-ETH', 'BAT-BTC', 'BAT-ETH', 'BB-ETH', 'BIO-ETH', 'BLUR-BTC', 'BLUR-ETH', 'BMT-ETH', 'BRETT-ETH', 'CAKE-BTC', 'CAKE-ETH', 'CATI-ETH', 'CELR-BTC', 'CELR-ETH', 'CETUS-ETH', 'CHZ-BTC', 'CHZ-ETH', 'COMP-BTC', 'COMP-ETH', 'CRV-BTC', 'CRV-ETH', 'CTSI-BTC', 'CTSI-ETH', 'CVX-BTC', 'CVX-ETH', 'CYBER-BTC', 'CYBER-ETH', 'DAO-BTC', 'DAO-ETH', 'DOG-BTC', 'DOG-ETH', 'DOGE-BTC', 'DOGE-ETH', 'DOT-BTC', 'EIGEN-ETH', 'ENA-ETH', 'ENJ-BTC', 'ENJ-ETH', 'ENS-BTC', 'ENS-ETH', 'ETHFI-ETH', 'ETHW-BTC', 'ETHW-ETH', 'ETHW-USDC', 'FET-ETH', 'FIL-BTC', 'FIL-ETH', 'GALA-BTC', 'GALA-ETH', 'GLMR-BTC', 'GLMR-ETH', 'GMT-BTC', 'GMT-ETH', 'GRT-BTC', 'GRT-ETH', 'GTC-BTC', 'GTC-ETH', 'HAEDAL-ETH', 'HOLO-ETH', 'ID-BTC', 'ID-ETH', 'ILV-BTC', 'ILV-ETH', 'IMX-BTC', 'IMX-ETH', 'INJ-BTC', 'INJ-ETH', 'IO-ETH', 'IOTX-BTC', 'IOTX-ETH', 'JTO-ETH', 'JUP-ETH', 'KAIA-BTC', 'KAIA-ETH', 'KAITO-ETH', 'KAS-BTC', 'KAS-ETH', 'KNC-BTC', 'KNC-ETH', 'KSM-BTC', 'KSM-ETH', 'LDO-BTC', 'LDO-ETH', 'LINK-BTC', 'LINK-ETH', 'LPT-BTC', 'LPT-ETH', 'LRC-BTC', 'LRC-ETH', 'MANA-BTC', 'MANA-ETH', 'MASA-ETH', 'MASK-BTC', 'MASK-ETH', 'MAVIA-ETH', 'METIS-ETH', 'MOODENG-ETH', 'MOVE-ETH', 'MYRO-ETH', 'NAVX-ETH', 'NEAR-BTC', 'NEAR-ETH', 'NMR-BTC', 'NMR-ETH', 'NXPC-ETH', 'ONE-BTC', 'OP-BTC', 'OP-ETH', 'ORDI-ETH', 'PENDLE-BTC', 'PENDLE-ETH', 'PLUME-ETH', 'PONKE-ETH', 'POPCAT-ETH', 'PORTAL-ETH', 'PRO-ETH', 'PUFFER-USDC', 'PYTH-ETH', 'RSR-BTC', 'RSR-ETH', 'S-ETH', 'SAND-BTC', 'SAND-ETH', 'SAROS-BTC', 'SHELL-ETH', 'SKL-BTC', 'SKL-ETH', 'SLP-BTC', 'SLP-ETH', 'SNX-BTC', 'SNX-ETH', 'SONIC-ETH', 'SOON-ETH', 'SPX-ETH', 'STORJ-BTC', 'STRK-ETH', 'SUI-BTC', 'SUI-ETH', 'SUSHI-BTC', 'SUSHI-ETH', 'SWARMS-ETH', 'TAIKO-ETH', 'TIA-ETH', 'TOKEN-ETH', 'TON-BTC', 'TON-ETH', 'TRB-ETH', 'TRUMP-ETH', 'TRUMP-USDC', 'TRX-ETH', 'TST-ETH', 'UNI-BTC', 'UNI-ETH', 'W-ETH', 'WIF-ETH', 'WLD-BTC', 'WLD-ETH', 'XAI-ETH', 'XAUT-BTC', 'XAUT-USDC', 'XTZ-BTC', 'XTZ-ETH', 'YFI-BTC', 'YFI-ETH', 'YGG-BTC', 'YGG-ETH', 'ZETA-ETH', 'ZRO-ETH', 'ZRX-BTC', 'ZRX-ETH'] (str)
+______________________________________________________________________________
+| FAIL |
+Pairs with last price outside 24hr range: ['1INCH-BTC', '1INCH-ETH', 'AAVE-BTC', 'AAVE-ETH', 'ACH-BTC', 'ADA-BTC', 'ADA-ETH', 'AERGO-BTC', 'AERGO-ETH', 'AEVO-ETH', 'ALGO-BTC', 'ALGO-ETH', 'ALICE-BTC', 'ALICE-ETH', 'ANKR-BTC', 'ANKR-ETH', 'APE-BTC', 'APE-ETH', 'APT-BTC', 'APT-ETH', 'ARB-BTC', 'ARB-ETH', 'ARKM-BTC', 'ARKM-ETH', 'ASTER-ETH', 'ATH-ETH', 'ATOM-ETH', 'AUCTION-BTC', 'AUCTION-ETH', 'AVAX-ETH', 'AVNT-ETH', 'AWE-ETH', 'AXS-BTC', 'AXS-ETH', 'B-ETH', 'BAND-BTC', 'BAND-ETH', 'BAT-BTC', 'BAT-ETH', 'BB-ETH', 'BIO-ETH', 'BLUR-BTC', 'BLUR-ETH', 'BMT-ETH', 'BRETT-ETH', 'CAKE-BTC', 'CAKE-ETH', 'CATI-ETH', 'CELR-BTC', 'CELR-ETH', 'CETUS-ETH', 'CHZ-BTC', 'CHZ-ETH', 'COMP-BTC', 'COMP-ETH', 'CRV-BTC', 'CRV-ETH', 'CTSI-BTC', 'CTSI-ETH', 'CVX-BTC', 'CVX-ETH', 'CYBER-BTC', 'CYBER-ETH', 'DAO-BTC', 'DAO-ETH', 'DOG-BTC', 'DOG-ETH', 'DOGE-BTC', 'DOGE-ETH', 'DOT-BTC', 'EIGEN-ETH', 'ENA-ETH', 'ENJ-BTC', 'ENJ-ETH', 'ENS-BTC', 'ENS-ETH', 'ETHFI-ETH', 'ETHW-BTC', 'ETHW-ETH', 'ETHW-USDC', 'FET-ETH', 'FIL-BTC', 'FIL-ETH', 'GALA-BTC', 'GALA-ETH', 'GLMR-BTC', 'GLMR-ETH', 'GMT-BTC', 'GMT-ETH', 'GRT-BTC', 'GRT-ETH', 'GTC-BTC', 'GTC-ETH', 'HAEDAL-ETH', 'HOLO-ETH', 'ID-BTC', 'ID-ETH', 'ILV-BTC', 'ILV-ETH', 'IMX-BTC', 'IMX-ETH', 'INJ-BTC', 'INJ-ETH', 'IO-ETH', 'IOTX-BTC', 'IOTX-ETH', 'JTO-ETH', 'JUP-ETH', 'KAIA-BTC', 'KAIA-ETH', 'KAITO-ETH', 'KAS-BTC', 'KAS-ETH', 'KNC-BTC', 'KNC-ETH', 'KSM-BTC', 'KSM-ETH', 'LDO-BTC', 'LDO-ETH', 'LINK-BTC', 'LINK-ETH', 'LPT-BTC', 'LPT-ETH', 'LRC-BTC', 'LRC-ETH', 'MANA-BTC', 'MANA-ETH', 'MASA-ETH', 'MASK-BTC', 'MASK-ETH', 'MAVIA-ETH', 'METIS-ETH', 'MOODENG-ETH', 'MOVE-ETH', 'MYRO-ETH', 'NAVX-ETH', 'NEAR-BTC', 'NEAR-ETH', 'NMR-BTC', 'NMR-ETH', 'NXPC-ETH', 'ONE-BTC', 'OP-BTC', 'OP-ETH', 'ORDI-ETH', 'PENDLE-BTC', 'PENDLE-ETH', 'PLUME-ETH', 'PONKE-ETH', 'POPCAT-ETH', 'PORTAL-ETH', 'PRO-ETH', 'PUFFER-USDC', 'PYTH-ETH', 'RSR-BTC', 'RSR-ETH', 'S-ETH', 'SAND-BTC', 'SAND-ETH', 'SAROS-BTC', 'SHELL-ETH', 'SKL-BTC', 'SKL-ETH', 'SLP-BTC', 'SLP-ETH', 'SNX-BTC', 'SNX-ETH', 'SONIC-ETH', 'SOON-ETH', 'SPX-ETH', 'STORJ-BTC', 'STRK-ETH', 'SUI-BTC', 'SUI-ETH', 'SUSHI-BTC', 'SUSHI-ETH', 'SWARMS-ETH', 'TAIKO-ETH', 'TIA-ETH', 'TOKEN-ETH', 'TON-BTC', 'TON-ETH', 'TRB-ETH', 'TRUMP-ETH', 'TRUMP-USDC', 'TRX-ETH', 'TST-ETH', 'UNI-BTC', 'UNI-ETH', 'W-ETH', 'WIF-ETH', 'WLD-BTC', 'WLD-ETH', 'XAI-ETH', 'XAUT-BTC', 'XAUT-USDC', 'XTZ-BTC', 'XTZ-ETH', 'YFI-BTC', 'YFI-ETH', 'YGG-BTC', 'YGG-ETH', 'ZETA-ETH', 'ZRO-ETH', 'ZRX-BTC', 'ZRX-ETH']
+------------------------------------------------------------------------------
+Public Pairs - Ask Price Always Higher Than Bid Price :: Validate ... | PASS |
+------------------------------------------------------------------------------
+Public Pairs - All Volumes Are Non-Negative :: Validate volume is ... | PASS |
+------------------------------------------------------------------------------
+Public Pairs - Percentage Change Is In Valid Range :: Validate per... | PASS |
+------------------------------------------------------------------------------
+Public Endpoint - No Duplicate Trading Pairs :: Verify response co... | PASS |
+------------------------------------------------------------------------------
+Public Endpoint - Response Is Complete And Not Truncated :: Valida... | PASS |
+------------------------------------------------------------------------------
+Public Endpoint - Minimum Trading Pairs Expected :: Verify public ... | PASS |
+------------------------------------------------------------------------------
+Market Summary Api Tests :: Regression test suite for FreeDX Excha... | FAIL |
+22 tests, 21 passed, 1 failed
+==============================================================================
+Output:  /root/rf_env/pabot_results/0/output.xml

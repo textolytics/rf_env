@@ -337,7 +337,6 @@ Public Pairs - All Volumes Are Non-Negative
     FOR    ${pair}    IN    @{data}
         ${symbol}=    Get From Dictionary    ${pair}    symbol
         ${volume}=    Get From Dictionary    ${pair}    volume
-        
         ${is_negative}=    Evaluate    ${volume} < 0
         Run Keyword If    ${is_negative}    Append To List    ${invalid_pairs}    ${symbol}
     END
@@ -376,7 +375,6 @@ Public Endpoint - No Duplicate Trading Pairs
     ${data}=    Evaluate    json.loads(r'''${response.text}''')    json
     ${symbols}=    Create List
     ${duplicates}=    Create List
-    
     FOR    ${pair}    IN    @{data}
         ${symbol}=    Get From Dictionary    ${pair}    symbol
         ${already_exists}=    Evaluate    '${symbol}' in ${symbols}
