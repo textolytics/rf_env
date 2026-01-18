@@ -11,5 +11,5 @@
         "-p",
         "*test.py"
     ],
-    "cmake.sourceDirectory": "/root/rf_env"
+    "cmake.sourceDirectory": "/root/rf_env/c/old"
 }

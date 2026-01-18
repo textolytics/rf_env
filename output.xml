@@ -1,0 +1,1670 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 7.4.1 (Python 3.14.2 on linux)" generated="2026-01-18T09:03:06.158986" rpa="false" schemaversion="5">
+<suite id="s1" name="Market Summary Api Tests" source="/root/rf_env/market_summary_api_tests.robot">
+<test id="s1-t1" name="Public Endpoint - Market Summary Returns 200" line="22">
+<kw name="Create Session">
+<msg time="2026-01-18T09:03:06.228540" level="FAIL">No keyword with name 'Create Session' found.</msg>
+<arg>market_api</arg>
+<arg>${BASE_URL}</arg>
+<arg>timeout=${TIMEOUT}</arg>
+<status status="FAIL" start="2026-01-18T09:03:06.228471" elapsed="0.000146">No keyword with name 'Create Session' found.</status>
+</kw>
+<kw name="GET On Session">
+<var>${response}</var>
+<arg>market_api</arg>
+<arg>${ENDPOINT}</arg>
+<status status="NOT RUN" start="2026-01-18T09:03:06.228907" elapsed="0.000031"/>
+</kw>
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<arg>${response.status_code}</arg>
+<arg>200</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="NOT RUN" start="2026-01-18T09:03:06.229157" elapsed="0.000030"/>
+</kw>
+<kw name="Delete All Sessions">
+<status status="NOT RUN" start="2026-01-18T09:03:06.229358" elapsed="0.000021"/>
+</kw>
+<doc>Verify public market summary endpoint is accessible</doc>
+<tag>positive</tag>
+<tag>public</tag>
+<tag>smoke</tag>
+<status status="FAIL" start="2026-01-18T09:03:06.226326" elapsed="0.003286">No keyword with name 'Create Session' found.</status>
+</test>
+<test id="s1-t2" name="Public Endpoint - Response Is Valid JSON Array" line="30">
+<kw name="Create Session">
+<msg time="2026-01-18T09:03:06.231509" level="FAIL">No keyword with name 'Create Session' found.</msg>
+<arg>market_api</arg>
+<arg>${BASE_URL}</arg>
+<arg>timeout=${TIMEOUT}</arg>
+<status status="FAIL" start="2026-01-18T09:03:06.231455" elapsed="0.000114">No keyword with name 'Create Session' found.</status>
+</kw>
+<kw name="GET On Session">
+<var>${response}</var>
+<arg>market_api</arg>
+<arg>${ENDPOINT}</arg>
+<status status="NOT RUN" start="2026-01-18T09:03:06.231810" elapsed="0.000021"/>
+</kw>
+<kw name="Evaluate" owner="BuiltIn">
+<var>${data}</var>
+<arg>json.loads(r'''${response.text}''')</arg>
+<arg>json</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="NOT RUN" start="2026-01-18T09:03:06.231973" elapsed="0.000022"/>
+</kw>
+<kw name="Should Be True" owner="BuiltIn">
+<arg>isinstance(${data}, list)</arg>
+<arg>msg=Response must be a JSON array</arg>
+<doc>Fails if the given condition is not true.</doc>
+<status status="NOT RUN" start="2026-01-18T09:03:06.232141" elapsed="0.000022"/>
+</kw>
+<kw name="Should Not Be Empty" owner="BuiltIn">
+<arg>${data}</arg>
+<arg>msg=Response must contain trading pairs</arg>
+<doc>Verifies that the given item is not empty.</doc>
+<status status="NOT RUN" start="2026-01-18T09:03:06.232277" elapsed="0.000019"/>
+</kw>
+<kw name="Delete All Sessions">
+<status status="NOT RUN" start="2026-01-18T09:03:06.232410" elapsed="0.000017"/>
+</kw>
+<doc>Validate response contains valid JSON array with trading pairs</doc>
+<tag>data-structure</tag>
+<tag>positive</tag>
+<tag>public</tag>
+<status status="FAIL" start="2026-01-18T09:03:06.229897" elapsed="0.002711">No keyword with name 'Create Session' found.</status>
+</test>
+<test id="s1-t3" name="Public Endpoint - Response Body Is Not Empty" line="40">
+<kw name="Create Session">
+<msg time="2026-01-18T09:03:06.234583" level="FAIL">No keyword with name 'Create Session' found.</msg>
+<arg>market_api</arg>
+<arg>${BASE_URL}</arg>
+<arg>timeout=${TIMEOUT}</arg>
+<status status="FAIL" start="2026-01-18T09:03:06.234524" elapsed="0.000118">No keyword with name 'Create Session' found.</status>
+</kw>
+<kw name="GET On Session">
+<var>${response}</var>
+<arg>market_api</arg>
+<arg>${ENDPOINT}</arg>
+<status status="NOT RUN" start="2026-01-18T09:03:06.234922" elapsed="0.000025"/>
+</kw>
+<kw name="Should Not Be Empty" owner="BuiltIn">
+<arg>${response.text}</arg>
+<doc>Verifies that the given item is not empty.</doc>
+<status status="NOT RUN" start="2026-01-18T09:03:06.235146" elapsed="0.000026"/>
+</kw>
+<kw name="Get Length" owner="BuiltIn">
+<var>${length}</var>
+<arg>${response.text}</arg>
+<doc>Returns and logs the length of the given item as an integer.</doc>
+<status status="NOT RUN" start="2026-01-18T09:03:06.235302" elapsed="0.000020"/>
+</kw>
+<kw name="Should Be True" owner="BuiltIn">
+<arg>${length} &gt; 100</arg>
+<arg>msg=Response should contain substantial data</arg>
+<doc>Fails if the given condition is not true.</doc>
+<status status="NOT RUN" start="2026-01-18T09:03:06.235466" elapsed="0.000021"/>
+</kw>
+<kw name="Delete All Sessions">
+<status status="NOT RUN" start="2026-01-18T09:03:06.235670" elapsed="0.000020"/>
+</kw>
+<doc>Verify response body contains meaningful data</doc>
+<tag>data-validation</tag>
+<tag>positive</tag>
+<tag>public</tag>
+<status status="FAIL" start="2026-01-18T09:03:06.232824" elapsed="0.003112">No keyword with name 'Create Session' found.</status>
+</test>
+<test id="s1-t4" name="Public Endpoint - Content Type Is JSON" line="50">
+<kw name="Create Session">
+<msg time="2026-01-18T09:03:06.238534" level="FAIL">No keyword with name 'Create Session' found.</msg>
+<arg>market_api</arg>
+<arg>${BASE_URL}</arg>
+<arg>timeout=${TIMEOUT}</arg>
+<status status="FAIL" start="2026-01-18T09:03:06.238319" elapsed="0.000385">No keyword with name 'Create Session' found.</status>
+</kw>
+<kw name="GET On Session">
+<var>${response}</var>
+<arg>market_api</arg>
+<arg>${ENDPOINT}</arg>
+<status status="NOT RUN" start="2026-01-18T09:03:06.239404" elapsed="0.000072"/>
+</kw>
+<kw name="Get From Dictionary" owner="Collections">
+<var>${content_type}</var>
+<arg>${response.headers}</arg>
+<arg>Content-Type</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="NOT RUN" start="2026-01-18T09:03:06.239850" elapsed="0.000071"/>
+</kw>
+<kw name="Should Contain" owner="BuiltIn">
+<arg>${content_type}</arg>
+<arg>application/json</arg>
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<status status="NOT RUN" start="2026-01-18T09:03:06.240237" elapsed="0.000049"/>
+</kw>
+<kw name="Delete All Sessions">
+<status status="NOT RUN" start="2026-01-18T09:03:06.240669" elapsed="0.000047"/>
+</kw>
+<doc>Verify response content type is JSON</doc>
+<tag>headers</tag>
+<tag>positive</tag>
+<tag>public</tag>
+<status status="FAIL" start="2026-01-18T09:03:06.236397" elapsed="0.004695">No keyword with name 'Create Session' found.</status>
+</test>
+<test id="s1-t5" name="Public Pairs - All Have Non-Empty Last Price" line="61">
+<kw name="Create Session">
+<msg time="2026-01-18T09:03:06.244099" level="FAIL">No keyword with name 'Create Session' found.</msg>
+<arg>market_api</arg>
+<arg>${BASE_URL}</arg>
+<arg>timeout=${TIMEOUT}</arg>
+<status status="FAIL" start="2026-01-18T09:03:06.244000" elapsed="0.000226">No keyword with name 'Create Session' found.</status>
+</kw>
+<kw name="GET On Session">
+<var>${response}</var>
+<arg>market_api</arg>
+<arg>${ENDPOINT}</arg>
+<status status="NOT RUN" start="2026-01-18T09:03:06.244512" elapsed="0.000028"/>
+</kw>
+<kw name="Evaluate" owner="BuiltIn">
+<var>${data}</var>
+<arg>json.loads(r'''${response.text}''')</arg>
+<arg>json</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="NOT RUN" start="2026-01-18T09:03:06.244745" elapsed="0.000042"/>
+</kw>
+<kw name="Create List" owner="BuiltIn">
+<var>${invalid_pairs}</var>
+<doc>Returns a list containing given items.</doc>
+<status status="NOT RUN" start="2026-01-18T09:03:06.245025" elapsed="0.000037"/>
+</kw>
+<for flavor="IN">
+<iter>
+<kw name="Get From Dictionary" owner="Collections">
+<var>${symbol}</var>
+<arg>${pair}</arg>
+<arg>symbol</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="NOT RUN" start="2026-01-18T09:03:06.245640" elapsed="0.000026"/>
+</kw>
+<kw name="Get From Dictionary" owner="Collections">
+<var>${last_price}</var>
+<arg>${pair}</arg>
+<arg>last</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="NOT RUN" start="2026-01-18T09:03:06.245820" elapsed="0.000028"/>
+</kw>
+<kw name="Evaluate" owner="BuiltIn">
+<var>${is_empty}</var>
+<arg>${last_price} == None or ${last_price} == '' or ${last_price} == 'None' or ${last_price} == 'null'</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="NOT RUN" start="2026-01-18T09:03:06.245983" elapsed="0.000021"/>
+</kw>
+<kw name="Run Keyword If" owner="BuiltIn">
+<arg>${is_empty} == "True"</arg>
+<arg>Append To List</arg>
+<arg>${invalid_pairs}</arg>
+<arg>${symbol}</arg>
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<status status="NOT RUN" start="2026-01-18T09:03:06.246128" elapsed="0.000021"/>
+</kw>
+<var name="${pair}"/>
+<status status="NOT RUN" start="2026-01-18T09:03:06.245511" elapsed="0.000676"/>
+</iter>
+<var>${pair}</var>
+<value>@{data}</value>
+<status status="NOT RUN" start="2026-01-18T09:03:06.245238" elapsed="0.000988"/>
+</for>
+<kw name="Log" owner="BuiltIn">
+<arg>${invalid_pairs}</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="NOT RUN" start="2026-01-18T09:03:06.246412" elapsed="0.000023"/>
+</kw>
+<kw name="Should Be Empty" owner="BuiltIn">
+<arg>${invalid_pairs}</arg>
+<arg>msg=Pairs with empty last price: ${invalid_pairs}</arg>
+<doc>Verifies that the given item is empty.</doc>
+<status status="NOT RUN" start="2026-01-18T09:03:06.246556" elapsed="0.000021"/>
+</kw>
+<kw name="Delete All Sessions">
+<status status="NOT RUN" start="2026-01-18T09:03:06.246745" elapsed="0.000021"/>
+</kw>
+<doc>Iterate over all public trading pairs and validate last price is populated</doc>
+<tag>instruments</tag>
+<tag>price-validation</tag>
+<tag>public</tag>
+<status status="FAIL" start="2026-01-18T09:03:06.241675" elapsed="0.005299">No keyword with name 'Create Session' found.</status>
+</test>
+<test id="s1-t6" name="Public Pairs - All Have Non-Empty Volume" line="82">
+<kw name="Create Session">
+<msg time="2026-01-18T09:03:06.248496" level="FAIL">No keyword with name 'Create Session' found.</msg>
+<arg>market_api</arg>
+<arg>${BASE_URL}</arg>
+<arg>timeout=${TIMEOUT}</arg>
+<status status="FAIL" start="2026-01-18T09:03:06.248461" elapsed="0.000078">No keyword with name 'Create Session' found.</status>
+</kw>
+<kw name="GET On Session">
+<var>${response}</var>
+<arg>market_api</arg>
+<arg>${ENDPOINT}</arg>
+<status status="NOT RUN" start="2026-01-18T09:03:06.248703" elapsed="0.000019"/>
+</kw>
+<kw name="Evaluate" owner="BuiltIn">
+<var>${data}</var>
+<arg>json.loads(r'''${response.text}''')</arg>
+<arg>json</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="NOT RUN" start="2026-01-18T09:03:06.248862" elapsed="0.000045"/>
+</kw>
+<kw name="Create List" owner="BuiltIn">
+<var>${invalid_pairs}</var>
+<doc>Returns a list containing given items.</doc>
+<status status="NOT RUN" start="2026-01-18T09:03:06.249056" elapsed="0.000033"/>
+</kw>
+<for flavor="IN">
+<iter>
+<kw name="Get From Dictionary" owner="Collections">
+<var>${symbol}</var>
+<arg>${pair}</arg>
+<arg>symbol</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="NOT RUN" start="2026-01-18T09:03:06.249406" elapsed="0.000021"/>
+</kw>
+<kw name="Get From Dictionary" owner="Collections">
+<var>${volume}</var>
+<arg>${pair}</arg>
+<arg>volume</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="NOT RUN" start="2026-01-18T09:03:06.249513" elapsed="0.000019"/>
+</kw>
+<kw name="Evaluate" owner="BuiltIn">
+<var>${is_empty}</var>
+<arg>${volume} == None or ${volume} == '' or ${volume} == 'None' or ${volume} == 'null' or ${volume} == 'True'</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="NOT RUN" start="2026-01-18T09:03:06.249616" elapsed="0.000019"/>
+</kw>
+<kw name="Run Keyword If" owner="BuiltIn">
+<arg>${is_empty}</arg>
+<arg>Append To List</arg>
+<arg>${invalid_pairs}</arg>
+<arg>${symbol}</arg>
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<status status="NOT RUN" start="2026-01-18T09:03:06.249736" elapsed="0.000019"/>
+</kw>
+<var name="${pair}"/>
+<status status="NOT RUN" start="2026-01-18T09:03:06.249326" elapsed="0.000464"/>
+</iter>
+<var>${pair}</var>
+<value>@{data}</value>
+<status status="NOT RUN" start="2026-01-18T09:03:06.249210" elapsed="0.000612"/>
+</for>
+<kw name="Log" owner="BuiltIn">
+<arg>${invalid_pairs}</arg>
+<arg>Log</arg>
+<arg>${invalid_pairs}</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="NOT RUN" start="2026-01-18T09:03:06.249984" elapsed="0.000025"/>
+</kw>
+<kw name="Should Be Empty" owner="BuiltIn">
+<arg>${invalid_pairs}</arg>
+<arg>msg=Pairs with empty volume: ${invalid_pairs}</arg>
+<doc>Verifies that the given item is empty.</doc>
+<status status="NOT RUN" start="2026-01-18T09:03:06.250238" elapsed="0.000022"/>
+</kw>
+<kw name="Delete All Sessions">
+<status status="NOT RUN" start="2026-01-18T09:03:06.250449" elapsed="0.000021"/>
+</kw>
+<doc>Iterate over all public trading pairs and validate volume is populated</doc>
+<tag>instruments</tag>
+<tag>public</tag>
+<tag>volume-validation</tag>
+<status status="FAIL" start="2026-01-18T09:03:06.247245" elapsed="0.003443">No keyword with name 'Create Session' found.</status>
+</test>
+<test id="s1-t7" name="Public Pairs - All Have Non-Empty Ask Prices" line="103">
+<kw name="Create Session">
+<msg time="2026-01-18T09:03:06.253378" level="FAIL">No keyword with name 'Create Session' found.</msg>
+<arg>market_api</arg>
+<arg>${BASE_URL}</arg>
+<arg>timeout=${TIMEOUT}</arg>
+<status status="FAIL" start="2026-01-18T09:03:06.253311" elapsed="0.000126">No keyword with name 'Create Session' found.</status>
+</kw>
+<kw name="GET On Session">
+<var>${response}</var>
+<arg>market_api</arg>
+<arg>${ENDPOINT}</arg>
+<status status="NOT RUN" start="2026-01-18T09:03:06.253725" elapsed="0.000025"/>
+</kw>
+<kw name="Evaluate" owner="BuiltIn">
+<var>${data}</var>
+<arg>json.loads(r'''${response.text}''')</arg>
+<arg>json</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="NOT RUN" start="2026-01-18T09:03:06.253931" elapsed="0.000033"/>
+</kw>
+<kw name="Create List" owner="BuiltIn">
+<var>${invalid_pairs}</var>
+<doc>Returns a list containing given items.</doc>
+<status status="NOT RUN" start="2026-01-18T09:03:06.254128" elapsed="0.000040"/>
+</kw>
+<for flavor="IN">
+<iter>
+<kw name="Get From Dictionary" owner="Collections">
+<var>${symbol}</var>
+<arg>${pair}</arg>
+<arg>symbol</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="NOT RUN" start="2026-01-18T09:03:06.254511" elapsed="0.000021"/>
+</kw>
+<kw name="Get From Dictionary" owner="Collections">
+<var>${ask}</var>
+<arg>${pair}</arg>
+<arg>lowestAsk</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="NOT RUN" start="2026-01-18T09:03:06.254650" elapsed="0.000020"/>
+</kw>
+<kw name="Evaluate" owner="BuiltIn">
+<var>${is_empty}</var>
+<arg>False == ${ask} == None or ${ask} == '' or ${ask} == 'None' or ${ask} == 'null'</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="NOT RUN" start="2026-01-18T09:03:06.254758" elapsed="0.000019"/>
+</kw>
+<kw name="Run Keyword If" owner="BuiltIn">
+<arg>${is_empty} == True</arg>
+<arg>Append To List</arg>
+<arg>${invalid_pairs}</arg>
+<arg>${symbol}</arg>
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<status status="NOT RUN" start="2026-01-18T09:03:06.254924" elapsed="0.000025"/>
+</kw>
+<var name="${pair}"/>
+<status status="NOT RUN" start="2026-01-18T09:03:06.254429" elapsed="0.000558"/>
+</iter>
+<var>${pair}</var>
+<value>@{data}</value>
+<status status="NOT RUN" start="2026-01-18T09:03:06.254316" elapsed="0.000731"/>
+</for>
+<kw name="Log" owner="BuiltIn">
+<arg>${invalid_pairs}</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="NOT RUN" start="2026-01-18T09:03:06.255235" elapsed="0.000022"/>
+</kw>
+<kw name="Should Be Empty" owner="BuiltIn">
+<arg>${invalid_pairs}</arg>
+<arg>msg=Pairs with empty ask price: ${invalid_pairs}</arg>
+<doc>Verifies that the given item is empty.</doc>
+<status status="NOT RUN" start="2026-01-18T09:03:06.255378" elapsed="0.000020"/>
+</kw>
+<kw name="Delete All Sessions">
+<status status="NOT RUN" start="2026-01-18T09:03:06.255701" elapsed="0.000042"/>
+</kw>
+<doc>Validate lowestAsk is populated for all trading pairs</doc>
+<tag>instruments</tag>
+<tag>orderbook-validation</tag>
+<tag>public</tag>
+<status status="FAIL" start="2026-01-18T09:03:06.251003" elapsed="0.005048">No keyword with name 'Create Session' found.</status>
+</test>
+<test id="s1-t8" name="Public Pairs - All Have Non-Empty Bid Prices" line="122">
+<kw name="Create Session">
+<msg time="2026-01-18T09:03:06.258693" level="FAIL">No keyword with name 'Create Session' found.</msg>
+<arg>market_api</arg>
+<arg>${BASE_URL}</arg>
+<arg>timeout=${TIMEOUT}</arg>
+<status status="FAIL" start="2026-01-18T09:03:06.258629" elapsed="0.000223">No keyword with name 'Create Session' found.</status>
+</kw>
+<kw name="GET On Session">
+<var>${response}</var>
+<arg>market_api</arg>
+<arg>${ENDPOINT}</arg>
+<status status="NOT RUN" start="2026-01-18T09:03:06.259719" elapsed="0.000107"/>
+</kw>
+<kw name="Evaluate" owner="BuiltIn">
+<var>${data}</var>
+<arg>json.loads(r'''${response.text}''')</arg>
+<arg>json</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="NOT RUN" start="2026-01-18T09:03:06.260156" elapsed="0.000072"/>
+</kw>
+<kw name="Create List" owner="BuiltIn">
+<var>${invalid_pairs}</var>
+<doc>Returns a list containing given items.</doc>
+<status status="NOT RUN" start="2026-01-18T09:03:06.260548" elapsed="0.000042"/>
+</kw>
+<for flavor="IN">
+<iter>
+<kw name="Get From Dictionary" owner="Collections">
+<var>${symbol}</var>
+<arg>${pair}</arg>
+<arg>symbol</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="NOT RUN" start="2026-01-18T09:03:06.261085" elapsed="0.000104"/>
+</kw>
+<kw name="Get From Dictionary" owner="Collections">
+<var>${bid}</var>
+<arg>${pair}</arg>
+<arg>highestBid</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="NOT RUN" start="2026-01-18T09:03:06.261360" elapsed="0.000030"/>
+</kw>
+<kw name="Evaluate" owner="BuiltIn">
+<var>${is_empty}</var>
+<arg>${bid} == None or ${bid} == '' or ${bid} == 'None' or ${bid} == 'null' == True</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="NOT RUN" start="2026-01-18T09:03:06.261524" elapsed="0.000027"/>
+</kw>
+<kw name="Run Keyword If" owner="BuiltIn">
+<arg>${is_empty}</arg>
+<arg>Append To List</arg>
+<arg>${invalid_pairs}</arg>
+<arg>${symbol}</arg>
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<status status="NOT RUN" start="2026-01-18T09:03:06.261698" elapsed="0.000029"/>
+</kw>
+<var name="${pair}"/>
+<status status="NOT RUN" start="2026-01-18T09:03:06.260931" elapsed="0.000850"/>
+</iter>
+<var>${pair}</var>
+<value>@{data}</value>
+<status status="NOT RUN" start="2026-01-18T09:03:06.260771" elapsed="0.001055"/>
+</for>
+<kw name="Log" owner="BuiltIn">
+<arg>${invalid_pairs}</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="NOT RUN" start="2026-01-18T09:03:06.262100" elapsed="0.000035"/>
+</kw>
+<kw name="Should Be Empty" owner="BuiltIn">
+<arg>${invalid_pairs}</arg>
+<arg>msg=Pairs with empty bid price: ${invalid_pairs}</arg>
+<doc>Verifies that the given item is empty.</doc>
+<status status="NOT RUN" start="2026-01-18T09:03:06.262333" elapsed="0.000033"/>
+</kw>
+<kw name="Delete All Sessions">
+<status status="NOT RUN" start="2026-01-18T09:03:06.262644" elapsed="0.000039"/>
+</kw>
+<doc>Validate highestBid is populated for all trading pairs</doc>
+<tag>instruments</tag>
+<tag>orderbook-validation</tag>
+<tag>public</tag>
+<status status="FAIL" start="2026-01-18T09:03:06.256494" elapsed="0.006535">No keyword with name 'Create Session' found.</status>
+</test>
+<test id="s1-t9" name="Public Pairs - All Have 24Hr High Prices" line="143">
+<kw name="Create Session">
+<msg time="2026-01-18T09:03:06.265751" level="FAIL">No keyword with name 'Create Session' found.</msg>
+<arg>market_api</arg>
+<arg>${BASE_URL}</arg>
+<arg>timeout=${TIMEOUT}</arg>
+<status status="FAIL" start="2026-01-18T09:03:06.265688" elapsed="0.000123">No keyword with name 'Create Session' found.</status>
+</kw>
+<kw name="GET On Session">
+<var>${response}</var>
+<arg>market_api</arg>
+<arg>${ENDPOINT}</arg>
+<status status="NOT RUN" start="2026-01-18T09:03:06.266086" elapsed="0.000024"/>
+</kw>
+<kw name="Evaluate" owner="BuiltIn">
+<var>${data}</var>
+<arg>json.loads(r'''${response.text}''')</arg>
+<arg>json</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="NOT RUN" start="2026-01-18T09:03:06.266287" elapsed="0.000022"/>
+</kw>
+<kw name="Create List" owner="BuiltIn">
+<var>${invalid_pairs}</var>
+<doc>Returns a list containing given items.</doc>
+<status status="NOT RUN" start="2026-01-18T09:03:06.266448" elapsed="0.000019"/>
+</kw>
+<for flavor="IN">
+<iter>
+<kw name="Get From Dictionary" owner="Collections">
+<var>${symbol}</var>
+<arg>${pair}</arg>
+<arg>symbol</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="NOT RUN" start="2026-01-18T09:03:06.266743" elapsed="0.000017"/>
+</kw>
+<kw name="Get From Dictionary" owner="Collections">
+<var>${high}</var>
+<arg>${pair}</arg>
+<arg>high24Hr</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="NOT RUN" start="2026-01-18T09:03:06.266838" elapsed="0.000055"/>
+</kw>
+<kw name="Evaluate" owner="BuiltIn">
+<var>${is_empty}</var>
+<arg>${high} == None or ${high} == '' or ${high} == 'None' or ${high} == 'null'</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="NOT RUN" start="2026-01-18T09:03:06.266983" elapsed="0.000018"/>
+</kw>
+<kw name="Run Keyword If" owner="BuiltIn">
+<arg>${is_empty}</arg>
+<arg>Append To List</arg>
+<arg>${invalid_pairs}</arg>
+<arg>${symbol}</arg>
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<status status="NOT RUN" start="2026-01-18T09:03:06.267085" elapsed="0.000017"/>
+</kw>
+<var name="${pair}"/>
+<status status="NOT RUN" start="2026-01-18T09:03:06.266673" elapsed="0.000459"/>
+</iter>
+<var>${pair}</var>
+<value>@{data}</value>
+<status status="NOT RUN" start="2026-01-18T09:03:06.266567" elapsed="0.000590"/>
+</for>
+<kw name="Log" owner="BuiltIn">
+<arg>${invalid_pairs}</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="NOT RUN" start="2026-01-18T09:03:06.267305" elapsed="0.000020"/>
+</kw>
+<kw name="Should Be Empty" owner="BuiltIn">
+<arg>${invalid_pairs}</arg>
+<arg>msg=Pairs with empty 24hr high: ${invalid_pairs}</arg>
+<doc>Verifies that the given item is empty.</doc>
+<status status="NOT RUN" start="2026-01-18T09:03:06.267449" elapsed="0.000018"/>
+</kw>
+<kw name="Delete All Sessions">
+<status status="NOT RUN" start="2026-01-18T09:03:06.267619" elapsed="0.000020"/>
+</kw>
+<doc>Validate high24Hr is populated for all trading pairs</doc>
+<tag>instruments</tag>
+<tag>price-range-validation</tag>
+<tag>public</tag>
+<status status="FAIL" start="2026-01-18T09:03:06.263632" elapsed="0.004195">No keyword with name 'Create Session' found.</status>
+</test>
+<test id="s1-t10" name="Public Pairs - All Have 24Hr Low Prices" line="162">
+<kw name="Create Session">
+<msg time="2026-01-18T09:03:06.270287" level="FAIL">No keyword with name 'Create Session' found.</msg>
+<arg>market_api</arg>
+<arg>${BASE_URL}</arg>
+<arg>timeout=${TIMEOUT}</arg>
+<status status="FAIL" start="2026-01-18T09:03:06.270232" elapsed="0.000108">No keyword with name 'Create Session' found.</status>
+</kw>
+<kw name="GET On Session">
+<var>${response}</var>
+<arg>market_api</arg>
+<arg>${ENDPOINT}</arg>
+<status status="NOT RUN" start="2026-01-18T09:03:06.270600" elapsed="0.000025"/>
+</kw>
+<kw name="Evaluate" owner="BuiltIn">
+<var>${data}</var>
+<arg>json.loads(r'''${response.text}''')</arg>
+<arg>json</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="NOT RUN" start="2026-01-18T09:03:06.270790" elapsed="0.000022"/>
+</kw>
+<kw name="Create List" owner="BuiltIn">
+<var>${invalid_pairs}</var>
+<doc>Returns a list containing given items.</doc>
+<status status="NOT RUN" start="2026-01-18T09:03:06.271026" elapsed="0.000022"/>
+</kw>
+<for flavor="IN">
+<iter>
+<kw name="Get From Dictionary" owner="Collections">
+<var>${symbol}</var>
+<arg>${pair}</arg>
+<arg>symbol</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="NOT RUN" start="2026-01-18T09:03:06.271320" elapsed="0.000018"/>
+</kw>
+<kw name="Get From Dictionary" owner="Collections">
+<var>${low}</var>
+<arg>${pair}</arg>
+<arg>low24Hr</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="NOT RUN" start="2026-01-18T09:03:06.271424" elapsed="0.000017"/>
+</kw>
+<kw name="Evaluate" owner="BuiltIn">
+<var>${is_empty}</var>
+<arg>${low} == None or ${low} == '' or ${low} == 'None' or ${low} == 'null'</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="NOT RUN" start="2026-01-18T09:03:06.271519" elapsed="0.000019"/>
+</kw>
+<kw name="Run Keyword If" owner="BuiltIn">
+<arg>${is_empty}</arg>
+<arg>Append To List</arg>
+<arg>${invalid_pairs}</arg>
+<arg>${symbol}</arg>
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<status status="NOT RUN" start="2026-01-18T09:03:06.271642" elapsed="0.000019"/>
+</kw>
+<var name="${pair}"/>
+<status status="NOT RUN" start="2026-01-18T09:03:06.271253" elapsed="0.000441"/>
+</iter>
+<var>${pair}</var>
+<value>@{data}</value>
+<status status="NOT RUN" start="2026-01-18T09:03:06.271171" elapsed="0.000548"/>
+</for>
+<kw name="Log" owner="BuiltIn">
+<arg>${invalid_pairs}</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="NOT RUN" start="2026-01-18T09:03:06.271857" elapsed="0.000018"/>
+</kw>
+<kw name="Should Be Empty" owner="BuiltIn">
+<arg>${invalid_pairs}</arg>
+<arg>msg=Pairs with empty 24hr low: ${invalid_pairs}</arg>
+<doc>Verifies that the given item is empty.</doc>
+<status status="NOT RUN" start="2026-01-18T09:03:06.272001" elapsed="0.000018"/>
+</kw>
+<kw name="Delete All Sessions">
+<status status="NOT RUN" start="2026-01-18T09:03:06.272181" elapsed="0.000017"/>
+</kw>
+<doc>Validate low24Hr is populated for all trading pairs</doc>
+<tag>instruments</tag>
+<tag>price-range-validation</tag>
+<tag>public</tag>
+<status status="FAIL" start="2026-01-18T09:03:06.268233" elapsed="0.004159">No keyword with name 'Create Session' found.</status>
+</test>
+<test id="s1-t11" name="Public Pairs - All Have Base Currency" line="183">
+<kw name="Create Session">
+<msg time="2026-01-18T09:03:06.274068" level="FAIL">No keyword with name 'Create Session' found.</msg>
+<arg>market_api</arg>
+<arg>${BASE_URL}</arg>
+<arg>timeout=${TIMEOUT}</arg>
+<status status="FAIL" start="2026-01-18T09:03:06.274014" elapsed="0.000117">No keyword with name 'Create Session' found.</status>
+</kw>
+<kw name="GET On Session">
+<var>${response}</var>
+<arg>market_api</arg>
+<arg>${ENDPOINT}</arg>
+<status status="NOT RUN" start="2026-01-18T09:03:06.274338" elapsed="0.000022"/>
+</kw>
+<kw name="Evaluate" owner="BuiltIn">
+<var>${data}</var>
+<arg>json.loads(r'''${response.text}''')</arg>
+<arg>json</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="NOT RUN" start="2026-01-18T09:03:06.274535" elapsed="0.000024"/>
+</kw>
+<kw name="Create List" owner="BuiltIn">
+<var>${invalid_pairs}</var>
+<doc>Returns a list containing given items.</doc>
+<status status="NOT RUN" start="2026-01-18T09:03:06.274708" elapsed="0.000038"/>
+</kw>
+<for flavor="IN">
+<iter>
+<kw name="Get From Dictionary" owner="Collections">
+<var>${symbol}</var>
+<arg>${pair}</arg>
+<arg>symbol</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="NOT RUN" start="2026-01-18T09:03:06.275049" elapsed="0.000020"/>
+</kw>
+<kw name="Get From Dictionary" owner="Collections">
+<var>${base}</var>
+<arg>${pair}</arg>
+<arg>base</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="NOT RUN" start="2026-01-18T09:03:06.275163" elapsed="0.000016"/>
+</kw>
+<kw name="Evaluate" owner="BuiltIn">
+<var>${is_empty}</var>
+<arg>'${base}' == None or '${base}' == '' or '${base}' == 'None' or '${base}' == 'null'</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="NOT RUN" start="2026-01-18T09:03:06.275278" elapsed="0.000020"/>
+</kw>
+<kw name="Run Keyword If" owner="BuiltIn">
+<arg>${is_empty}</arg>
+<arg>Append To List</arg>
+<arg>${invalid_pairs}</arg>
+<arg>${symbol}</arg>
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<status status="NOT RUN" start="2026-01-18T09:03:06.275387" elapsed="0.000017"/>
+</kw>
+<var name="${pair}"/>
+<status status="NOT RUN" start="2026-01-18T09:03:06.274976" elapsed="0.000458"/>
+</iter>
+<var>${pair}</var>
+<value>@{data}</value>
+<status status="NOT RUN" start="2026-01-18T09:03:06.274877" elapsed="0.000582"/>
+</for>
+<kw name="Log" owner="BuiltIn">
+<arg>${invalid_pairs}</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="NOT RUN" start="2026-01-18T09:03:06.275611" elapsed="0.000020"/>
+</kw>
+<kw name="Should Be Empty" owner="BuiltIn">
+<arg>${invalid_pairs}</arg>
+<arg>msg=Pairs with empty base currency: ${invalid_pairs}</arg>
+<doc>Verifies that the given item is empty.</doc>
+<status status="NOT RUN" start="2026-01-18T09:03:06.275760" elapsed="0.000019"/>
+</kw>
+<kw name="Delete All Sessions">
+<status status="NOT RUN" start="2026-01-18T09:03:06.275929" elapsed="0.000019"/>
+</kw>
+<doc>Validate base currency is populated for all pairs</doc>
+<tag>instruments</tag>
+<tag>metadata-validation</tag>
+<tag>public</tag>
+<status status="FAIL" start="2026-01-18T09:03:06.272703" elapsed="0.003444">No keyword with name 'Create Session' found.</status>
+</test>
+<test id="s1-t12" name="Public Pairs - All Have Quote Currency" line="202">
+<kw name="Create Session">
+<msg time="2026-01-18T09:03:06.278009" level="FAIL">No keyword with name 'Create Session' found.</msg>
+<arg>market_api</arg>
+<arg>${BASE_URL}</arg>
+<arg>timeout=${TIMEOUT}</arg>
+<status status="FAIL" start="2026-01-18T09:03:06.277942" elapsed="0.000141">No keyword with name 'Create Session' found.</status>
+</kw>
+<kw name="GET On Session">
+<var>${response}</var>
+<arg>market_api</arg>
+<arg>${ENDPOINT}</arg>
+<status status="NOT RUN" start="2026-01-18T09:03:06.278399" elapsed="0.000029"/>
+</kw>
+<kw name="Evaluate" owner="BuiltIn">
+<var>${data}</var>
+<arg>json.loads(r'''${response.text}''')</arg>
+<arg>json</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="NOT RUN" start="2026-01-18T09:03:06.278819" elapsed="0.000156"/>
+</kw>
+<kw name="Create List" owner="BuiltIn">
+<var>${invalid_pairs}</var>
+<doc>Returns a list containing given items.</doc>
+<status status="NOT RUN" start="2026-01-18T09:03:06.279338" elapsed="0.000028"/>
+</kw>
+<for flavor="IN">
+<iter>
+<kw name="Get From Dictionary" owner="Collections">
+<var>${symbol}</var>
+<arg>${pair}</arg>
+<arg>symbol</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="NOT RUN" start="2026-01-18T09:03:06.279927" elapsed="0.000035"/>
+</kw>
+<kw name="Get From Dictionary" owner="Collections">
+<var>${quote}</var>
+<arg>${pair}</arg>
+<arg>quote</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="NOT RUN" start="2026-01-18T09:03:06.280201" elapsed="0.000033"/>
+</kw>
+<kw name="Evaluate" owner="BuiltIn">
+<var>${is_empty}</var>
+<arg>'${quote}' == None or '${quote}' == '' or '${quote}' == 'None' or '${quote}' == 'null'</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="NOT RUN" start="2026-01-18T09:03:06.280430" elapsed="0.000044"/>
+</kw>
+<kw name="Run Keyword If" owner="BuiltIn">
+<arg>${is_empty}</arg>
+<arg>Append To List</arg>
+<arg>${invalid_pairs}</arg>
+<arg>${symbol}</arg>
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<status status="NOT RUN" start="2026-01-18T09:03:06.280707" elapsed="0.000063"/>
+</kw>
+<var name="${pair}"/>
+<status status="NOT RUN" start="2026-01-18T09:03:06.279751" elapsed="0.001090"/>
+</iter>
+<var>${pair}</var>
+<value>@{data}</value>
+<status status="NOT RUN" start="2026-01-18T09:03:06.279578" elapsed="0.001303"/>
+</for>
+<kw name="Log" owner="BuiltIn">
+<arg>${invalid_pairs}</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="NOT RUN" start="2026-01-18T09:03:06.281173" elapsed="0.000028"/>
+</kw>
+<kw name="Should Be Empty" owner="BuiltIn">
+<arg>${invalid_pairs}</arg>
+<arg>msg=Pairs with empty quote currency: ${invalid_pairs}</arg>
+<doc>Verifies that the given item is empty.</doc>
+<status status="NOT RUN" start="2026-01-18T09:03:06.281443" elapsed="0.000024"/>
+</kw>
+<kw name="Delete All Sessions">
+<status status="NOT RUN" start="2026-01-18T09:03:06.281670" elapsed="0.000026"/>
+</kw>
+<doc>Validate quote currency is populated for all pairs</doc>
+<tag>instruments</tag>
+<tag>metadata-validation</tag>
+<tag>public</tag>
+<status status="FAIL" start="2026-01-18T09:03:06.276443" elapsed="0.005528">No keyword with name 'Create Session' found.</status>
+</test>
+<test id="s1-t13" name="Public Pairs - All Have Active Status" line="221">
+<kw name="Create Session">
+<msg time="2026-01-18T09:03:06.283861" level="FAIL">No keyword with name 'Create Session' found.</msg>
+<arg>market_api</arg>
+<arg>${BASE_URL}</arg>
+<arg>timeout=${TIMEOUT}</arg>
+<status status="FAIL" start="2026-01-18T09:03:06.283797" elapsed="0.000116">No keyword with name 'Create Session' found.</status>
+</kw>
+<kw name="GET On Session">
+<var>${response}</var>
+<arg>market_api</arg>
+<arg>${ENDPOINT}</arg>
+<status status="NOT RUN" start="2026-01-18T09:03:06.284186" elapsed="0.000037"/>
+</kw>
+<kw name="Evaluate" owner="BuiltIn">
+<var>${data}</var>
+<arg>json.loads(r'''${response.text}''')</arg>
+<arg>json</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="NOT RUN" start="2026-01-18T09:03:06.284468" elapsed="0.000036"/>
+</kw>
+<kw name="Create List" owner="BuiltIn">
+<var>${invalid_pairs}</var>
+<doc>Returns a list containing given items.</doc>
+<status status="NOT RUN" start="2026-01-18T09:03:06.284753" elapsed="0.000037"/>
+</kw>
+<for flavor="IN">
+<iter>
+<kw name="Get From Dictionary" owner="Collections">
+<var>${symbol}</var>
+<arg>${pair}</arg>
+<arg>symbol</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="NOT RUN" start="2026-01-18T09:03:06.285198" elapsed="0.000020"/>
+</kw>
+<kw name="Get From Dictionary" owner="Collections">
+<var>${active}</var>
+<arg>${pair}</arg>
+<arg>active</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="NOT RUN" start="2026-01-18T09:03:06.285304" elapsed="0.000017"/>
+</kw>
+<kw name="Evaluate" owner="BuiltIn">
+<var>${is_none}</var>
+<arg>${active} is None</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="NOT RUN" start="2026-01-18T09:03:06.285436" elapsed="0.000020"/>
+</kw>
+<kw name="Run Keyword If" owner="BuiltIn">
+<arg>${is_none}</arg>
+<arg>Append To List</arg>
+<arg>${invalid_pairs}</arg>
+<arg>${symbol}</arg>
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<status status="NOT RUN" start="2026-01-18T09:03:06.285544" elapsed="0.000018"/>
+</kw>
+<var name="${pair}"/>
+<status status="NOT RUN" start="2026-01-18T09:03:06.285087" elapsed="0.000506"/>
+</iter>
+<var>${pair}</var>
+<value>@{data}</value>
+<status status="NOT RUN" start="2026-01-18T09:03:06.284969" elapsed="0.000651"/>
+</for>
+<kw name="Log" owner="BuiltIn">
+<arg>${invalid_pairs}</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="NOT RUN" start="2026-01-18T09:03:06.285803" elapsed="0.000031"/>
+</kw>
+<kw name="Should Be Empty" owner="BuiltIn">
+<arg>${invalid_pairs}</arg>
+<arg>msg=Pairs with undefined active status: ${invalid_pairs}</arg>
+<doc>Verifies that the given item is empty.</doc>
+<status status="NOT RUN" start="2026-01-18T09:03:06.286060" elapsed="0.000037"/>
+</kw>
+<kw name="Delete All Sessions">
+<status status="NOT RUN" start="2026-01-18T09:03:06.286280" elapsed="0.000019"/>
+</kw>
+<doc>Validate active status is defined for all pairs</doc>
+<tag>instruments</tag>
+<tag>metadata-validation</tag>
+<tag>public</tag>
+<status status="FAIL" start="2026-01-18T09:03:06.282452" elapsed="0.004065">No keyword with name 'Create Session' found.</status>
+</test>
+<test id="s1-t14" name="Public Pairs - All Prices Are Non-Negative" line="242">
+<kw name="Create Session">
+<msg time="2026-01-18T09:03:06.288343" level="FAIL">No keyword with name 'Create Session' found.</msg>
+<arg>market_api</arg>
+<arg>${BASE_URL}</arg>
+<arg>timeout=${TIMEOUT}</arg>
+<status status="FAIL" start="2026-01-18T09:03:06.288300" elapsed="0.000094">No keyword with name 'Create Session' found.</status>
+</kw>
+<kw name="GET On Session">
+<var>${response}</var>
+<arg>market_api</arg>
+<arg>${ENDPOINT}</arg>
+<status status="NOT RUN" start="2026-01-18T09:03:06.288646" elapsed="0.000022"/>
+</kw>
+<kw name="Evaluate" owner="BuiltIn">
+<var>${data}</var>
+<arg>json.loads(r'''${response.text}''')</arg>
+<arg>json</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="NOT RUN" start="2026-01-18T09:03:06.288903" elapsed="0.000037"/>
+</kw>
+<kw name="Create List" owner="BuiltIn">
+<var>${invalid_pairs}</var>
+<doc>Returns a list containing given items.</doc>
+<status status="NOT RUN" start="2026-01-18T09:03:06.289181" elapsed="0.000031"/>
+</kw>
+<for flavor="IN">
+<iter>
+<kw name="Get From Dictionary" owner="Collections">
+<var>${symbol}</var>
+<arg>${pair}</arg>
+<arg>symbol</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="NOT RUN" start="2026-01-18T09:03:06.289530" elapsed="0.000018"/>
+</kw>
+<kw name="Get From Dictionary" owner="Collections">
+<var>${last}</var>
+<arg>${pair}</arg>
+<arg>last</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="NOT RUN" start="2026-01-18T09:03:06.289623" elapsed="0.000016"/>
+</kw>
+<kw name="Get From Dictionary" owner="Collections">
+<var>${bid}</var>
+<arg>${pair}</arg>
+<arg>highestBid</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="NOT RUN" start="2026-01-18T09:03:06.289708" elapsed="0.000016"/>
+</kw>
+<kw name="Get From Dictionary" owner="Collections">
+<var>${ask}</var>
+<arg>${pair}</arg>
+<arg>lowestAsk</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="NOT RUN" start="2026-01-18T09:03:06.289788" elapsed="0.000014"/>
+</kw>
+<kw name="Get From Dictionary" owner="Collections">
+<var>${high}</var>
+<arg>${pair}</arg>
+<arg>high24Hr</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="NOT RUN" start="2026-01-18T09:03:06.289881" elapsed="0.000015"/>
+</kw>
+<kw name="Get From Dictionary" owner="Collections">
+<var>${low}</var>
+<arg>${pair}</arg>
+<arg>low24Hr</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="NOT RUN" start="2026-01-18T09:03:06.289960" elapsed="0.000015"/>
+</kw>
+<kw name="Evaluate" owner="BuiltIn">
+<var>${has_negative}</var>
+<arg>${last} &lt; 0 or ${bid} &lt; 0 or ${ask} &lt; 0 or ${high} &lt; 0 or ${low} &lt; 0</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="NOT RUN" start="2026-01-18T09:03:06.290048" elapsed="0.000015"/>
+</kw>
+<kw name="Run Keyword If" owner="BuiltIn">
+<arg>${has_negative}</arg>
+<arg>Append To List</arg>
+<arg>${invalid_pairs}</arg>
+<arg>${symbol}</arg>
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<status status="NOT RUN" start="2026-01-18T09:03:06.290170" elapsed="0.000019"/>
+</kw>
+<var name="${pair}"/>
+<status status="NOT RUN" start="2026-01-18T09:03:06.289456" elapsed="0.000771"/>
+</iter>
+<var>${pair}</var>
+<value>@{data}</value>
+<status status="NOT RUN" start="2026-01-18T09:03:06.289346" elapsed="0.000923"/>
+</for>
+<kw name="Log" owner="BuiltIn">
+<arg>${invalid_pairs}</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="NOT RUN" start="2026-01-18T09:03:06.290494" elapsed="0.000025"/>
+</kw>
+<kw name="Should Be Empty" owner="BuiltIn">
+<arg>${invalid_pairs}</arg>
+<arg>msg=Pairs with negative prices: ${invalid_pairs}</arg>
+<doc>Verifies that the given item is empty.</doc>
+<status status="NOT RUN" start="2026-01-18T09:03:06.290776" elapsed="0.000047"/>
+</kw>
+<kw name="Delete All Sessions">
+<status status="NOT RUN" start="2026-01-18T09:03:06.291186" elapsed="0.000024"/>
+</kw>
+<doc>Validate all price values (last, bid, ask, high, low) are &gt;= 0</doc>
+<tag>data-consistency</tag>
+<tag>instruments</tag>
+<tag>public</tag>
+<status status="FAIL" start="2026-01-18T09:03:06.286944" elapsed="0.004515">No keyword with name 'Create Session' found.</status>
+</test>
+<test id="s1-t15" name="Public Pairs - High Price Always Greater Than Low Price" line="266">
+<kw name="Create Session">
+<msg time="2026-01-18T09:03:06.296588" level="FAIL">No keyword with name 'Create Session' found.</msg>
+<arg>market_api</arg>
+<arg>${BASE_URL}</arg>
+<arg>timeout=${TIMEOUT}</arg>
+<status status="FAIL" start="2026-01-18T09:03:06.296472" elapsed="0.000574">No keyword with name 'Create Session' found.</status>
+</kw>
+<kw name="GET On Session">
+<var>${response}</var>
+<arg>market_api</arg>
+<arg>${ENDPOINT}</arg>
+<status status="NOT RUN" start="2026-01-18T09:03:06.297632" elapsed="0.000048"/>
+</kw>
+<kw name="Evaluate" owner="BuiltIn">
+<var>${data}</var>
+<arg>json.loads(r'''${response.text}''')</arg>
+<arg>json</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="NOT RUN" start="2026-01-18T09:03:06.297980" elapsed="0.000074"/>
+</kw>
+<kw name="Create List" owner="BuiltIn">
+<var>${invalid_pairs}</var>
+<doc>Returns a list containing given items.</doc>
+<status status="NOT RUN" start="2026-01-18T09:03:06.298328" elapsed="0.000038"/>
+</kw>
+<for flavor="IN">
+<iter>
+<kw name="Get From Dictionary" owner="Collections">
+<var>${symbol}</var>
+<arg>${pair}</arg>
+<arg>symbol</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="NOT RUN" start="2026-01-18T09:03:06.298795" elapsed="0.000034"/>
+</kw>
+<kw name="Get From Dictionary" owner="Collections">
+<var>${high}</var>
+<arg>${pair}</arg>
+<arg>high24Hr</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="NOT RUN" start="2026-01-18T09:03:06.299095" elapsed="0.000052"/>
+</kw>
+<kw name="Get From Dictionary" owner="Collections">
+<var>${low}</var>
+<arg>${pair}</arg>
+<arg>low24Hr</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="NOT RUN" start="2026-01-18T09:03:06.299310" elapsed="0.000033"/>
+</kw>
+<kw name="Evaluate" owner="BuiltIn">
+<var>${is_invalid}</var>
+<arg>${high} &lt; ${low}</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="NOT RUN" start="2026-01-18T09:03:06.299506" elapsed="0.000035"/>
+</kw>
+<kw name="Run Keyword If" owner="BuiltIn">
+<arg>${is_invalid}</arg>
+<arg>Append To List</arg>
+<arg>${invalid_pairs}</arg>
+<arg>${symbol}</arg>
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<status status="NOT RUN" start="2026-01-18T09:03:06.299723" elapsed="0.000090"/>
+</kw>
+<var name="${pair}"/>
+<status status="NOT RUN" start="2026-01-18T09:03:06.298661" elapsed="0.010494"/>
+</iter>
+<var>${pair}</var>
+<value>@{data}</value>
+<status status="NOT RUN" start="2026-01-18T09:03:06.298509" elapsed="0.010736"/>
+</for>
+<kw name="Log" owner="BuiltIn">
+<arg>${invalid_pairs}</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="NOT RUN" start="2026-01-18T09:03:06.309688" elapsed="0.000052"/>
+</kw>
+<kw name="Should Be Empty" owner="BuiltIn">
+<arg>${invalid_pairs}</arg>
+<arg>msg=Pairs with invalid price ranges (high &lt; low): ${invalid_pairs}</arg>
+<doc>Verifies that the given item is empty.</doc>
+<status status="NOT RUN" start="2026-01-18T09:03:06.310118" elapsed="0.000050"/>
+</kw>
+<kw name="Delete All Sessions">
+<status status="NOT RUN" start="2026-01-18T09:03:06.310540" elapsed="0.000043"/>
+</kw>
+<doc>Validate high24Hr &gt;= low24Hr for all pairs</doc>
+<tag>data-consistency</tag>
+<tag>instruments</tag>
+<tag>public</tag>
+<status status="FAIL" start="2026-01-18T09:03:06.292338" elapsed="0.018667">No keyword with name 'Create Session' found.</status>
+</test>
+<test id="s1-t16" name="Public Pairs - Last Price Outside 24Hr Range Pairs" line="286">
+<kw name="Create Session">
+<msg time="2026-01-18T09:03:06.322519" level="FAIL">No keyword with name 'Create Session' found.</msg>
+<arg>market_api</arg>
+<arg>${BASE_URL}</arg>
+<arg>timeout=${TIMEOUT}</arg>
+<status status="FAIL" start="2026-01-18T09:03:06.322417" elapsed="0.000192">No keyword with name 'Create Session' found.</status>
+</kw>
+<kw name="GET On Session">
+<var>${response}</var>
+<arg>market_api</arg>
+<arg>${ENDPOINT}</arg>
+<status status="NOT RUN" start="2026-01-18T09:03:06.323063" elapsed="0.000041"/>
+</kw>
+<kw name="Evaluate" owner="BuiltIn">
+<var>${data}</var>
+<arg>json.loads(r'''${response.text}''')</arg>
+<arg>json</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="NOT RUN" start="2026-01-18T09:03:06.323376" elapsed="0.000037"/>
+</kw>
+<kw name="Create List" owner="BuiltIn">
+<var>${Last_Price_Outside_24Hr_Range_Pairs}</var>
+<doc>Returns a list containing given items.</doc>
+<status status="NOT RUN" start="2026-01-18T09:03:06.323611" elapsed="0.000031"/>
+</kw>
+<for flavor="IN">
+<iter>
+<kw name="Get From Dictionary" owner="Collections">
+<var>${symbol}</var>
+<arg>${pair}</arg>
+<arg>symbol</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="NOT RUN" start="2026-01-18T09:03:06.324037" elapsed="0.000032"/>
+</kw>
+<kw name="Get From Dictionary" owner="Collections">
+<var>${last}</var>
+<arg>${pair}</arg>
+<arg>last</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="NOT RUN" start="2026-01-18T09:03:06.324267" elapsed="0.000037"/>
+</kw>
+<kw name="Get From Dictionary" owner="Collections">
+<var>${high}</var>
+<arg>${pair}</arg>
+<arg>high24Hr</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="NOT RUN" start="2026-01-18T09:03:06.324470" elapsed="0.000035"/>
+</kw>
+<kw name="Get From Dictionary" owner="Collections">
+<var>${low}</var>
+<arg>${pair}</arg>
+<arg>low24Hr</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="NOT RUN" start="2026-01-18T09:03:06.324667" elapsed="0.000380"/>
+</kw>
+<kw name="Evaluate" owner="BuiltIn">
+<var>${Last_Price_Outside_24Hr_Range_Pairs}</var>
+<arg>${last} &lt; ${low} or ${last} &gt; ${high} == True</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="NOT RUN" start="2026-01-18T09:03:06.325285" elapsed="0.000070"/>
+</kw>
+<kw name="Run Keyword If" owner="BuiltIn">
+<arg>${Last_Price_Outside_24Hr_Range_Pairs} == True</arg>
+<arg>Append To List</arg>
+<arg>${Last_Price_Outside_24Hr_Range_Pairs}</arg>
+<arg>${symbol}</arg>
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<status status="NOT RUN" start="2026-01-18T09:03:06.325537" elapsed="0.000033"/>
+</kw>
+<var name="${pair}"/>
+<status status="NOT RUN" start="2026-01-18T09:03:06.323914" elapsed="0.001723"/>
+</iter>
+<var>${pair}</var>
+<value>@{data}</value>
+<status status="NOT RUN" start="2026-01-18T09:03:06.323763" elapsed="0.001931"/>
+</for>
+<kw name="Should Be Empty" owner="BuiltIn">
+<arg>${Last_Price_Outside_24Hr_Range_Pairs}</arg>
+<arg>msg=Pairs with last price outside 24hr range: ${Last_Price_Outside_24Hr_Range_Pairs}</arg>
+<doc>Verifies that the given item is empty.</doc>
+<status status="NOT RUN" start="2026-01-18T09:03:06.325906" elapsed="0.000033"/>
+</kw>
+<kw name="Run Keyword If" owner="BuiltIn">
+<arg>${Last_Price_Outside_24Hr_Range_Pairs}</arg>
+<arg>Log</arg>
+<arg>${Last_Price_Outside_24Hr_Range_Pairs}</arg>
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<status status="NOT RUN" start="2026-01-18T09:03:06.326175" elapsed="0.000034"/>
+</kw>
+<kw name="Delete All Sessions">
+<status status="NOT RUN" start="2026-01-18T09:03:06.326502" elapsed="0.000034"/>
+</kw>
+<doc>Validate last price is between high24Hr and low24Hr</doc>
+<tag>data-consistency</tag>
+<tag>instruments</tag>
+<tag>public</tag>
+<status status="FAIL" start="2026-01-18T09:03:06.311610" elapsed="0.015201">No keyword with name 'Create Session' found.</status>
+</test>
+<test id="s1-t17" name="Public Pairs - Ask Price Always Higher Than Bid Price" line="307">
+<kw name="Create Session">
+<msg time="2026-01-18T09:03:06.330439" level="FAIL">No keyword with name 'Create Session' found.</msg>
+<arg>market_api</arg>
+<arg>${BASE_URL}</arg>
+<arg>timeout=${TIMEOUT}</arg>
+<status status="FAIL" start="2026-01-18T09:03:06.330362" elapsed="0.000163">No keyword with name 'Create Session' found.</status>
+</kw>
+<kw name="GET On Session">
+<var>${response}</var>
+<arg>market_api</arg>
+<arg>${ENDPOINT}</arg>
+<status status="NOT RUN" start="2026-01-18T09:03:06.330959" elapsed="0.000044"/>
+</kw>
+<kw name="Evaluate" owner="BuiltIn">
+<var>${data}</var>
+<arg>json.loads(r'''${response.text}''')</arg>
+<arg>json</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="NOT RUN" start="2026-01-18T09:03:06.331299" elapsed="0.000058"/>
+</kw>
+<kw name="Create List" owner="BuiltIn">
+<var>${invalid_pairs}</var>
+<doc>Returns a list containing given items.</doc>
+<status status="NOT RUN" start="2026-01-18T09:03:06.331596" elapsed="0.000030"/>
+</kw>
+<for flavor="IN">
+<iter>
+<kw name="Get From Dictionary" owner="Collections">
+<var>${symbol}</var>
+<arg>${pair}</arg>
+<arg>symbol</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="NOT RUN" start="2026-01-18T09:03:06.332032" elapsed="0.000049"/>
+</kw>
+<kw name="Get From Dictionary" owner="Collections">
+<var>${ask}</var>
+<arg>${pair}</arg>
+<arg>lowestAsk</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="NOT RUN" start="2026-01-18T09:03:06.332286" elapsed="0.000040"/>
+</kw>
+<kw name="Get From Dictionary" owner="Collections">
+<var>${bid}</var>
+<arg>${pair}</arg>
+<arg>highestBid</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="NOT RUN" start="2026-01-18T09:03:06.332498" elapsed="0.000035"/>
+</kw>
+<kw name="Evaluate" owner="BuiltIn">
+<var>${is_invalid}</var>
+<arg>${ask} &lt; ${bid}</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="NOT RUN" start="2026-01-18T09:03:06.332702" elapsed="0.000034"/>
+</kw>
+<kw name="Run Keyword If" owner="BuiltIn">
+<arg>${is_invalid}</arg>
+<arg>Append To List</arg>
+<arg>${invalid_pairs}</arg>
+<arg>${symbol}</arg>
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<status status="NOT RUN" start="2026-01-18T09:03:06.332916" elapsed="0.000034"/>
+</kw>
+<var name="${pair}"/>
+<status status="NOT RUN" start="2026-01-18T09:03:06.331912" elapsed="0.001101"/>
+</iter>
+<var>${pair}</var>
+<value>@{data}</value>
+<status status="NOT RUN" start="2026-01-18T09:03:06.331770" elapsed="0.001300"/>
+</for>
+<kw name="Log" owner="BuiltIn">
+<arg>${invalid_pairs}</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="NOT RUN" start="2026-01-18T09:03:06.333313" elapsed="0.000036"/>
+</kw>
+<kw name="Should Be Empty" owner="BuiltIn">
+<arg>${invalid_pairs}</arg>
+<arg>msg=Pairs with ask &lt; bid spread: ${invalid_pairs}</arg>
+<doc>Verifies that the given item is empty.</doc>
+<status status="NOT RUN" start="2026-01-18T09:03:06.333537" elapsed="0.000032"/>
+</kw>
+<kw name="Delete All Sessions">
+<status status="NOT RUN" start="2026-01-18T09:03:06.333791" elapsed="0.000031"/>
+</kw>
+<doc>Validate lowestAsk &gt;= highestBid for all pairs</doc>
+<tag>data-consistency</tag>
+<tag>instruments</tag>
+<tag>public</tag>
+<status status="FAIL" start="2026-01-18T09:03:06.327228" elapsed="0.006863">No keyword with name 'Create Session' found.</status>
+</test>
+<test id="s1-t18" name="Public Pairs - All Volumes Are Non-Negative" line="329">
+<kw name="Create Session">
+<msg time="2026-01-18T09:03:06.343835" level="FAIL">No keyword with name 'Create Session' found.</msg>
+<arg>market_api</arg>
+<arg>${BASE_URL}</arg>
+<arg>timeout=${TIMEOUT}</arg>
+<status status="FAIL" start="2026-01-18T09:03:06.342476" elapsed="0.001462">No keyword with name 'Create Session' found.</status>
+</kw>
+<kw name="GET On Session">
+<var>${response}</var>
+<arg>market_api</arg>
+<arg>${ENDPOINT}</arg>
+<status status="NOT RUN" start="2026-01-18T09:03:06.345366" elapsed="0.000059"/>
+</kw>
+<kw name="Evaluate" owner="BuiltIn">
+<var>${data}</var>
+<arg>json.loads(r'''${response.text}''')</arg>
+<arg>json</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="NOT RUN" start="2026-01-18T09:03:06.345728" elapsed="0.000040"/>
+</kw>
+<kw name="Create List" owner="BuiltIn">
+<var>${invalid_pairs}</var>
+<doc>Returns a list containing given items.</doc>
+<status status="NOT RUN" start="2026-01-18T09:03:06.346025" elapsed="0.000036"/>
+</kw>
+<for flavor="IN">
+<iter>
+<kw name="Get From Dictionary" owner="Collections">
+<var>${symbol}</var>
+<arg>${pair}</arg>
+<arg>symbol</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="NOT RUN" start="2026-01-18T09:03:06.346541" elapsed="0.000039"/>
+</kw>
+<kw name="Get From Dictionary" owner="Collections">
+<var>${volume}</var>
+<arg>${pair}</arg>
+<arg>volume</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="NOT RUN" start="2026-01-18T09:03:06.346748" elapsed="0.000033"/>
+</kw>
+<kw name="Evaluate" owner="BuiltIn">
+<var>${is_negative}</var>
+<arg>${volume} &lt; 0</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="NOT RUN" start="2026-01-18T09:03:06.346964" elapsed="0.000032"/>
+</kw>
+<kw name="Run Keyword If" owner="BuiltIn">
+<arg>${is_negative}</arg>
+<arg>Append To List</arg>
+<arg>${invalid_pairs}</arg>
+<arg>${symbol}</arg>
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<status status="NOT RUN" start="2026-01-18T09:03:06.347183" elapsed="0.000031"/>
+</kw>
+<var name="${pair}"/>
+<status status="NOT RUN" start="2026-01-18T09:03:06.346406" elapsed="0.000874"/>
+</iter>
+<var>${pair}</var>
+<value>@{data}</value>
+<status status="NOT RUN" start="2026-01-18T09:03:06.346229" elapsed="0.001102"/>
+</for>
+<kw name="Log" owner="BuiltIn">
+<arg>${invalid_pairs}</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="NOT RUN" start="2026-01-18T09:03:06.347625" elapsed="0.000034"/>
+</kw>
+<kw name="Should Be Empty" owner="BuiltIn">
+<arg>${invalid_pairs}</arg>
+<arg>msg=Pairs with negative volume: ${invalid_pairs}</arg>
+<doc>Verifies that the given item is empty.</doc>
+<status status="NOT RUN" start="2026-01-18T09:03:06.347914" elapsed="0.000039"/>
+</kw>
+<kw name="Delete All Sessions">
+<status status="NOT RUN" start="2026-01-18T09:03:06.348231" elapsed="0.000036"/>
+</kw>
+<doc>Validate volume is &gt;= 0 for all pairs</doc>
+<tag>instruments</tag>
+<tag>public</tag>
+<tag>volume-validation</tag>
+<status status="FAIL" start="2026-01-18T09:03:06.334499" elapsed="0.014079">No keyword with name 'Create Session' found.</status>
+</test>
+<test id="s1-t19" name="Public Pairs - Percentage Change Is In Valid Range" line="350">
+<kw name="Create Session">
+<msg time="2026-01-18T09:03:06.352025" level="FAIL">No keyword with name 'Create Session' found.</msg>
+<arg>market_api</arg>
+<arg>${BASE_URL}</arg>
+<arg>timeout=${TIMEOUT}</arg>
+<status status="FAIL" start="2026-01-18T09:03:06.351940" elapsed="0.000148">No keyword with name 'Create Session' found.</status>
+</kw>
+<kw name="GET On Session">
+<var>${response}</var>
+<arg>market_api</arg>
+<arg>${ENDPOINT}</arg>
+<status status="NOT RUN" start="2026-01-18T09:03:06.352491" elapsed="0.000033"/>
+</kw>
+<kw name="Evaluate" owner="BuiltIn">
+<var>${data}</var>
+<arg>json.loads(r'''${response.text}''')</arg>
+<arg>json</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="NOT RUN" start="2026-01-18T09:03:06.352820" elapsed="0.000039"/>
+</kw>
+<kw name="Create List" owner="BuiltIn">
+<var>${invalid_pairs}</var>
+<doc>Returns a list containing given items.</doc>
+<status status="NOT RUN" start="2026-01-18T09:03:06.353169" elapsed="0.000029"/>
+</kw>
+<for flavor="IN">
+<iter>
+<kw name="Get From Dictionary" owner="Collections">
+<var>${symbol}</var>
+<arg>${pair}</arg>
+<arg>symbol</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="NOT RUN" start="2026-01-18T09:03:06.353602" elapsed="0.000023"/>
+</kw>
+<kw name="Get From Dictionary" owner="Collections">
+<var>${change}</var>
+<arg>${pair}</arg>
+<arg>percentageChange</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="NOT RUN" start="2026-01-18T09:03:06.353734" elapsed="0.000021"/>
+</kw>
+<kw name="Evaluate" owner="BuiltIn">
+<var>${is_out_of_range}</var>
+<arg>${change} &lt; -100 or ${change} &gt; 1000</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="NOT RUN" start="2026-01-18T09:03:06.353856" elapsed="0.000021"/>
+</kw>
+<kw name="Run Keyword If" owner="BuiltIn">
+<arg>${is_out_of_range}</arg>
+<arg>Append To List</arg>
+<arg>${invalid_pairs}</arg>
+<arg>${symbol}:${change}</arg>
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<status status="NOT RUN" start="2026-01-18T09:03:06.353989" elapsed="0.000020"/>
+</kw>
+<var name="${pair}"/>
+<status status="NOT RUN" start="2026-01-18T09:03:06.353504" elapsed="0.000540"/>
+</iter>
+<var>${pair}</var>
+<value>@{data}</value>
+<status status="NOT RUN" start="2026-01-18T09:03:06.353357" elapsed="0.000717"/>
+</for>
+<kw name="Log" owner="BuiltIn">
+<arg>${invalid_pairs}</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="NOT RUN" start="2026-01-18T09:03:06.354340" elapsed="0.000034"/>
+</kw>
+<kw name="Should Be Empty" owner="BuiltIn">
+<arg>${invalid_pairs}</arg>
+<arg>msg=Pairs with out-of-range percentage change: ${invalid_pairs}</arg>
+<doc>Verifies that the given item is empty.</doc>
+<status status="NOT RUN" start="2026-01-18T09:03:06.354599" elapsed="0.000032"/>
+</kw>
+<kw name="Delete All Sessions">
+<status status="NOT RUN" start="2026-01-18T09:03:06.354936" elapsed="0.000027"/>
+</kw>
+<doc>Validate percentageChange is between -100 and +1000 for all pairs</doc>
+<tag>change-validation</tag>
+<tag>instruments</tag>
+<tag>public</tag>
+<status status="FAIL" start="2026-01-18T09:03:06.349174" elapsed="0.006072">No keyword with name 'Create Session' found.</status>
+</test>
+<test id="s1-t20" name="Public Endpoint - No Duplicate Trading Pairs" line="371">
+<kw name="Create Session">
+<msg time="2026-01-18T09:03:06.357122" level="FAIL">No keyword with name 'Create Session' found.</msg>
+<arg>market_api</arg>
+<arg>${BASE_URL}</arg>
+<arg>timeout=${TIMEOUT}</arg>
+<status status="FAIL" start="2026-01-18T09:03:06.357069" elapsed="0.000098">No keyword with name 'Create Session' found.</status>
+</kw>
+<kw name="GET On Session">
+<var>${response}</var>
+<arg>market_api</arg>
+<arg>${ENDPOINT}</arg>
+<status status="NOT RUN" start="2026-01-18T09:03:06.357372" elapsed="0.000020"/>
+</kw>
+<kw name="Evaluate" owner="BuiltIn">
+<var>${data}</var>
+<arg>json.loads(r'''${response.text}''')</arg>
+<arg>json</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="NOT RUN" start="2026-01-18T09:03:06.357585" elapsed="0.000022"/>
+</kw>
+<kw name="Create List" owner="BuiltIn">
+<var>${symbols}</var>
+<doc>Returns a list containing given items.</doc>
+<status status="NOT RUN" start="2026-01-18T09:03:06.357754" elapsed="0.000019"/>
+</kw>
+<kw name="Create List" owner="BuiltIn">
+<var>${duplicates}</var>
+<doc>Returns a list containing given items.</doc>
+<status status="NOT RUN" start="2026-01-18T09:03:06.357897" elapsed="0.000019"/>
+</kw>
+<for flavor="IN">
+<iter>
+<kw name="Get From Dictionary" owner="Collections">
+<var>${symbol}</var>
+<arg>${pair}</arg>
+<arg>symbol</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="NOT RUN" start="2026-01-18T09:03:06.358159" elapsed="0.000018"/>
+</kw>
+<kw name="Evaluate" owner="BuiltIn">
+<var>${already_exists}</var>
+<arg>'${symbol}' in ${symbols}</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="NOT RUN" start="2026-01-18T09:03:06.358254" elapsed="0.000017"/>
+</kw>
+<kw name="Run Keyword If" owner="BuiltIn">
+<arg>${already_exists}</arg>
+<arg>Append To List</arg>
+<arg>${duplicates}</arg>
+<arg>${symbol}</arg>
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<status status="NOT RUN" start="2026-01-18T09:03:06.358366" elapsed="0.000017"/>
+</kw>
+<kw name="Append To List" owner="Collections">
+<arg>${symbols}</arg>
+<arg>${symbol}</arg>
+<doc>Adds ``values`` to the end of ``list``.</doc>
+<status status="NOT RUN" start="2026-01-18T09:03:06.358455" elapsed="0.000016"/>
+</kw>
+<var name="${pair}"/>
+<status status="NOT RUN" start="2026-01-18T09:03:06.358091" elapsed="0.000404"/>
+</iter>
+<var>${pair}</var>
+<value>@{data}</value>
+<status status="NOT RUN" start="2026-01-18T09:03:06.358013" elapsed="0.000506"/>
+</for>
+<kw name="Log" owner="BuiltIn">
+<arg>${duplicates}</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="NOT RUN" start="2026-01-18T09:03:06.358661" elapsed="0.000068"/>
+</kw>
+<kw name="Should Be Empty" owner="BuiltIn">
+<arg>${duplicates}</arg>
+<arg>msg=Duplicate symbols found: ${duplicates}</arg>
+<doc>Verifies that the given item is empty.</doc>
+<status status="NOT RUN" start="2026-01-18T09:03:06.358838" elapsed="0.000031"/>
+</kw>
+<kw name="Delete All Sessions">
+<status status="NOT RUN" start="2026-01-18T09:03:06.359087" elapsed="0.000049"/>
+</kw>
+<doc>Verify response contains no duplicate symbols</doc>
+<tag>data-integrity</tag>
+<tag>public</tag>
+<status status="FAIL" start="2026-01-18T09:03:06.355710" elapsed="0.003849">No keyword with name 'Create Session' found.</status>
+</test>
+<test id="s1-t21" name="Public Endpoint - Response Is Complete And Not Truncated" line="390">
+<kw name="Create Session">
+<msg time="2026-01-18T09:03:06.361427" level="FAIL">No keyword with name 'Create Session' found.</msg>
+<arg>market_api</arg>
+<arg>${BASE_URL}</arg>
+<arg>timeout=${TIMEOUT}</arg>
+<status status="FAIL" start="2026-01-18T09:03:06.361381" elapsed="0.000092">No keyword with name 'Create Session' found.</status>
+</kw>
+<kw name="GET On Session">
+<var>${response}</var>
+<arg>market_api</arg>
+<arg>${ENDPOINT}</arg>
+<status status="NOT RUN" start="2026-01-18T09:03:06.361780" elapsed="0.000034"/>
+</kw>
+<kw name="Get Substring" owner="String">
+<var>${last_char}</var>
+<arg>${response.text}</arg>
+<arg>-1</arg>
+<doc>Returns a substring from ``start`` index to ``end`` index.</doc>
+<status status="NOT RUN" start="2026-01-18T09:03:06.362081" elapsed="0.000032"/>
+</kw>
+<kw name="Should Be Equal" owner="BuiltIn">
+<arg>${last_char}</arg>
+<arg>]</arg>
+<arg>msg=Response JSON not properly closed</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="NOT RUN" start="2026-01-18T09:03:06.362344" elapsed="0.000031"/>
+</kw>
+<kw name="Delete All Sessions">
+<status status="NOT RUN" start="2026-01-18T09:03:06.362627" elapsed="0.000032"/>
+</kw>
+<doc>Validate response JSON is properly closed (ends with ']')</doc>
+<tag>data-integrity</tag>
+<tag>public</tag>
+<status status="FAIL" start="2026-01-18T09:03:06.359940" elapsed="0.003064">No keyword with name 'Create Session' found.</status>
+</test>
+<test id="s1-t22" name="Public Endpoint - Minimum Trading Pairs Expected" line="399">
+<kw name="Create Session">
+<msg time="2026-01-18T09:03:06.369184" level="FAIL">No keyword with name 'Create Session' found.</msg>
+<arg>market_api</arg>
+<arg>${BASE_URL}</arg>
+<arg>timeout=${TIMEOUT}</arg>
+<status status="FAIL" start="2026-01-18T09:03:06.369077" elapsed="0.000245">No keyword with name 'Create Session' found.</status>
+</kw>
+<kw name="GET On Session">
+<var>${response}</var>
+<arg>market_api</arg>
+<arg>${ENDPOINT}</arg>
+<status status="NOT RUN" start="2026-01-18T09:03:06.369892" elapsed="0.000040"/>
+</kw>
+<kw name="Evaluate" owner="BuiltIn">
+<var>${data}</var>
+<arg>json.loads(r'''${response.text}''')</arg>
+<arg>json</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="NOT RUN" start="2026-01-18T09:03:06.370269" elapsed="0.000037"/>
+</kw>
+<kw name="Evaluate" owner="BuiltIn">
+<var>${pair_count}</var>
+<arg>len(${data})</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="NOT RUN" start="2026-01-18T09:03:06.370553" elapsed="0.000033"/>
+</kw>
+<kw name="Should Be True" owner="BuiltIn">
+<arg>${pair_count} &gt;= 600</arg>
+<arg>msg=Expected at least 600 trading pairs, got ${pair_count}</arg>
+<doc>Fails if the given condition is not true.</doc>
+<status status="NOT RUN" start="2026-01-18T09:03:06.370842" elapsed="0.000056"/>
+</kw>
+<kw name="Delete All Sessions">
+<status status="NOT RUN" start="2026-01-18T09:03:06.371178" elapsed="0.000033"/>
+</kw>
+<doc>Verify public endpoint returns minimum expected number of trading pairs</doc>
+<tag>data-completeness</tag>
+<tag>public</tag>
+<status status="FAIL" start="2026-01-18T09:03:06.363834" elapsed="0.007677">No keyword with name 'Create Session' found.</status>
+</test>
+<doc>Regression test suite for FreeDX Exchange Market Summary API
+Endpoint: https://api.exchange.freedx.com/spot/api/v3.2/market_summary
+Validates all public trading pairs have non-empty price and volume data</doc>
+<status status="FAIL" start="2026-01-18T09:03:06.159789" elapsed="0.212666"/>
+</suite>
+<statistics>
+<total>
+<stat pass="0" fail="22" skip="0">All Tests</stat>
+</total>
+<tag>
+<stat pass="0" fail="1" skip="0">change-validation</stat>
+<stat pass="0" fail="1" skip="0">data-completeness</stat>
+<stat pass="0" fail="4" skip="0">data-consistency</stat>
+<stat pass="0" fail="2" skip="0">data-integrity</stat>
+<stat pass="0" fail="1" skip="0">data-structure</stat>
+<stat pass="0" fail="1" skip="0">data-validation</stat>
+<stat pass="0" fail="1" skip="0">headers</stat>
+<stat pass="0" fail="15" skip="0">instruments</stat>
+<stat pass="0" fail="3" skip="0">metadata-validation</stat>
+<stat pass="0" fail="2" skip="0">orderbook-validation</stat>
+<stat pass="0" fail="4" skip="0">positive</stat>
+<stat pass="0" fail="2" skip="0">price-range-validation</stat>
+<stat pass="0" fail="1" skip="0">price-validation</stat>
+<stat pass="0" fail="22" skip="0">public</stat>
+<stat pass="0" fail="1" skip="0">smoke</stat>
+<stat pass="0" fail="2" skip="0">volume-validation</stat>
+</tag>
+<suite>
+<stat name="Market Summary Api Tests" id="s1" pass="0" fail="22" skip="0">Market Summary Api Tests</stat>
+</suite>
+</statistics>
+<errors>
+<msg time="2026-01-18T09:03:06.198071" level="ERROR">Error in file '/root/rf_env/market_summary_api_tests.robot' on line 6: Importing library 'RequestsLibrary' failed: ModuleNotFoundError: No module named 'RequestsLibrary'
+Traceback (most recent call last):
+  None
+PYTHONPATH:
+  /root/rf_env/bin
+  /usr/lib/python314.zip
+  /usr/lib/python3.14
+  /usr/lib/python3.14/lib-dynload
+  /root/rf_env/lib/python3.14/site-packages</msg>
+<msg time="2026-01-18T09:03:06.225262" level="ERROR">Error in file '/root/rf_env/market_summary_api_tests.robot' on line 10: Importing library 'JSONLibrary' failed: ModuleNotFoundError: No module named 'JSONLibrary'
+Traceback (most recent call last):
+  None
+PYTHONPATH:
+  /root/rf_env/bin
+  /usr/lib/python314.zip
+  /usr/lib/python3.14
+  /usr/lib/python3.14/lib-dynload
+  /root/rf_env/lib/python3.14/site-packages</msg>
+</errors>
+</robot>

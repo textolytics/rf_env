@@ -1,0 +1,8 @@
+[
+{
+  "directory": "/root/rf_env/build",
+  "command": "/usr/sbin/g++   -g -std=gnu++17 -o CMakeFiles/C.dir/main.cpp.o -c /root/rf_env/c/old/main.cpp",
+  "file": "/root/rf_env/c/old/main.cpp",
+  "output": "CMakeFiles/C.dir/main.cpp.o"
+}
+]

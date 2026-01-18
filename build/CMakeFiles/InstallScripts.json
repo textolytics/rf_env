@@ -1,0 +1,7 @@
+{
+	"InstallScripts" : 
+	[
+		"/root/rf_env/build/cmake_install.cmake"
+	],
+	"Parallel" : false
+}

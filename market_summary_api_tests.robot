@@ -96,7 +96,7 @@ Public Pairs - All Have Non-Empty Volume
         Run Keyword If    ${is_empty}    Append To List    ${invalid_pairs}    ${symbol}
         
     END
-    Log    ${invalid_pairs}    Log    ${invalid_pairs}
+    Log    ${invalid_pairs}
     Should Be Empty    ${invalid_pairs}    msg=Pairs with empty volume: ${invalid_pairs}
     Delete All Sessions
 
@@ -296,8 +296,8 @@ Public Pairs - Last Price Outside 24Hr Range Pairs
         ${last}=    Get From Dictionary    ${pair}    last
         ${high}=    Get From Dictionary    ${pair}    high24Hr
         ${low}=    Get From Dictionary    ${pair}    low24Hr
-        ${Last_Price_Outside_24Hr_Range_Pairs}=    Evaluate    ${last} < ${low} or ${last} > ${high} == True
-        Run Keyword If    ${Last_Price_Outside_24Hr_Range_Pairs} == True  Append To List    ${Last_Price_Outside_24Hr_Range_Pairs}    ${symbol}
+        ${is_invalid}  Evaluate    ${last} < ${low} or ${last} > ${high}
+        Run Keyword If    ${is_invalid}    Append To List    ${Last_Price_Outside_24Hr_Range_Pairs}    ${symbol}
     END
 
     Should Be Empty    ${Last_Price_Outside_24Hr_Range_Pairs}    msg=Pairs with last price outside 24hr range: ${Last_Price_Outside_24Hr_Range_Pairs}
