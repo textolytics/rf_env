@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Site BuildName="(empty)"
+	BuildStamp="20260123-1038-Experimental"
+	Name="(empty)"
+	Generator="ctest-4.2.1"
+	CompilerName=""
+	CompilerVersion=""
+	OSName="Linux"
+	Hostname="DESKTOP-BJ4K203"
+	OSRelease="6.6.87.2-microsoft-standard-WSL2"
+	OSVersion="#1 SMP PREEMPT_DYNAMIC Thu Jun  5 18:30:46 UTC 2025"
+	OSPlatform="x86_64"
+	Is64Bits="1"
+	VendorString="GenuineIntel"
+	VendorID="Intel Corporation"
+	FamilyID="6"
+	ModelID="142"
+	ModelName="Intel(R) Core(TM) i7-8550U CPU @ 1.80GHz"
+	ProcessorCacheSize="8192"
+	NumberOfLogicalCPU="4"
+	NumberOfPhysicalCPU="2"
+	TotalVirtualMemory="8192"
+	TotalPhysicalMemory="7943"
+	LogicalProcessorsPerPhysical="2"
+	ProcessorClockFrequency="1992"
+	>
+	<Testing>
+		<StartDateTime>Jan 23 12:38 EET</StartDateTime>
+		<StartTestTime>1769164725</StartTestTime>
+		<TestList/>
+		<EndDateTime>Jan 23 12:38 EET</EndDateTime>
+		<EndTestTime>1769164725</EndTestTime>
+		<ElapsedMinutes>0</ElapsedMinutes>
+	</Testing>
+</Site>

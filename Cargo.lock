@@ -1,0 +1,44 @@
+[package]
+name = "market-data-processor"
+version = "1.0.0"
+edition = "2021"
+authors = ["Market Data Platform Team"]
+license = "MIT"
+description = "High-performance market data processor in Rust"
+
+[dependencies]
+tokio = { version = "1.35", features = ["full"] }
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+zmq = "0.10"
+sqlx = { version = "0.7", features = ["runtime-tokio-native-tls", "postgres"] }
+redis = { version = "0.24", features = ["tokio-comp", "connection-manager"] }
+actix-web = "4.4"
+actix-rt = "2.9"
+log = "0.4"
+env_logger = "0.11"
+thiserror = "1.0"
+anyhow = "1.0"
+async-trait = "0.1"
+chrono = { version = "0.4", features = ["serde"] }
+decimal = "0.1"
+num-bigint = "0.4"
+uuid = { version = "1.6", features = ["v4", "serde"] }
+futures = "0.3"
+dashmap = "5.5"
+parking_lot = "0.12"
+tracing = "0.1"
+tracing-subscriber = "0.3"
+
+[dev-dependencies]
+tokio-test = "0.4"
+criterion = "0.5"
+proptest = "1.4"
+
+[[bench]]
+name = "processor_bench"
+harness = false
+
+[[bench]]
+name = "zmq_bench"
+harness = false

@@ -366,7 +366,7 @@ Public Pairs - Percentage Change Is In Valid Range
     Delete All Sessions
 
 # Public Response Completeness Tests
-
+##h6ZfedXca45x3rz7fl1Iq3tvAYlmfFWiqwQ6qOteBOLJxpecqAWdbkJ39vvs39teoYDegTUDcXzzLljraPhmrQ==
 Public Endpoint - No Duplicate Trading Pairs
     [Documentation]    Verify response contains no duplicate symbols
     [Tags]    public    data-integrity
