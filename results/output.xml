@@ -384336,3 +384336,384 @@
 <status status="PASS" start="2026-01-23T20:32:38.861445" elapsed="0.000994"/>
 </kw>
 <kw name="Append To List" owner="Collections">
+<arg>${symbols}</arg>
+<arg>${symbol}</arg>
+<doc>Adds ``values`` to the end of ``list``.</doc>
+<status status="PASS" start="2026-01-23T20:32:38.862782" elapsed="0.001305"/>
+</kw>
+<var name="${pair}">{'symbol': 'ZRO-ETH', 'last': 0.00046070796112913855, 'lowestAsk': 0.00079, 'highestBid': 0.00074, 'percentageChange': 0, 'volume': 0, 'high24Hr': 0.00046, 'low24Hr': 0.00046, 'base': 'ZRO', 'quote': ...</var>
+<status status="PASS" start="2026-01-23T20:32:38.856463" elapsed="0.007984"/>
+</iter>
+<iter>
+<kw name="Get From Dictionary" owner="Collections">
+<msg time="2026-01-23T20:32:38.867890" level="INFO">${symbol} = ZRO-USDC</msg>
+<var>${symbol}</var>
+<arg>${pair}</arg>
+<arg>symbol</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="PASS" start="2026-01-23T20:32:38.865446" elapsed="0.003552"/>
+</kw>
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2026-01-23T20:32:38.873581" level="INFO">${already_exists} = False</msg>
+<var>${already_exists}</var>
+<arg>'${symbol}' in ${symbols}</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2026-01-23T20:32:38.870218" elapsed="0.003662"/>
+</kw>
+<kw name="Run Keyword If" owner="BuiltIn">
+<arg>${already_exists}</arg>
+<arg>Append To List</arg>
+<arg>${duplicates}</arg>
+<arg>${symbol}</arg>
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<status status="PASS" start="2026-01-23T20:32:38.874261" elapsed="0.001004"/>
+</kw>
+<kw name="Append To List" owner="Collections">
+<arg>${symbols}</arg>
+<arg>${symbol}</arg>
+<doc>Adds ``values`` to the end of ``list``.</doc>
+<status status="PASS" start="2026-01-23T20:32:38.875513" elapsed="0.000609"/>
+</kw>
+<var name="${pair}">{'symbol': 'ZRO-USDC', 'last': 2.2919999999795935, 'lowestAsk': 2.346, 'highestBid': 2.221, 'percentageChange': 13.69047618, 'volume': 17853.61406, 'high24Hr': 2.404, 'low24Hr': 1.963, 'base': 'ZRO', ...</var>
+<status status="PASS" start="2026-01-23T20:32:38.864910" elapsed="0.011362"/>
+</iter>
+<iter>
+<kw name="Get From Dictionary" owner="Collections">
+<msg time="2026-01-23T20:32:38.877773" level="INFO">${symbol} = ZRO-USDT</msg>
+<var>${symbol}</var>
+<arg>${pair}</arg>
+<arg>symbol</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="PASS" start="2026-01-23T20:32:38.876960" elapsed="0.001085"/>
+</kw>
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2026-01-23T20:32:38.881510" level="INFO">${already_exists} = False</msg>
+<var>${already_exists}</var>
+<arg>'${symbol}' in ${symbols}</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2026-01-23T20:32:38.878453" elapsed="0.003634"/>
+</kw>
+<kw name="Run Keyword If" owner="BuiltIn">
+<arg>${already_exists}</arg>
+<arg>Append To List</arg>
+<arg>${duplicates}</arg>
+<arg>${symbol}</arg>
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<status status="PASS" start="2026-01-23T20:32:38.882794" elapsed="0.001265"/>
+</kw>
+<kw name="Append To List" owner="Collections">
+<arg>${symbols}</arg>
+<arg>${symbol}</arg>
+<doc>Adds ``values`` to the end of ``list``.</doc>
+<status status="PASS" start="2026-01-23T20:32:38.884390" elapsed="0.000659"/>
+</kw>
+<var name="${pair}">{'symbol': 'ZRO-USDT', 'last': 2.343, 'lowestAsk': 2.347, 'highestBid': 2.222, 'percentageChange': 13.68267831, 'volume': 219965.1709, 'high24Hr': 2.412, 'low24Hr': 1.957, 'base': 'ZRO', 'quote': 'USD...</var>
+<status status="PASS" start="2026-01-23T20:32:38.876509" elapsed="0.008696"/>
+</iter>
+<iter>
+<kw name="Get From Dictionary" owner="Collections">
+<msg time="2026-01-23T20:32:38.886311" level="INFO">${symbol} = ZRX-BTC</msg>
+<var>${symbol}</var>
+<arg>${pair}</arg>
+<arg>symbol</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="PASS" start="2026-01-23T20:32:38.885755" elapsed="0.000847"/>
+</kw>
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2026-01-23T20:32:38.889595" level="INFO">${already_exists} = False</msg>
+<var>${already_exists}</var>
+<arg>'${symbol}' in ${symbols}</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2026-01-23T20:32:38.886844" elapsed="0.003102"/>
+</kw>
+<kw name="Run Keyword If" owner="BuiltIn">
+<arg>${already_exists}</arg>
+<arg>Append To List</arg>
+<arg>${duplicates}</arg>
+<arg>${symbol}</arg>
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<status status="PASS" start="2026-01-23T20:32:38.890387" elapsed="0.001117"/>
+</kw>
+<kw name="Append To List" owner="Collections">
+<arg>${symbols}</arg>
+<arg>${symbol}</arg>
+<doc>Adds ``values`` to the end of ``list``.</doc>
+<status status="PASS" start="2026-01-23T20:32:38.891894" elapsed="0.000685"/>
+</kw>
+<var name="${pair}">{'symbol': 'ZRX-BTC', 'last': 1.0535956530300324e-06, 'lowestAsk': 1.42e-06, 'highestBid': 1.41e-06, 'percentageChange': 0, 'volume': 0, 'high24Hr': 1.06e-06, 'low24Hr': 1.06e-06, 'base': 'ZRX', 'quot...</var>
+<status status="PASS" start="2026-01-23T20:32:38.885440" elapsed="0.007288"/>
+</iter>
+<iter>
+<kw name="Get From Dictionary" owner="Collections">
+<msg time="2026-01-23T20:32:38.893945" level="INFO">${symbol} = ZRX-ETH</msg>
+<var>${symbol}</var>
+<arg>${pair}</arg>
+<arg>symbol</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="PASS" start="2026-01-23T20:32:38.893358" elapsed="0.000823"/>
+</kw>
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2026-01-23T20:32:38.897926" level="INFO">${already_exists} = False</msg>
+<var>${already_exists}</var>
+<arg>'${symbol}' in ${symbols}</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2026-01-23T20:32:38.894445" elapsed="0.004448"/>
+</kw>
+<kw name="Run Keyword If" owner="BuiltIn">
+<arg>${already_exists}</arg>
+<arg>Append To List</arg>
+<arg>${duplicates}</arg>
+<arg>${symbol}</arg>
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<status status="PASS" start="2026-01-23T20:32:38.900635" elapsed="0.002114"/>
+</kw>
+<kw name="Append To List" owner="Collections">
+<arg>${symbols}</arg>
+<arg>${symbol}</arg>
+<doc>Adds ``values`` to the end of ``list``.</doc>
+<status status="PASS" start="2026-01-23T20:32:38.903365" elapsed="0.001014"/>
+</kw>
+<var name="${pair}">{'symbol': 'ZRX-ETH', 'last': 0.00015424282075700285, 'lowestAsk': 4.31e-05, 'highestBid': 4.28e-05, 'percentageChange': 0, 'volume': 0, 'high24Hr': 0.0001543, 'low24Hr': 0.0001543, 'base': 'ZRX', 'qu...</var>
+<status status="PASS" start="2026-01-23T20:32:38.893009" elapsed="0.011606"/>
+</iter>
+<iter>
+<kw name="Get From Dictionary" owner="Collections">
+<msg time="2026-01-23T20:32:38.906224" level="INFO">${symbol} = ZRX-USDC</msg>
+<var>${symbol}</var>
+<arg>${pair}</arg>
+<arg>symbol</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="PASS" start="2026-01-23T20:32:38.905542" elapsed="0.000912"/>
+</kw>
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2026-01-23T20:32:38.909884" level="INFO">${already_exists} = False</msg>
+<var>${already_exists}</var>
+<arg>'${symbol}' in ${symbols}</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2026-01-23T20:32:38.906772" elapsed="0.003382"/>
+</kw>
+<kw name="Run Keyword If" owner="BuiltIn">
+<arg>${already_exists}</arg>
+<arg>Append To List</arg>
+<arg>${duplicates}</arg>
+<arg>${symbol}</arg>
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<status status="PASS" start="2026-01-23T20:32:38.910476" elapsed="0.001429"/>
+</kw>
+<kw name="Append To List" owner="Collections">
+<arg>${symbols}</arg>
+<arg>${symbol}</arg>
+<doc>Adds ``values`` to the end of ``list``.</doc>
+<status status="PASS" start="2026-01-23T20:32:38.912272" elapsed="0.000762"/>
+</kw>
+<var name="${pair}">{'symbol': 'ZRX-USDC', 'last': 0.12914110998027625, 'lowestAsk': 0.1292, 'highestBid': 0.1286, 'percentageChange': 3.89469829, 'volume': 16414.9574, 'high24Hr': 0.13, 'low24Hr': 0.1233, 'base': 'ZRX',...</var>
+<status status="PASS" start="2026-01-23T20:32:38.905011" elapsed="0.008175"/>
+</iter>
+<iter>
+<kw name="Get From Dictionary" owner="Collections">
+<msg time="2026-01-23T20:32:38.915720" level="INFO">${symbol} = ZRX-USDT</msg>
+<var>${symbol}</var>
+<arg>${pair}</arg>
+<arg>symbol</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="PASS" start="2026-01-23T20:32:38.914605" elapsed="0.001424"/>
+</kw>
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2026-01-23T20:32:38.923481" level="INFO">${already_exists} = False</msg>
+<var>${already_exists}</var>
+<arg>'${symbol}' in ${symbols}</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2026-01-23T20:32:38.916557" elapsed="0.007664"/>
+</kw>
+<kw name="Run Keyword If" owner="BuiltIn">
+<arg>${already_exists}</arg>
+<arg>Append To List</arg>
+<arg>${duplicates}</arg>
+<arg>${symbol}</arg>
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<status status="PASS" start="2026-01-23T20:32:38.927373" elapsed="0.001618"/>
+</kw>
+<kw name="Append To List" owner="Collections">
+<arg>${symbols}</arg>
+<arg>${symbol}</arg>
+<doc>Adds ``values`` to the end of ``list``.</doc>
+<status status="PASS" start="2026-01-23T20:32:38.930436" elapsed="0.001925"/>
+</kw>
+<var name="${pair}">{'symbol': 'ZRX-USDT', 'last': 0.12920245754883622, 'lowestAsk': 0.1293, 'highestBid': 0.1287, 'percentageChange': 3.86049642, 'volume': 200713.8136, 'high24Hr': 0.1301, 'low24Hr': 0.1234, 'base': 'ZR...</var>
+<status status="PASS" start="2026-01-23T20:32:38.913983" elapsed="0.018715"/>
+</iter>
+<var>${pair}</var>
+<value>@{data}</value>
+<status status="PASS" start="2026-01-23T20:32:32.227500" elapsed="6.705465"/>
+</for>
+<kw name="Log" owner="BuiltIn">
+<msg time="2026-01-23T20:32:38.935190" level="INFO">[]</msg>
+<arg>${duplicates}</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2026-01-23T20:32:38.933901" elapsed="0.001994"/>
+</kw>
+<kw name="Should Be Empty" owner="BuiltIn">
+<msg time="2026-01-23T20:32:38.941088" level="INFO">Length is 0.</msg>
+<arg>${duplicates}</arg>
+<arg>msg=Duplicate symbols found: ${duplicates}</arg>
+<doc>Verifies that the given item is empty.</doc>
+<status status="PASS" start="2026-01-23T20:32:38.937901" elapsed="0.003855"/>
+</kw>
+<kw name="Delete All Sessions" owner="RequestsLibrary">
+<msg time="2026-01-23T20:32:38.944427" level="INFO">Deleting All Sessions</msg>
+<doc>Removes all the session objects</doc>
+<status status="PASS" start="2026-01-23T20:32:38.943446" elapsed="0.001393"/>
+</kw>
+<doc>Verify response contains no duplicate symbols</doc>
+<tag>data-integrity</tag>
+<tag>public</tag>
+<status status="PASS" start="2026-01-23T20:32:30.995560" elapsed="7.950767"/>
+</test>
+<test id="s1-t21" name="Public Endpoint - Response Is Complete And Not Truncated" line="388">
+<kw name="Create Session" owner="RequestsLibrary">
+<msg time="2026-01-23T20:32:39.108825" level="INFO">Creating Session using : alias=market_api, url=https://api.exchange.freedx.com, headers={},                     cookies={}, auth=None, timeout=10, proxies=None, verify=False,                     debug=0 </msg>
+<arg>market_api</arg>
+<arg>${BASE_URL}</arg>
+<arg>timeout=${TIMEOUT}</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<status status="PASS" start="2026-01-23T20:32:39.099822" elapsed="0.009576"/>
+</kw>
+<kw name="GET On Session" owner="RequestsLibrary">
+<msg time="2026-01-23T20:32:40.258990" level="INFO">GET Request : url=https://api.exchange.freedx.com/spot/api/v3.2/market_summary 
+ path_url=/spot/api/v3.2/market_summary 
+ headers={'User-Agent': 'python-requests/2.32.5', 'Accept-Encoding': 'gzip, deflate, zstd', 'Accept': '*/*', 'Connection': 'keep-alive'} 
+ body=None 
+ </msg>
+<msg time="2026-01-23T20:32:40.261202" level="INFO">GET Response : url=https://api.exchange.freedx.com/spot/api/v3.2/market_summary 
+ status=200, reason= 
+ headers={'Content-Type': 'application/json', 'Transfer-Encoding': 'chunked', 'Connection': 'keep-alive', 'Server': 'nginx', 'Date': 'Fri, 23 Jan 2026 18:32:40 GMT', 'Vary': 'Accept-Encoding, Origin, Access-Control-Request-Method, Access-Control-Request-Headers', 'Content-Encoding': 'gzip', 'X-Cache': 'Miss from cloudfront', 'Via': '1.1 4476dca0506fd639c970ce02c0209fe0.cloudfront.net (CloudFront)', 'X-Amz-Cf-Pop': 'SOF50-P1', 'X-Amz-Cf-Id': 'US_yqpvlI48Qs7hlfWNkRynjg0_WDbSrQ5-zu_iFxk4oA4D4b6NiJg=='} 
+ body=[{"symbol":"1CAT-USDC","last":0.00010403641301504994,"lowestAsk":0.000117,"highestBid":0.000104,"percentageChange":-8.73998858,"volume":100.64477525,"high24Hr":0.000115,"low24Hr":0.000104,"base":"1CAT","quote":"USDC","active":true,"size":930140.23,"minValidPrice":0.000001,"minPriceIncrement":0.000001,"minOrderSize":0.01,"maxOrderSize":20000000,"minSizeIncrement":0.01,"openInterest":0,"openInterestUSD":0,"contractStart":0,"contractEnd":0,"timeBasedContract":false,"openTime":0,"closeTime":0,"startMatching":0,"inactiveTime":0,"fundingRate":0,"contractSize":0,"maxPosition":0,"minRiskLimit":0,"maxRiskLimit":0,"availableSettlement":null,"futures":false,"isMarketOpenToOtc":false,"isMarketOpenToSpot":true},{"symbol":"1CAT-USDT","last":0.000103,"lowestAsk":0.000117,"highestBid":0.000104,"percentageChange":-10.4347826,"volume":1330.99773459,"high24Hr":0.000116,"low24Hr":0.000103,"base":"1CAT","quote":"USDT","active":true,"size":12249118.12,"minValidPrice":0.000001,"minPriceIncrement":0.000001,"minOrderSize":0.01,"maxOrderSize":20000000,"minSizeIncrement":0.01,"openInterest":0,"openInterestUSD":0,"contractStart":0,"contractEnd":0,"timeBasedContract":false,"openTime":0,"closeTime":0,"startMatching":0,"inactiveTime":0,"fundingRate":0,"contractSize":0,"maxPosition":0,"minRiskLimit":0,"maxRiskLimit":0,"availableSettlement":null,"futures":false,"isMarketOpenToOtc":false,"isMarketOpenToSpot":true},{"symbol":"1INCH-BTC","last":0.0000015999999957424615,"lowestAsk":0.0000016,"highestBid":0.00000158,"percentageChange":-23.07692328,"volume":0.00003393,"high24Hr":0.00000208,"low24Hr":0.00000159,"base":"1INCH","quote":"BTC","active":true,"size":21.3,"minValidPrice":0.00000001,"minPriceIncrement":0.00000001,"minOrderSize":0.1,"maxOrderSize":600000,"minSizeIncrement":0.1,"openInterest":0,"openInterestUSD":0,"contractStart":0,"contractEnd":0,"timeBasedContract":false,"openTime":0,"closeTime":0,"startMatching":0,"inactiveTime":0,"fundingRate":0,"contractSize":0,"maxPosition":0,"minRiskLimit":0,"maxRiskLimit":0,"availableSettlement":null,"futures":false,"isMarketOpenToOtc":true,"isMarketOpenToSpot":true},{"symbol":"1INCH-ETH","last":0.000056115707087916946,"lowestAsk":0.0000483,"highestBid":0.000048,"percentageChange":0,"volume":0,"high24Hr":0.0000561,"low24Hr":0.0000561,"base":"1INCH","quote":"ETH","active":true,"size":0,"minValidPrice":0.0000001,"minPriceIncrement":0.0000001,"minOrderSize":0.1,"maxOrderSize":600000,"minSizeIncrement":0.1,"openInterest":0,"openInterestUSD":0,"contractStart":0,"contractEnd":0,"timeBasedContract":false,"openTime":0,"closeTime":0,"startMatching":0,"inactiveTime":0,"fundingRate":0,"contractSize":0,"maxPosition":0,"minRiskLimit":0,"maxRiskLimit":0,"availableSettlement":null,"futures":false,"isMarketOpenToOtc":true,"isMarketOpenToSpot":true},{"symbol":"1INCH-USDC","last":0.1448,"lowestAsk":0.1449,"highestBid":0.1444,"percentageChange":2.40452616,"volume":27851.96108,"high24Hr":0.1457,"low24Hr":0.1403,"base":"1INCH","quote":"USDC","active":true,"size":195005.4,"minValidPrice":0.0001,"minPriceIncrement":0.0001,"minOrderSize":0.1,"maxOrderSize":1200000,"minSizeIncrement":0.1,"openInterest":0,"openInterestUSD":0,"contractStart":0,"contractEnd":0,"timeBasedContract":false,"openTime":0,"closeTime":0,"startMatching":0,"inactiveTime":0,"fundingRate":0,"contractSize":0,"maxPosition":0,"minRiskLimit":0,"maxRiskLimit":0,"availableSettlement":null,"futures":false,"isMarketOpenToOtc":true,"isMarketOpenToSpot":true},{"symbol":"1INCH-USDT","last":0.14461467944079656,"lowestAsk":0.145,"highestBid":0.1445,"percentageChange":2.27346495,"volume":341398.83343,"high24Hr":0.1458,"low24Hr":0.1402,"base":"1INCH","quote":"USDT","active":true,"size":2388595.5,"minValidPrice":0.0001,"minPriceIncrement":0.0001,"minOrderSize":0.1,"maxOrderSize":1200000,"minSizeIncrement":0.1,"openInterest":0,"openInterestUSD":0,"contractStart":0,"contractEnd":0,"timeBasedContract":false,"openTime":0,"closeTime":0,"startMatching":0,"inactiveTime":0,"fundingRate":0,"contractSize":0,"maxPosition":0,"minRiskLimit":0,"maxRiskLimit":0,"availableSettlement":null,"futures":false,"isMarketOpenToOtc":true,"isMarketOpenToSpot":true},{"symbol":"AAVE-BTC","last":0.0020379541863705746,"lowestAsk":0.001763,"highestBid":0.001762,"percentageChange":0,"volume":0,"high24Hr":0.002037,"low24Hr":0.002037,"base":"AAVE","quote":"BTC","active":true,"size":0,"minValidPrice":0.000001,"minPriceIncrement":0.000001,"minOrderSize":0.01,"maxOrderSize":2500,"minSizeIncrement":0.01,"openInterest":0,"openInterestUSD":0,"contractStart":0,"contractEnd":0,"timeBasedContract":false,"openTime":0,"closeTime":0,"startMatching":0,"inactiveTime":0,"fundingRate":0,"contractSize":0,"maxPosition":0,"minRiskLimit":0,"maxRiskLimit":0,"availableSettlement":null,"futures":false,"isMarketOpenToOtc":true,"isMarketOpenToSpot":true},{"symbol":"AAVE-ETH","last":0.05186933421677655,"lowestAsk":0.05338,"highestBid":0.05335,"percentageChange":0,"volume":0,"high24Hr":0.05187,"low24Hr":0.05187,"base":"AAVE","quote":"ETH","active":true,"size":0,"minValidPrice":0.00001,"minPriceIncrement":0.00001,"minOrderSize":0.001,"maxOrderSize":2500,"minSizeIncrement":0.001,"openInterest":0,"openInterestUSD":0,"contractStart":0,"contractEnd":0,"timeBasedContract":false,"openTime":0,"closeTime":0,"startMatching":0,"inactiveTime":0,"fundingRate":0,"contractSize":0,"maxPosition":0,"minRiskLimit":0,"maxRiskLimit":0,"availableSettlement":null,"futures":false,"isMarketOpenToOtc":true,"isMarketOpenToSpot":true},{"symbol":"AAVE-USDC","last":159.87089230865803,"lowestAsk":160.35,"highestBid":160.3,"percentageChange":1.91947743,"volume":91657.73071099,"high24Hr":161.23,"low24Hr":154.79,"base":"AAVE","quote":"USDC","active":true,"size":581.1159,"minValidPrice":0.01,"minPriceIncrement":0.01,"minOrderSize":0.0001,"maxOrderSize":2500,"minSizeIncrement":0.0001,"openInterest":0,"openInterestUSD":0,"contractStart":0,"contractEnd":0,"timeBasedContract":false,"openTime":0,"closeTime":0,"startMatching":0,"inactiveTime":0,"fundingRate":0,"contractSize":0,"maxPosition":0,"minRiskLimit":0,"maxRiskLimit":0,"availableSettlement":null,"futures":false,"isMarketOpenToOtc":true,"isMarketOpenToSpot":true},{"symbol":"AAVE-USDT","last":160.38,"lowestAsk":160.42,"highestBid":160.37,"percentageChange":2.22269048,"volume":1527679.12315699,"high24Hr":161.47,"low24Hr":154.84,"base":"AAVE","quote":"USDT","active":true,"size":9679.1101,"minValidPrice":0.01,"minPriceIncrement":0.01,"minOrderSize":0.0001,"maxOrderSize":2500,"minSizeIncrement":0.0001,"openInterest":0,"openInterestUSD":0,"contractStart":0,"contractEnd":0,"timeBasedContract":false,"openTime":0,"closeTime":0,"startMatching":0,"inactiveTime":0,"fundingRate":0,"contractSize":0,"maxPosition":0,"minRiskLimit":0,"maxRiskLimit":0,"availableSettlement":null,"futures":false,"isMarketOpenToOtc":true,"isMarketOpenToSpot":true},{"symbol":"ACH-BTC","last":0.0000001700000011827214,"lowestAsk":0.00000014,"highestBid":0.00000013,"percentageChange":0,"volume":0,"high24Hr":0.00000017,"low24Hr":0.00000017,"base":"ACH","quote":"BTC","active":true,"size":0,"minValidPrice":0.00000001,"minPriceIncrement":0.00000001,"minOrderSize":1,"maxOrderSize":4000000,"minSizeIncrement":1,"openInterest":0,"openInterestUSD":0,"contractStart":0,"contractEnd":0,"timeBasedContract":false,"openTime":0,"closeTime":0,"startMatching":0,"inactiveTime":0,"fundingRate":0,"contractSize":0,"maxPosition":0,"minRiskLimit":0,"maxRiskLimit":0,"availableSettlement":null,"futures":false,"isMarketOpenToOtc":true,"isMarketOpenToSpot":true},{"symbol":"ACH-ETH","last":0.0000038100233371240266,"lowestAsk":0.0000043,"highestBid":0.0000042,"percentageChange":0,"volume":0,"high24Hr":0.0000039,"low24Hr":0.0000039,"base":"ACH","quote":"ETH","active":true,"size":0,"minValidPrice":0.0000001,"minPriceIncrement":0.0000001,"minOrderSize":1,"maxOrderSize":4000000,"minSizeIncrement":1,"openInterest":0,"openInterestUSD":0,"contractStart":0,"contractEnd":0,"timeBasedContract":false,"openTime":0,"closeTime":0,"startMatching":0,"inactiveTime":0,"fundingRate":0,"contractSize":0,"maxPosition":0,"minRiskLimit":0,"maxRiskLimit":0,"availableSettlement":null,"futures":false,"isMarketOpenToOtc":true,"isMarketOpenToSpot":true},{"symbol":"ACH-USDC","last":0.01269,"lowestAsk":0.0127,"highestBid":0.01266,"percentageChange":3.62604686,"volume":56796.03686999,"high24Hr":0.01282,"low24Hr":0.01196,"base":"ACH","quote":"USDC","active":true,"size":4618568,"minValidPrice":0.00001,"minPriceIncrement":0.00001,"minOrderSize":1,"maxOrderSize":4000000,"minSizeIncrement":1,"openInterest":0,"openInterestUSD":0,"contractStart":0,"contractEnd":0,"timeBasedContract":false,"openTime":0,"closeTime":0,"startMatching":0,"inactiveTime":0,"fundingRate":0,"contractSize":0,"maxPosition":0,"minRiskLimit":0,"maxRiskLimit":0,"availableSettlement":null,"futures":false,"isMarketOpenToOtc":true,"isMarketOpenToSpot":true},{"symbol":"ACH-USDT","last":0.012670021987392028,"lowestAsk":0.01271,"highestBid":0.01267,"percentageChange":3.17607481,"volume":673135.57043,"high24Hr":0.01282,"low24Hr":0.01197,"base":"ACH","quote":"USDT","active":true,"size":54700320,"minValidPrice":0.00001,"minPriceIncrement":0.00001,"minOrderSize":1,"maxOrderSize":4000000,"minSizeIncrement":1,"openInterest":0,"openInterestUSD":0,"contractStart":0,"contractEnd":0,"timeBasedContract":false,"openTime":0,"closeTime":0,"startMatching":0,"inactiveTime":0,"fundingRate":0,"contractSize":0,"maxPosition":0,"minRiskLimit":0,"maxRiskLimit":0,"availableSettlement":null,"futures":false,"isMarketOpenToOtc":true,"isMarketOpenToSpot":true},{"symbol":"ADA-BTC","last":0.000004003248071228475,"lowestAsk":0.000005,"highestBid":0.000004,"percentageChange":0.08120178,"volume":0.07524,"high24Hr":0.000004003248071228475,"low24Hr":0.000004,"base":"ADA","quote":"BTC","active":true,"size":18810,"minValidPrice":0.000001,"minPriceIncrement":0.000001,"minOrderSize":1,"maxOrderSize":400000,"minSizeIncrement":1,"openInterest":0,"openInterestUSD":0,"contractStart":0,"contractEnd":0,"... (set the log level to DEBUG or TRACE to see the full content) 
+ </msg>
+<msg time="2026-01-23T20:32:40.261701" level="INFO">/root/rf_env/lib/python3.14/site-packages/urllib3/connectionpool.py:1097: InsecureRequestWarning: Unverified HTTPS request is being made to host 'api.exchange.freedx.com'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#tls-warnings
+  warnings.warn(</msg>
+<msg time="2026-01-23T20:32:40.262401" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<var>${response}</var>
+<arg>market_api</arg>
+<arg>${ENDPOINT}</arg>
+<doc>Sends a GET request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2026-01-23T20:32:39.110439" elapsed="1.152257"/>
+</kw>
+<kw name="Get Substring" owner="String">
+<msg time="2026-01-23T20:32:40.264908" level="INFO">${last_char} = ]</msg>
+<var>${last_char}</var>
+<arg>${response.text}</arg>
+<arg>-1</arg>
+<doc>Returns a substring from ``start`` index to ``end`` index.</doc>
+<status status="PASS" start="2026-01-23T20:32:40.263567" elapsed="0.001552"/>
+</kw>
+<kw name="Should Be Equal" owner="BuiltIn">
+<arg>${last_char}</arg>
+<arg>]</arg>
+<arg>msg=Response JSON not properly closed</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="PASS" start="2026-01-23T20:32:40.265545" elapsed="0.000807"/>
+</kw>
+<kw name="Delete All Sessions" owner="RequestsLibrary">
+<msg time="2026-01-23T20:32:40.268078" level="INFO">Deleting All Sessions</msg>
+<doc>Removes all the session objects</doc>
+<status status="PASS" start="2026-01-23T20:32:40.266844" elapsed="0.001612"/>
+</kw>
+<doc>Validate response JSON is properly closed (ends with ']')</doc>
+<tag>data-integrity</tag>
+<tag>public</tag>
+<status status="PASS" start="2026-01-23T20:32:39.039950" elapsed="1.229008"/>
+</test>
+<test id="s1-t22" name="Public Endpoint - Minimum Trading Pairs Expected" line="397">
+<kw name="Create Session" owner="RequestsLibrary">
+<msg time="2026-01-23T20:32:40.519636" level="INFO">Creating Session using : alias=market_api, url=https://api.exchange.freedx.com, headers={},                     cookies={}, auth=None, timeout=10, proxies=None, verify=False,                     debug=0 </msg>
+<arg>market_api</arg>
+<arg>${BASE_URL}</arg>
+<arg>timeout=${TIMEOUT}</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<status status="PASS" start="2026-01-23T20:32:40.514664" elapsed="0.005668"/>
+</kw>
+<kw name="GET On Session" owner="RequestsLibrary">
+<msg time="2026-01-23T20:32:41.076831" level="INFO">GET Request : url=https://api.exchange.freedx.com/spot/api/v3.2/market_summary 
+ path_url=/spot/api/v3.2/market_summary 
+ headers={'User-Agent': 'python-requests/2.32.5', 'Accept-Encoding': 'gzip, deflate, zstd', 'Accept': '*/*', 'Connection': 'keep-alive'} 
+ body=None 
+ </msg>
+<msg time="2026-01-23T20:32:41.077291" level="INFO">GET Response : url=https://api.exchange.freedx.com/spot/api/v3.2/market_summary 
+ status=200, reason= 
+ headers={'Content-Type': 'application/json', 'Transfer-Encoding': 'chunked', 'Connection': 'keep-alive', 'Server': 'nginx', 'Date': 'Fri, 23 Jan 2026 18:32:41 GMT', 'Vary': 'Accept-Encoding, Origin, Access-Control-Request-Method, Access-Control-Request-Headers', 'Content-Encoding': 'gzip', 'X-Cache': 'Miss from cloudfront', 'Via': '1.1 0703e22fe63b15d81692598f9fb83dfa.cloudfront.net (CloudFront)', 'X-Amz-Cf-Pop': 'SOF50-P1', 'X-Amz-Cf-Id': 'UODNDHkNLmXtCdeFqIQbJ0fUkVOpKVwbB6X_uLk3EztiS2BmGqipyQ=='} 
+ body=[{"symbol":"1CAT-USDC","last":0.00010403641301504994,"lowestAsk":0.000117,"highestBid":0.000104,"percentageChange":-8.73998858,"volume":100.64477525,"high24Hr":0.000115,"low24Hr":0.000104,"base":"1CAT","quote":"USDC","active":true,"size":930140.23,"minValidPrice":0.000001,"minPriceIncrement":0.000001,"minOrderSize":0.01,"maxOrderSize":20000000,"minSizeIncrement":0.01,"openInterest":0,"openInterestUSD":0,"contractStart":0,"contractEnd":0,"timeBasedContract":false,"openTime":0,"closeTime":0,"startMatching":0,"inactiveTime":0,"fundingRate":0,"contractSize":0,"maxPosition":0,"minRiskLimit":0,"maxRiskLimit":0,"availableSettlement":null,"futures":false,"isMarketOpenToOtc":false,"isMarketOpenToSpot":true},{"symbol":"1CAT-USDT","last":0.000103,"lowestAsk":0.000117,"highestBid":0.000104,"percentageChange":-10.4347826,"volume":1330.99773459,"high24Hr":0.000116,"low24Hr":0.000103,"base":"1CAT","quote":"USDT","active":true,"size":12249118.12,"minValidPrice":0.000001,"minPriceIncrement":0.000001,"minOrderSize":0.01,"maxOrderSize":20000000,"minSizeIncrement":0.01,"openInterest":0,"openInterestUSD":0,"contractStart":0,"contractEnd":0,"timeBasedContract":false,"openTime":0,"closeTime":0,"startMatching":0,"inactiveTime":0,"fundingRate":0,"contractSize":0,"maxPosition":0,"minRiskLimit":0,"maxRiskLimit":0,"availableSettlement":null,"futures":false,"isMarketOpenToOtc":false,"isMarketOpenToSpot":true},{"symbol":"1INCH-BTC","last":0.0000015999999957424615,"lowestAsk":0.0000016,"highestBid":0.00000158,"percentageChange":-23.07692328,"volume":0.00003393,"high24Hr":0.00000208,"low24Hr":0.00000159,"base":"1INCH","quote":"BTC","active":true,"size":21.3,"minValidPrice":0.00000001,"minPriceIncrement":0.00000001,"minOrderSize":0.1,"maxOrderSize":600000,"minSizeIncrement":0.1,"openInterest":0,"openInterestUSD":0,"contractStart":0,"contractEnd":0,"timeBasedContract":false,"openTime":0,"closeTime":0,"startMatching":0,"inactiveTime":0,"fundingRate":0,"contractSize":0,"maxPosition":0,"minRiskLimit":0,"maxRiskLimit":0,"availableSettlement":null,"futures":false,"isMarketOpenToOtc":true,"isMarketOpenToSpot":true},{"symbol":"1INCH-ETH","last":0.000056115707087916946,"lowestAsk":0.0000483,"highestBid":0.000048,"percentageChange":0,"volume":0,"high24Hr":0.0000561,"low24Hr":0.0000561,"base":"1INCH","quote":"ETH","active":true,"size":0,"minValidPrice":0.0000001,"minPriceIncrement":0.0000001,"minOrderSize":0.1,"maxOrderSize":600000,"minSizeIncrement":0.1,"openInterest":0,"openInterestUSD":0,"contractStart":0,"contractEnd":0,"timeBasedContract":false,"openTime":0,"closeTime":0,"startMatching":0,"inactiveTime":0,"fundingRate":0,"contractSize":0,"maxPosition":0,"minRiskLimit":0,"maxRiskLimit":0,"availableSettlement":null,"futures":false,"isMarketOpenToOtc":true,"isMarketOpenToSpot":true},{"symbol":"1INCH-USDC","last":0.1448,"lowestAsk":0.1449,"highestBid":0.1444,"percentageChange":2.40452616,"volume":27851.96108,"high24Hr":0.1457,"low24Hr":0.1403,"base":"1INCH","quote":"USDC","active":true,"size":195005.4,"minValidPrice":0.0001,"minPriceIncrement":0.0001,"minOrderSize":0.1,"maxOrderSize":1200000,"minSizeIncrement":0.1,"openInterest":0,"openInterestUSD":0,"contractStart":0,"contractEnd":0,"timeBasedContract":false,"openTime":0,"closeTime":0,"startMatching":0,"inactiveTime":0,"fundingRate":0,"contractSize":0,"maxPosition":0,"minRiskLimit":0,"maxRiskLimit":0,"availableSettlement":null,"futures":false,"isMarketOpenToOtc":true,"isMarketOpenToSpot":true},{"symbol":"1INCH-USDT","last":0.14461467944079656,"lowestAsk":0.145,"highestBid":0.1445,"percentageChange":2.27346495,"volume":341398.83343,"high24Hr":0.1458,"low24Hr":0.1402,"base":"1INCH","quote":"USDT","active":true,"size":2388595.5,"minValidPrice":0.0001,"minPriceIncrement":0.0001,"minOrderSize":0.1,"maxOrderSize":1200000,"minSizeIncrement":0.1,"openInterest":0,"openInterestUSD":0,"contractStart":0,"contractEnd":0,"timeBasedContract":false,"openTime":0,"closeTime":0,"startMatching":0,"inactiveTime":0,"fundingRate":0,"contractSize":0,"maxPosition":0,"minRiskLimit":0,"maxRiskLimit":0,"availableSettlement":null,"futures":false,"isMarketOpenToOtc":true,"isMarketOpenToSpot":true},{"symbol":"AAVE-BTC","last":0.0020379541863705746,"lowestAsk":0.001763,"highestBid":0.001762,"percentageChange":0,"volume":0,"high24Hr":0.002037,"low24Hr":0.002037,"base":"AAVE","quote":"BTC","active":true,"size":0,"minValidPrice":0.000001,"minPriceIncrement":0.000001,"minOrderSize":0.01,"maxOrderSize":2500,"minSizeIncrement":0.01,"openInterest":0,"openInterestUSD":0,"contractStart":0,"contractEnd":0,"timeBasedContract":false,"openTime":0,"closeTime":0,"startMatching":0,"inactiveTime":0,"fundingRate":0,"contractSize":0,"maxPosition":0,"minRiskLimit":0,"maxRiskLimit":0,"availableSettlement":null,"futures":false,"isMarketOpenToOtc":true,"isMarketOpenToSpot":true},{"symbol":"AAVE-ETH","last":0.05186933421677655,"lowestAsk":0.05338,"highestBid":0.05335,"percentageChange":0,"volume":0,"high24Hr":0.05187,"low24Hr":0.05187,"base":"AAVE","quote":"ETH","active":true,"size":0,"minValidPrice":0.00001,"minPriceIncrement":0.00001,"minOrderSize":0.001,"maxOrderSize":2500,"minSizeIncrement":0.001,"openInterest":0,"openInterestUSD":0,"contractStart":0,"contractEnd":0,"timeBasedContract":false,"openTime":0,"closeTime":0,"startMatching":0,"inactiveTime":0,"fundingRate":0,"contractSize":0,"maxPosition":0,"minRiskLimit":0,"maxRiskLimit":0,"availableSettlement":null,"futures":false,"isMarketOpenToOtc":true,"isMarketOpenToSpot":true},{"symbol":"AAVE-USDC","last":159.87089230865803,"lowestAsk":160.35,"highestBid":160.3,"percentageChange":1.91947743,"volume":91657.73071099,"high24Hr":161.23,"low24Hr":154.79,"base":"AAVE","quote":"USDC","active":true,"size":581.1159,"minValidPrice":0.01,"minPriceIncrement":0.01,"minOrderSize":0.0001,"maxOrderSize":2500,"minSizeIncrement":0.0001,"openInterest":0,"openInterestUSD":0,"contractStart":0,"contractEnd":0,"timeBasedContract":false,"openTime":0,"closeTime":0,"startMatching":0,"inactiveTime":0,"fundingRate":0,"contractSize":0,"maxPosition":0,"minRiskLimit":0,"maxRiskLimit":0,"availableSettlement":null,"futures":false,"isMarketOpenToOtc":true,"isMarketOpenToSpot":true},{"symbol":"AAVE-USDT","last":160.38,"lowestAsk":160.42,"highestBid":160.37,"percentageChange":2.22448849,"volume":1527679.12315699,"high24Hr":161.47,"low24Hr":154.84,"base":"AAVE","quote":"USDT","active":true,"size":9679.1101,"minValidPrice":0.01,"minPriceIncrement":0.01,"minOrderSize":0.0001,"maxOrderSize":2500,"minSizeIncrement":0.0001,"openInterest":0,"openInterestUSD":0,"contractStart":0,"contractEnd":0,"timeBasedContract":false,"openTime":0,"closeTime":0,"startMatching":0,"inactiveTime":0,"fundingRate":0,"contractSize":0,"maxPosition":0,"minRiskLimit":0,"maxRiskLimit":0,"availableSettlement":null,"futures":false,"isMarketOpenToOtc":true,"isMarketOpenToSpot":true},{"symbol":"ACH-BTC","last":0.0000001700000011827214,"lowestAsk":0.00000014,"highestBid":0.00000013,"percentageChange":0,"volume":0,"high24Hr":0.00000017,"low24Hr":0.00000017,"base":"ACH","quote":"BTC","active":true,"size":0,"minValidPrice":0.00000001,"minPriceIncrement":0.00000001,"minOrderSize":1,"maxOrderSize":4000000,"minSizeIncrement":1,"openInterest":0,"openInterestUSD":0,"contractStart":0,"contractEnd":0,"timeBasedContract":false,"openTime":0,"closeTime":0,"startMatching":0,"inactiveTime":0,"fundingRate":0,"contractSize":0,"maxPosition":0,"minRiskLimit":0,"maxRiskLimit":0,"availableSettlement":null,"futures":false,"isMarketOpenToOtc":true,"isMarketOpenToSpot":true},{"symbol":"ACH-ETH","last":0.0000038100233371240266,"lowestAsk":0.0000043,"highestBid":0.0000042,"percentageChange":0,"volume":0,"high24Hr":0.0000039,"low24Hr":0.0000039,"base":"ACH","quote":"ETH","active":true,"size":0,"minValidPrice":0.0000001,"minPriceIncrement":0.0000001,"minOrderSize":1,"maxOrderSize":4000000,"minSizeIncrement":1,"openInterest":0,"openInterestUSD":0,"contractStart":0,"contractEnd":0,"timeBasedContract":false,"openTime":0,"closeTime":0,"startMatching":0,"inactiveTime":0,"fundingRate":0,"contractSize":0,"maxPosition":0,"minRiskLimit":0,"maxRiskLimit":0,"availableSettlement":null,"futures":false,"isMarketOpenToOtc":true,"isMarketOpenToSpot":true},{"symbol":"ACH-USDC","last":0.01269,"lowestAsk":0.0127,"highestBid":0.01266,"percentageChange":3.59183673,"volume":56796.03686999,"high24Hr":0.01282,"low24Hr":0.01196,"base":"ACH","quote":"USDC","active":true,"size":4618568,"minValidPrice":0.00001,"minPriceIncrement":0.00001,"minOrderSize":1,"maxOrderSize":4000000,"minSizeIncrement":1,"openInterest":0,"openInterestUSD":0,"contractStart":0,"contractEnd":0,"timeBasedContract":false,"openTime":0,"closeTime":0,"startMatching":0,"inactiveTime":0,"fundingRate":0,"contractSize":0,"maxPosition":0,"minRiskLimit":0,"maxRiskLimit":0,"availableSettlement":null,"futures":false,"isMarketOpenToOtc":true,"isMarketOpenToSpot":true},{"symbol":"ACH-USDT","last":0.012700071156427047,"lowestAsk":0.01271,"highestBid":0.01267,"percentageChange":3.42077488,"volume":673135.57043,"high24Hr":0.01282,"low24Hr":0.01197,"base":"ACH","quote":"USDT","active":true,"size":54700320,"minValidPrice":0.00001,"minPriceIncrement":0.00001,"minOrderSize":1,"maxOrderSize":4000000,"minSizeIncrement":1,"openInterest":0,"openInterestUSD":0,"contractStart":0,"contractEnd":0,"timeBasedContract":false,"openTime":0,"closeTime":0,"startMatching":0,"inactiveTime":0,"fundingRate":0,"contractSize":0,"maxPosition":0,"minRiskLimit":0,"maxRiskLimit":0,"availableSettlement":null,"futures":false,"isMarketOpenToOtc":true,"isMarketOpenToSpot":true},{"symbol":"ADA-BTC","last":0.000004003248071228475,"lowestAsk":0.000005,"highestBid":0.000004,"percentageChange":0.08120178,"volume":0.07524,"high24Hr":0.000004003248071228475,"low24Hr":0.000004,"base":"ADA","quote":"BTC","active":true,"size":18810,"minValidPrice":0.000001,"minPriceIncrement":0.000001,"minOrderSize":1,"maxOrderSize":400000,"minSizeIncrement":1,"openInterest":0,"openInterestUSD":0,"contractStart":0,"contractEnd":0,"... (set the log level to DEBUG or TRACE to see the full content) 
+ </msg>
+<msg time="2026-01-23T20:32:41.077634" level="INFO">/root/rf_env/lib/python3.14/site-packages/urllib3/connectionpool.py:1097: InsecureRequestWarning: Unverified HTTPS request is being made to host 'api.exchange.freedx.com'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#tls-warnings
+  warnings.warn(</msg>
+<msg time="2026-01-23T20:32:41.078480" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<var>${response}</var>
+<arg>market_api</arg>
+<arg>${ENDPOINT}</arg>
+<doc>Sends a GET request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2026-01-23T20:32:40.521668" elapsed="0.556946"/>
+</kw>
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2026-01-23T20:32:41.251838" level="INFO">${data} = [{'symbol': '1CAT-USDC', 'last': 0.00010403641301504994, 'lowestAsk': 0.000117, 'highestBid': 0.000104, 'percentageChange': -8.73998858, 'volume': 100.64477525, 'high24Hr': 0.000115, 'low24Hr': 0.0001...</msg>
+<var>${data}</var>
+<arg>json.loads(r'''${response.text}''')</arg>
+<arg>json</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2026-01-23T20:32:41.078974" elapsed="0.173199"/>
+</kw>
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2026-01-23T20:32:41.454738" level="INFO">${pair_count} = 614</msg>
+<var>${pair_count}</var>
+<arg>len(${data})</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2026-01-23T20:32:41.252662" elapsed="0.202353"/>
+</kw>
+<kw name="Should Be True" owner="BuiltIn">
+<arg>${pair_count} &gt;= 600</arg>
+<arg>msg=Expected at least 600 trading pairs, got ${pair_count}</arg>
+<doc>Fails if the given condition is not true.</doc>
+<status status="PASS" start="2026-01-23T20:32:41.456785" elapsed="0.002614"/>
+</kw>
+<kw name="Delete All Sessions" owner="RequestsLibrary">
+<msg time="2026-01-23T20:32:41.460607" level="INFO">Deleting All Sessions</msg>
+<doc>Removes all the session objects</doc>
+<status status="PASS" start="2026-01-23T20:32:41.460187" elapsed="0.001060"/>
+</kw>
+<doc>Verify public endpoint returns minimum expected number of trading pairs</doc>
+<tag>data-completeness</tag>
+<tag>public</tag>
+<status status="PASS" start="2026-01-23T20:32:40.434201" elapsed="1.028079"/>
+</test>
+<doc>Regression test suite for FreeDX Exchange Market Summary API
+Endpoint: https://api.exchange.freedx.com/spot/api/v3.2/market_summary
+Validates all public trading pairs have non-empty price and volume data</doc>
+<status status="FAIL" start="2026-01-23T20:30:20.020810" elapsed="141.493535"/>
+</suite>
+<statistics>
+<total>
+<stat pass="21" fail="1" skip="0">All Tests</stat>
+</total>
+<tag>
+<stat pass="1" fail="0" skip="0">change-validation</stat>
+<stat pass="1" fail="0" skip="0">data-completeness</stat>
+<stat pass="3" fail="1" skip="0">data-consistency</stat>
+<stat pass="2" fail="0" skip="0">data-integrity</stat>
+<stat pass="1" fail="0" skip="0">data-structure</stat>
+<stat pass="1" fail="0" skip="0">data-validation</stat>
+<stat pass="1" fail="0" skip="0">headers</stat>
+<stat pass="14" fail="1" skip="0">instruments</stat>
+<stat pass="3" fail="0" skip="0">metadata-validation</stat>
+<stat pass="2" fail="0" skip="0">orderbook-validation</stat>
+<stat pass="4" fail="0" skip="0">positive</stat>
+<stat pass="2" fail="0" skip="0">price-range-validation</stat>
+<stat pass="1" fail="0" skip="0">price-validation</stat>
+<stat pass="21" fail="1" skip="0">public</stat>
+<stat pass="1" fail="0" skip="0">smoke</stat>
+<stat pass="2" fail="0" skip="0">volume-validation</stat>
+</tag>
+<suite>
+<stat name="Market Summary Api Tests" id="s1" pass="21" fail="1" skip="0">Market Summary Api Tests</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>
